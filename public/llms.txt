@@ -1,0 +1,46 @@
+# Johanguse
+
+> Johanguse documentation and resources
+
+## Pages
+
+- [Johan Guse Portfolio](https://johanguse.dev/): Brazilian developer's portfolio showcasing latest projects, skills, and blog posts.
+- [About Johan Guse](https://johanguse.dev/about/): Full-stack engineer specializing in AI apps, real-time systems, and web accessibility.
+- [Johan Guse Blog Posts](https://johanguse.dev/blog/): Articles on SEO, CSS nesting, React, Next.js, VSCode, and web dev tools.
+- [Custom macOS Finder Menu](https://johanguse.dev/blog/create-custom-right-click-context-menu-item-in-macos-finder/): Add custom apps to macOS Finder right-click context menu using SzContext.
+- [Native CSS Nesting](https://johanguse.dev/blog/css-nesting/): Explains native CSS nesting syntax, examples replacing Sass, ampersand and @nest.
+- [Downgrade VSCode Extensions](https://johanguse.dev/blog/downgrading-vscode-extension/): Guide to downgrade VSCode extensions using built-in menu or VSIX files from marketplace.
+- [GSC Regex AI Queries](https://johanguse.dev/blog/google-search-console-regex-filtering/): Guide to regex filtering AI-generated queries in Google Search Console.
+- [NextJS 14 Hanko Integration](https://johanguse.dev/blog/hanko-auth-hackathon/): Hanko integration tutorial for NextJS 14 App Directory with boilerplate.
+- [Johan Guse Hello World](https://johanguse.dev/blog/hellow-world/): Johan Guse's first blog post using Tailwind Next.js starter template.
+- [Next.js Cloudflare External Images](https://johanguse.dev/blog/how-to-use-external-images-on-cloudflare-with-nextjs/): Simple guide to fix external images on Cloudflare with Next.js.
+- [React useState Multiple Values](https://johanguse.dev/blog/react-usestate-store-multiple-values/): Manage multiple button loading states with one React useState hook.
+- [Parsing No Longer Necessary](https://johanguse.dev/blog/success-criteria-4-1-1-parsing-is-no-longer-necessary/): WCAG 2.2 removes 4.1.1 Parsing criterion; release delayed to Q3 2023.
+- [Turborepo Migration Guide](https://johanguse.dev/blog/turborepo-migration/): Migrating to Turborepo: fewer builds, better navigation, faster CI/CD pipelines.
+- [Johan Guse Projects](https://johanguse.dev/projects/): Portfolio showcasing latest web apps with React, TypeScript, AI, databases.
+- [DataTalked BI Platform](https://johanguse.dev/projects/datatalked/): SaaS financial analytics with AI chat, Stripe sync, dashboards, reports.
+- [Bank Statement Converter](https://johanguse.dev/projects/bank-statement-converter/): AI-powered PDF bank statements to Excel CSV JSON QBO converter
+- [llms.txt Generator Project](https://johanguse.dev/projects/llm-generator/): AI-enhanced llms.txt generator improving website visibility for large language models.
+- [Rural Dispatch Project](https://johanguse.dev/projects/rural-dispatch/): Rural ride-sharing management with real-time SMS notifications and role-based access.
+- [A11y Tag Archive](https://johanguse.dev/tags/a11y/): Web accessibility posts featuring WCAG 2.2 obsoleting Success Criteria 4.1.1 Parsing.
+- [Vixtape Framer Demo](https://johanguse.dev/projects/vixtape/): Interactive Framer prototype of Vixtape streaming platform for SWARM NYC.
+- [Analytics Tag Archive](https://johanguse.dev/tags/analytics/): Analytics tag featuring Google Search Console regex for AI queries.
+- [Cloudflare Tag Archive](https://johanguse.dev/tags/cloudflare/): Cloudflare posts featuring Next.js external image loader for Workers Pages.
+- [CSS Tag Archive](https://johanguse.dev/tags/css/): Collection of CSS blog posts including nesting feature like SASS.
+- [Frontend Tag Articles](https://johanguse.dev/tags/frontend/): Frontend blog posts on CSS nesting feature and React useState multiple values.
+- [Google Tag Archive](https://johanguse.dev/tags/google/): Blog posts tagged Google, featuring Search Console regex for AI queries.
+- [macOS Guide Tag](https://johanguse.dev/tags/guide/): Guides to add context menu to macOS Finder like Windows.
+- [Hanko Hackathon Posts](https://johanguse.dev/tags/hackathon/): NextJS 14 authentication and easy setup from Hanko Hackathon 2023.
+- [IDE Tag Archive](https://johanguse.dev/tags/ide/): Collection of IDE tutorials including VSCode extension downgrading guide.
+- [macOS Finder Context Guide](https://johanguse.dev/tags/macos/): Guide to add custom right-click context menu options to macOS Finder.
+- [News Tag Archive](https://johanguse.dev/tags/news/): News tag page featuring WCAG 2.2 accessibility updates and obsolete criteria.
+- [Next.js Tag Page](https://johanguse.dev/tags/next.js/): Blog posts tagged Next.js, featuring Cloudflare external images with custom loader.
+- [React Tag Archive](https://johanguse.dev/tags/react/): React articles including useState hook for storing multiple values in components.
+- [SEO Tag Archive](https://johanguse.dev/tags/seo/): Blog posts tagged SEO including GSC regex for AI-generated queries.
+
+
+
+---
+
+*Last updated: 2026-04-05*
+*Source: https://johanguse.dev/*
