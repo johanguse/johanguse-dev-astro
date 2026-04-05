@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Navigation from '../../components/Navigation.astro'
+import Footer from '../../components/Footer.astro'
+---
+
+<BaseLayout
+	title="DataTalked"
+	description="Business intelligence SaaS platform with AI-powered analytics, automated Stripe sync, and RAG-based conversational insights."
+>
+	<Navigation slot="header" />
+
+	<article class="pt-6 pb-16">
+		<div>
+			<header class="mb-12 border-b border-gray-200 pb-10 dark:border-gray-700">
+				<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 mb-4">
+					DataTalked
+				</h1>
+				<p class="text-lg text-gray-500 dark:text-gray-400">
+					Business intelligence platform that transforms Stripe data into actionable insights
+				</p>
+				<div class="flex flex-wrap gap-2 mt-6">
+					<span class="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-900 dark:text-orange-300">Personal Project</span>
+					<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">September 2025 - Present</span>
+				</div>
+			</header>
+
+			<div class="mb-12 rounded-lg overflow-hidden">
+				<img
+					src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766067235/jrguse/port/datatalked-dashboard.jpg"
+					alt="DataTalked Dashboard"
+					class="w-full"
+					loading="lazy"
+				/>
+			</div>
+
+			<div class="space-y-12 text-gray-900 dark:text-gray-100">
+				<section>
+					<h2 class="text-2xl font-semibold mb-4">Project Overview</h2>
+					<p class="text-gray-500 dark:text-gray-400 leading-relaxed">
+						DataTalked is a production-ready business intelligence SaaS platform that started as a Shadcn admin dashboard template and evolved into a comprehensive financial analytics solution. Built for the <a href="https://www.convex.dev/hackathons/resend" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-100 hover:underline">Convex + Resend Hackathon</a>, it combines automated Stripe data synchronization with AI-powered conversational analytics and automated email reporting.
+					</p>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-6">Key Features</h2>
+					<div class="space-y-6">
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">RAG-Based AI Chat System</h3>
+							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
+								<li><strong class="text-gray-900 dark:text-gray-100">Multi-Agent Architecture:</strong> Manager, Retriever, and Analyst agents working together</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Natural Language Queries:</strong> Ask "What's our MRR?" or "Show me revenue trends"</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">7 Structured Business Tools:</strong> MRR, revenue, customers, churn, LTV, CAC metrics</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Vector Search:</strong> OpenAI embeddings for document retrieval with reranking</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Provenance Tracking:</strong> Every answer includes source metadata and confidence scores</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Automated Stripe Synchronization</h3>
+							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
+								<li><strong class="text-gray-900 dark:text-gray-100">3-Tier Sync:</strong> Hourly cron job, real-time webhooks, manual refresh</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Comprehensive Data:</strong> Payments, customers, subscriptions, disputes, refunds</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Background Processing:</strong> All data cached in Convex for fast queries</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Webhook Security:</strong> Signature verification and event ID logging</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Real-time Analytics Dashboard</h3>
+							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
+								<li><strong class="text-gray-900 dark:text-gray-100">Financial Metrics:</strong> Revenue, MRR, churn rate, LTV, CAC with growth indicators</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Interactive Charts:</strong> Revenue trends, customer acquisition, product performance</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Demo Data Mode:</strong> 580+ days of realistic financial data for testing</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Automated Email Reports</h3>
+							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
+								<li><strong class="text-gray-900 dark:text-gray-100">Flexible Scheduling:</strong> Daily, weekly, monthly, quarterly reports</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Beautiful Templates:</strong> React Email components with comprehensive metrics</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Smart Scheduling:</strong> 30-minute precision with timezone support</li>
+								<li><strong class="text-gray-900 dark:text-gray-100">Delivery Tracking:</strong> Email history with open rate monitoring via Resend</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-6">Tech Stack</h2>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Frontend</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>React 19 with TypeScript (strict mode)</li>
+								<li>TanStack Router (file-based routing)</li>
+								<li>ShadcnUI (TailwindCSS v4 + RadixUI)</li>
+								<li>Recharts for data visualization</li>
+								<li>Vite for fast development builds</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Backend & Database</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>Convex (real-time serverless database)</li>
+								<li>Convex Actions for external API calls</li>
+								<li>Convex Crons for scheduled tasks</li>
+								<li>HTTP endpoints for webhooks</li>
+								<li>Stripe API integration</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">AI & Integrations</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>OpenAI GPT-4 (chat and embeddings)</li>
+								<li>Anthropic Claude (alternative model)</li>
+								<li>Convex AI Agent framework</li>
+								<li>Convex RAG package for vector search</li>
+								<li>Resend for email delivery</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Development</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>Bun for package management</li>
+								<li>ESLint & Prettier for code quality</li>
+								<li>GitHub Actions for CI/CD</li>
+								<li>Netlify for frontend hosting</li>
+								<li>Convex Cloud for backend</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-6">Technical Highlights</h2>
+					<div class="space-y-4 text-gray-500 dark:text-gray-400 leading-relaxed">
+						<div>
+							<h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">AI Chat Architecture</h3>
+							<p>The chat system uses a multi-agent approach where the Manager Agent analyzes query complexity, the Retriever Agent searches relevant documents using RAG, and the Analyst Agent executes structured business metric tools. All responses include provenance tracking with source citations and confidence scores.</p>
+						</div>
+						<div>
+							<h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Stripe Sync Strategy</h3>
+							<p>Instead of making live API calls, DataTalked implements a three-tier synchronization system: hourly background cron jobs fetch all data, real-time webhooks handle instant updates, and users can manually refresh when needed.</p>
+						</div>
+						<div>
+							<h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Demo Data System</h3>
+							<p>The platform includes a comprehensive demo mode with 580+ days of realistic financial data (Jan 2024 - Aug 2025) generated using Faker.js. This enables users to explore features without connecting their Stripe account.</p>
+						</div>
+					</div>
+				</section>
+
+				<section class="border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-wrap gap-4">
+					<a href="https://datatalked.com/?utm_source=johan-website-projects" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white inline-flex items-center font-medium">
+						Visit Website &rarr;
+					</a>
+					<a href="/projects" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center font-medium">
+						&larr; All Projects
+					</a>
+				</section>
+			</div>
+		</div>
+	</article>
+
+	<Footer slot="footer" />
+</BaseLayout>

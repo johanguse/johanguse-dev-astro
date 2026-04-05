@@ -1,0 +1,27 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"account_id": "7f28ed1894bb6eae10f75ec0933a4726",
+	"name": "johanguse-dev",
+	"compatibility_date": "2026-04-04",
+	"workers_dev": true,
+	"preview_urls": true,
+	"assets": {
+		"directory": "./dist"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"placement": {
+		"mode": "smart"
+	},
+	"routes": [
+		{
+			"pattern": "johanguse.dev/*",
+			"zone_name": "johanguse.dev"
+		},
+		{
+			"pattern": "www.johanguse.dev/*",
+			"zone_name": "johanguse.dev"
+		}
+	]
+}

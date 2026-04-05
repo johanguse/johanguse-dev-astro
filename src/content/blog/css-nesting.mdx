@@ -1,0 +1,227 @@
+---
+title: 'CSS nesting: What is it and how to use it?'
+description: 'CSS nesting is a new feature that allows you to nest one style rule inside another (like SASS), with the selector of the child rule relative to the selector of the parent rule.'
+date: '2025-03-02'
+tags: ['css', 'frontend']
+draft: false
+---
+
+Okay, let's talk about CSS nesting - this amazing feature that just dropped into the CSS world and is blowing my mind! Remember all those years we spent using Sass or Less just to get that sweet, sweet nesting functionality? Well, guess what? Now it's native!
+
+If you're like me, you've probably written thousands of lines of CSS that look something like this:
+
+```css
+.card { background: white; }
+.card .title { font-weight: bold; }
+.card .body { padding: 15px; }
+.card .footer { border-top: 1px solid #eee; }
+.card .footer .button { padding: 8px 16px; }
+.card .footer .button:hover { background: #f5f5f5; }
+```
+
+Man, that's a lot of repetitive `.card` selectors, right? Talk about violating DRY principles! And don't even get me started on how this messes with the natural DOM structure in your stylesheets.
+
+## What is CSS nesting, really?
+
+CSS nesting lets you write styles that follow the same visual hierarchy as your HTML structure. It's that simple, and that revolutionary! 
+
+For years, CSS preprocessors like Sass and Less have been our saviors here. But now? We can ditch the middleman and go straight native. The syntax is super similar to what you might be used to in Sass, with a couple of twists.
+
+In native CSS nesting, you've got two main approaches: the ampersand (`&`) syntax or the `@nest` rule. Let me show you how ridiculous of an improvement this is:
+
+```css
+/* Before: The old, repetitive way */
+.card { background: white; }
+.card .title { font-weight: bold; }
+.card .body { padding: 15px; }
+
+/* After: With native CSS nesting 🤩 */
+.card {
+  background: white;
+  
+  .title {
+    font-weight: bold;
+  }
+  
+  .body {
+    padding: 15px;
+  }
+  
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+}
+```
+
+Isn't that so much cleaner? I'm literally obsessed with how readable this makes my stylesheets.
+
+## Real-world example that'll make you smile
+
+Let me show you a practical example I worked on recently. I had this navbar component that was driving me nuts:
+
+```css
+/* The old painful way */
+.navbar { display: flex; }
+.navbar .brand { font-weight: bold; }
+.navbar .links { margin-left: auto; }
+.navbar .links .link { padding: 0 15px; }
+.navbar .links .link:hover { color: blue; }
+.navbar .links .link.active { font-weight: bold; }
+.navbar .menu-button { display: none; }
+
+@media (max-width: 768px) {
+  .navbar .links { display: none; }
+  .navbar .menu-button { display: block; }
+}
+```
+
+With CSS nesting, this transforms into:
+
+```css
+.navbar {
+  display: flex;
+  
+  .brand {
+    font-weight: bold;
+  }
+  
+  .links {
+    margin-left: auto;
+    
+    .link {
+      padding: 0 15px;
+      
+      &:hover {
+        color: blue;
+      }
+      
+      &.active {
+        font-weight: bold;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  
+  .menu-button {
+    display: none;
+    
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+}
+```
+
+That's the power of nesting! You can see the structure at a glance, media queries are exactly where they should be, and the relationship between elements is crystal clear.
+
+## The two ways to nest (pick your weapon)
+
+### The & syntax (my personal fave)
+
+The ampersand symbol is your friend here. It represents the parent selector and is super useful for pseudo-classes, pseudo-elements, and combinators:
+
+```css
+.button {
+  background: blue;
+  color: white;
+  
+  /* Pseudo-class */
+  &:hover {
+    background: darkblue;
+  }
+  
+  /* Direct descendant */
+  & > span {
+    font-weight: bold;
+  }
+  
+  /* Multiple selectors sharing properties */
+  &.primary, &.secondary {
+    border-radius: 4px;
+  }
+}
+```
+
+### The @nest rule (the new kid on the block)
+
+The `@nest` rule is an alternative that gives you a bit more explicit control:
+
+```css
+.card {
+  background: white;
+  
+  @nest & .title {
+    font-weight: bold;
+  }
+  
+  @nest &:hover, &:focus {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+}
+```
+
+Honestly, I tend to stick with the `&` syntax for most cases because it's cleaner, but `@nest` can be useful in complex selectors or when you want to be super explicit.
+
+## Browser Support - Can I use it yet?
+
+So here's the million-dollar question: can you actually use this amazing feature in production? The answer is: it depends!
+
+As of mid-2023, CSS nesting has gained pretty decent browser support:
+- Chrome: Fully supported since version 112
+- Firefox: Supported since version 117
+- Safari: Supported since version 16.4
+- Edge: Supported since version 112
+
+You can always check the latest support at [caniuse.com/css-nesting](https://caniuse.com/css-nesting).
+
+If you need to support older browsers, don't worry! You've got options:
+1. Use PostCSS with the [postcss-nesting](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-nesting) plugin
+2. Stick with Sass/Less and compile down to regular CSS
+3. Use progressive enhancement - browsers that don't support nesting will just ignore those rules
+
+## Why I'm obsessed with CSS nesting
+
+Let me count the ways:
+
+1. **Mental model alignment**: Your CSS structure now matches your HTML structure. No more mental gymnastics!
+
+2. **Reduced repetition**: Say goodbye to repeating parent selectors over and over. My RSI thanks me.
+
+3. **Scope containment**: Styles for related elements stay grouped together. No more hunting through your stylesheet!
+
+4. **Improved maintainability**: When you need to change a component, all its styles are in one spot.
+
+5. **Better media queries**: Put your responsive styles right next to the elements they modify.
+
+But with great power comes great responsibility! Don't go crazy with nesting depth - stick to 3-4 levels max to keep things manageable.
+
+## Gotchas to watch out for
+
+Nothing's perfect, and there are a few things to be aware of:
+
+1. **Specificity creep**: Deep nesting can lead to high specificity, making it harder to override styles later. Keep it shallow!
+
+2. **Performance**: While nesting itself doesn't impact runtime performance, it might lead to more complex selectors if you go overboard.
+
+3. **Different syntax from Sass**: If you're a Sass veteran, be aware there are some syntax differences, especially with the requirement for `&` in many cases.
+
+4. **Transition pains**: If you're working on a team, ensure everyone understands the new syntax before fully adopting it.
+
+## A real project showcasing CSS nesting
+
+If you're curious about seeing CSS nesting in action, I've put together a small demo project that showcases various nesting techniques and patterns: [Check it out here](https://codepen.io/johanguse/pen/abRVjQZ)
+
+This demo includes common UI components like cards, forms, and navigation, all styled using native CSS nesting. Feel free to fork it and experiment!
+
+## Conclusion
+
+CSS nesting is one of those features that makes you wonder, "Why did this take so long?" It's intuitive, powerful, and helps make your stylesheets reflect the structure of your markup.
+
+If you've been holding off on learning preprocessors just for nesting, guess what? Your patience has paid off! And if you've been a Sass/Less user for years, you can now enjoy one of your favorite features natively.
+
+So go forth and nest! Your CSS files will thank you, your teammates will thank you, and most importantly, your future self will thank you when you come back to maintain that code six months from now.
+
+Happy styling, and until next time, keep your CSS clean and your nesting sensible!

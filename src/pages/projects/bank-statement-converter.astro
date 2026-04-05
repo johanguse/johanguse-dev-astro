@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Navigation from '../../components/Navigation.astro'
+import Footer from '../../components/Footer.astro'
+---
+
+<BaseLayout
+	title="Bank Statement Converter"
+	description="AI-powered service that transforms PDF bank statements into Excel, CSV, JSON, and QBO formats with 99%+ accuracy."
+>
+	<Navigation slot="header" />
+
+	<article class="pt-6 pb-16">
+		<div>
+			<header class="mb-12 border-b border-gray-200 pb-10 dark:border-gray-700">
+				<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 mb-4">
+					Bank Statement Converter
+				</h1>
+				<p class="text-lg text-gray-500 dark:text-gray-400">
+					Transform PDF bank statements into Excel, CSV, JSON, and QBO formats with AI
+				</p>
+				<div class="flex flex-wrap gap-2 mt-6">
+					<span class="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-900 dark:text-orange-300">Personal Project</span>
+					<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">July 2025 - Present</span>
+				</div>
+			</header>
+
+			<div class="mb-12 rounded-lg overflow-hidden">
+				<img
+					src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766065535/jrguse/port/bscwai-dashboard.jpg"
+					alt="Bank Statement Converter Dashboard"
+					class="w-full"
+					loading="lazy"
+				/>
+			</div>
+
+			<div class="space-y-12 text-gray-900 dark:text-gray-100">
+				<section>
+					<h2 class="text-2xl font-semibold mb-4">Project Overview</h2>
+					<p class="text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
+						Bank Statement Converter is an AI-powered service that transforms PDF bank statements into Excel, CSV, JSON, and QBO format with 99%+ accuracy. Built on proven Resume-AI architecture, it serves individuals, small businesses, and enterprises who need structured financial data for analysis, accounting, and compliance.
+					</p>
+					<p class="text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+						Convert any PDF or Docx bank statement to Excel, CSV, JSON, or QBO in under 30 seconds.
+					</p>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-6">Key Features</h2>
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+						{[
+							{ icon: '🤖', title: 'AI-Powered OCR', desc: '99%+ accuracy on financial documents' },
+							{ icon: '⚡', title: 'Instant Conversion', desc: 'PDF to Excel/CSV/JSON/QBO in under 30s' },
+							{ icon: '🌍', title: 'Bank-Agnostic', desc: 'Works with 1000+ banks worldwide' },
+							{ icon: '📊', title: 'Multiple Formats', desc: 'Excel, CSV, JSON, and QBO export' },
+							{ icon: '🔄', title: 'Batch Processing', desc: 'Convert up to 5 files simultaneously' },
+							{ icon: '🔒', title: 'Secure Storage', desc: 'Bank-grade encryption with Cloudflare R2' },
+							{ icon: '📈', title: 'Usage Dashboard', desc: 'Track conversion history and limits' },
+							{ icon: '💳', title: 'Flexible Pricing', desc: 'Subscriptions + pay-as-you-go credits' },
+							{ icon: '🔌', title: 'API Integration', desc: 'Developer-friendly endpoints' },
+							{ icon: '🏷️', title: 'Auto Categorization', desc: 'AI-powered spending analysis' },
+						].map((item) => (
+							<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-4">
+								<div class="flex items-start gap-3">
+									<span class="text-xl">{item.icon}</span>
+									<div>
+										<h3 class="font-medium text-sm">{item.title}</h3>
+										<p class="text-xs text-gray-500 dark:text-gray-400">{item.desc}</p>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-6">Tech Stack</h2>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Frontend</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>Next.js 15.3.4 with App Router</li>
+								<li>React 19 with TypeScript</li>
+								<li>TailwindCSS & Shadcn/ui</li>
+								<li>Aceternity UI for animations</li>
+								<li>NextAuth.js for authentication</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Backend Services</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>FastAPI-based microservice</li>
+								<li>OCR for processing</li>
+								<li>Excel, CSV, JSON, QBO generation</li>
+								<li>Cloudflare R2 for file storage</li>
+								<li>Transaction categorization AI</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Database & Storage</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>PostgreSQL with Prisma ORM</li>
+								<li>Cloudflare R2 for processed files</li>
+								<li>Upstash Redis for rate limiting</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Payments & Deployment</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>Stripe for payment processing</li>
+								<li>Stripe Customer Portal</li>
+								<li>Fly.io for app hosting</li>
+								<li>Custom webhook handlers</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-4">Business Model</h2>
+					<div class="text-gray-500 dark:text-gray-400 leading-relaxed space-y-4">
+						<p>This SaaS platform serves individuals, small businesses, and enterprises who need structured financial data for analysis, accounting, and compliance. 5 subscription tiers with 20% annual billing discount.</p>
+						<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+							<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-4 text-center">
+								<p class="text-sm font-medium text-gray-900 dark:text-gray-100">Small Business</p>
+								<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Bookkeepers, freelancers</p>
+							</div>
+							<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-4 text-center">
+								<p class="text-sm font-medium text-gray-900 dark:text-gray-100">Financial Pros</p>
+								<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Accounting firms, advisors</p>
+							</div>
+							<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-4 text-center">
+								<p class="text-sm font-medium text-gray-900 dark:text-gray-100">Enterprise</p>
+								<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Banks, insurance, legal</p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-wrap gap-4">
+					<a href="https://bankstatementconverterwithai.com/?utm_source=johan-website-projects" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white inline-flex items-center font-medium">
+						Visit Website &rarr;
+					</a>
+					<a href="/projects" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center font-medium">
+						&larr; All Projects
+					</a>
+				</section>
+			</div>
+		</div>
+	</article>
+
+	<Footer slot="footer" />
+</BaseLayout>

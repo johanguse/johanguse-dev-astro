@@ -1,0 +1,24 @@
+{
+	"extends": "astro/tsconfigs/strictest",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"],
+			"@/components/*": ["src/components/*"],
+			"@/layouts/*": ["src/layouts/*"],
+			"@/pages/*": ["src/pages/*"],
+			"@/styles/*": ["src/styles/*"],
+			"@/utils/*": ["src/utils/*"],
+			"@/data/*": ["src/data/*"],
+			"@/types": ["src/types/index.ts"]
+		},
+		"types": ["./worker-configuration.d.ts", "node", "astro/client"],
+		"strictNullChecks": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true
+	},
+	"include": [".astro/types.d.ts", "**/*", "src/**/*"],
+	"exclude": ["dist", ".wrangler", "node_modules"]
+}

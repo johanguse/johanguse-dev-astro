@@ -1,0 +1,41 @@
+---
+title: 'How to downgrade VSCode extension'
+date: '2024-05-28'
+tags: ['ide', 'tutorial']
+draft: false
+description: 'Learn how to downgrade a VSCode extension to an older version easily. This guide provides two methods to revert to a previous version.'
+---
+
+Today, I encountered an issue with the popular AI extension, Codeium. Fortunately, the team quickly resolved the problem, but yesterday I had to rollback to an older version to fix the issue on my side. If you need to downgrade any extension to an older version, here are two ways to downgrade a VSCode extension:
+
+## Method 1: Using VSCode (the easiest way)
+
+1. Open VSCode and click on the `Extensions` tab, or press `CTRL+SHIFT+X` (Windows) or `CMD+SHIFT+X` (Mac) to search for extensions.
+
+![VSCode Marketplace webpage](/static/images/downgrading-vscode-extension-easy-01.jpg)
+
+2. Type the extension name, right-click on the plugin name, and select `Install Another Version`.
+
+![VSCode Marketplace webpage](/static/images/downgrading-vscode-extension-easy-02.jpg)
+
+3. A list of versions will appear. Select the desired version and click on it to `Install`.
+
+![VSCode Marketplace webpage](/static/images/downgrading-vscode-extension-easy-03.jpg)
+
+## Method 2: Using a .vsix file from the VSCode Marketplace
+
+1. Visit the extension's page on the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=codeium.codeium), navigate to the `Version History` section, and download the `.vsix` file to your computer.
+
+![VSCode Marketplace webpage](/static/images/downgrading-vscode-extension-01.jpg)
+
+2. After downloading the `.vsix` file, open VSCode and press `CTRL+SHIFT+P` (Windows) or `CMD+SHIFT+P` (Mac). In the command line, type `vsix` and select the option to install from the downloaded file.
+
+![VSCode Command Line](/static/images/downgrading-vscode-extension-02.jpg)
+
+3. Install the `.vsix` file.
+
+![Window finding files on Windows](/static/images/downgrading-vscode-extension-03.jpg)
+
+4. Restart VSCode: Open the Command Palette with `CTRL+ALT+R` (Windows) or `CMD+ALT+R` (Mac), type `Reload Window`, and select `Developer: Reload Window`.
+
+*Voilà!* Downgrading a VSCode extension is pretty straightforward with these methods. I hope this helps you out next time you run into any issues or needs to downgrade an extension.

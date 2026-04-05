@@ -1,0 +1,45 @@
+---
+import { formatDate } from '../utils/helpers'
+
+interface Props {
+	title: string
+	date: string
+	summary: string
+	slug: string
+	tags?: string[]
+}
+
+const { title, date, summary, slug, tags } = Astro.props
+---
+
+<li class="py-4">
+	<article class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+		<dl>
+			<dt class="sr-only">Published on</dt>
+			<dd class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+				<time datetime={date}>{formatDate(date)}</time>
+			</dd>
+		</dl>
+		<div class="space-y-3 xl:col-span-3">
+			<div>
+				<h3 class="text-2xl font-bold leading-8 tracking-tight">
+					<a href={`/blog/${slug}`} class="text-gray-900 dark:text-gray-100">
+						{title}
+					</a>
+				</h3>
+				{tags && (
+					<div class="flex flex-wrap">
+						{tags.map((tag) => (
+							<a href={`/tags/${tag}`} class="mr-3 text-sm font-medium uppercase text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
+								{tag}
+							</a>
+						))}
+					</div>
+				)}
+			</div>
+			<div class="prose max-w-none text-gray-500 dark:text-gray-400">
+				{summary}
+			</div>
+		</div>
+	</article>
+</li>

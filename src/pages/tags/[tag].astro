@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Navigation from '../../components/Navigation.astro'
+import Footer from '../../components/Footer.astro'
+import { getCollection } from 'astro:content'
+import { formatDate } from '../../utils/helpers'
+import type { GetStaticPaths } from 'astro'
+
+export const getStaticPaths = (async () => {
+	const posts = await getCollection('blog')
+	const allTags = new Set<string>()
+	
+	posts.forEach(post => {
+		post.data.tags?.forEach(tag => allTags.add(tag))
+	})
+
+	return Array.from(allTags).map(tag => ({
+		params: { tag },
+		props: { 
+			tag,
+			posts: posts.filter(post => post.data.tags?.includes(tag) && !post.data.draft)
+				.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+		}
+	}))
+}) satisfies GetStaticPaths
+
+const { tag, posts } = Astro.props
+---
+
+<BaseLayout title={tag}>
+	<Navigation slot="header" />
+
+	<div class="divide-y">
+		<div class="space-y-2 pb-8 pt-6 md:space-y-5">
+			<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+				{tag}
+			</h1>
+		</div>
+		<ul>
+			{posts.map((post) => (
+				<li class="py-4">
+					<article class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+						<dl>
+							<dt class="sr-only">Published on</dt>
+							<dd class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+								<time datetime={post.data.date.toISOString()}>
+									{formatDate(post.data.date)}
+								</time>
+							</dd>
+						</dl>
+						<div class="space-y-3 xl:col-span-3">
+							<div>
+								<h3 class="text-2xl font-bold leading-8 tracking-tight">
+									<a href={`/blog/${post.id}`} class="text-gray-900 dark:text-gray-100">
+										{post.data.title}
+									</a>
+								</h3>
+								{post.data.tags && (
+									<div class="flex flex-wrap">
+										{post.data.tags.map((t) => (
+											<a href={`/tags/${t}`} class="mr-3 text-sm font-medium uppercase text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
+												{t}
+											</a>
+										))}
+									</div>
+								)}
+							</div>
+							<div class="prose max-w-none text-gray-500 dark:text-gray-400">
+								{post.data.description}
+							</div>
+						</div>
+					</article>
+				</li>
+			))}
+		</ul>
+	</div>
+
+	<Footer slot="footer" />
+</BaseLayout>

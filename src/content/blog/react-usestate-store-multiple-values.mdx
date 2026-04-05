@@ -1,0 +1,133 @@
+---
+title: 'Using React useState to store multiple values'
+date: '2024-04-09'
+tags: ['react', 'frontend']
+draft: false
+description: 'Learn how we can store multiple values in single state using useState hook in functional component.'
+---
+
+Alright, check this out: today, I'm digging into some funky code just to get a button icon spinning when it's loading. Got two buttons on my page, and the last developer went all out and made two separate useState functions just to toss a loading spinner on each one. Talk about going overboard! But hey, let me walk you through the previous code version:
+
+```js
+const [isGithubLoading, setisGithubLoading] = useState<boolean>(false)
+const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false)
+
+<button
+onClick={() => setIsGithubLoading(true)}
+>
+  {isGithubLoading ? (<p>Loading...</p>)
+  :
+  (<p>Github</p>)}
+</button>
+
+<button
+onClick={() => setIsGoogleLoading(true)}
+>
+  {isGoogleLoading ? (<p>Loading...</p>)
+  :
+  (<p>Google</p>)}
+</button>
+```
+
+Is this weird? Setting up two states like this totally goes against "Don't Repeat Yourself" [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) vibe. Instead, I'm thinking I'll just reuse the same setState and stick to one hook. Much cleaner, right?
+
+```js
+// Define the types for the loading states
+interface LoadingState {
+  google: boolean;
+  github: boolean;
+}
+
+// Initialize the default values for loading states
+const initialLoadingValues: LoadingState = {
+  google: false,
+  github: false,
+};
+
+// Create a custom hook to handle loading state
+function useLoading(initialState: LoadingState) {
+  const [isLoading, setIsLoading] = useState<LoadingState>(initialState);
+
+  // Generic function to handle the loading state for each provider
+  // The setTimeout is just for testing purposes.
+  function handleLoading(provider: keyof LoadingState) {
+    // Enable the spinner
+    setIsLoading({
+      ...isLoading,
+      [provider]: true,
+    });
+    // Disable the spinner after 1 second (for testing purposes)
+    setTimeout(() => {
+      setIsLoading(prevState => ({
+        ...prevState,
+        [provider]: false,
+      }));
+    }, 1000);
+  }
+
+  return { isLoading, handleLoading };
+}
+
+// Your functional component that uses the hook
+export default function LoadingButtons() {
+  const { isLoading, handleLoading } = useLoading(initialLoadingValues);
+
+  return (
+    <>
+      <button onClick={() => handleLoading('github')}>
+        {isLoading.github ? <p>Loading...</p> : <p>Github</p>}
+      </button>
+
+      <button onClick={() => handleLoading('google')}>
+        {isLoading.google ? <p>Loading...</p> : <p>Google</p>}
+      </button>
+    </>
+  );
+};
+```
+
+Or you could go even simpler and skip the custom Hook:
+
+```js
+const initialLoadingValues = {
+  google: false,
+  github: false,
+}
+
+const [isLoading, setIsLoading] = useState(initialLoadingValues)
+
+function handle(provider: 'google' | 'github') {
+  // Enable the spinner
+  setIsLoading({
+    ...initialLoadingValues,
+    [provider]: true,
+  })
+  // Disable the spinner after 1 second (for testing purposes)
+  setTimeout(() => {
+    setIsLoading({
+      ...initialLoadingValues,
+      [provider]: false,
+    })
+  }, 1000)
+}
+
+// Using the handle function
+<button
+onClick={() => handle('github')}
+>
+  {isLoading.github ? (<p>Loading...</p>) :
+  (<p>Github</p>)}
+</button>
+
+<button
+onClick={() => handle('google')}
+>
+  {isLoading.google ? (<p>Loading...</p>) :
+  (<p>Google</p>)}
+</button>
+
+```
+
+If you've made it this far, I bet you're eager to see the code in action, huh? Well, no worries! Here's the link to the functional version: [Check it out here](https://bit.ly/usestate-storing-multiple-values)
+
+So, there you have it! Navigating through this code jungle was a trip, but we made it. We learned how to streamline our code by ditching unnecessary repetition, sticking to the DRY principle, and finding the simplest solution possible. Remember, coding doesn't always have to be complicated. Sometimes, the most straightforward approach is the best one. Keep exploring, keep coding, and until next time!

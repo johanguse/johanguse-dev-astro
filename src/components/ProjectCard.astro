@@ -1,0 +1,98 @@
+---
+interface Props {
+	title: string
+	description: string
+	imgSrc: string
+	href: string
+	date?: string | undefined
+	skills?: string[] | undefined
+	clientName?: string | undefined
+	clientURL?: string | undefined
+	externalHref?: string | undefined
+}
+
+const { title, description, imgSrc, href, date, skills, clientName, clientURL, externalHref } = Astro.props
+
+const isInternalPage = href.startsWith('/')
+const displayHref = isInternalPage ? href : (externalHref ?? href)
+const hasLink = displayHref.length > 0
+---
+
+<div class="md p-4 md:w-1/2" style="max-width: 544px;">
+	<div class="flex h-full flex-col overflow-hidden rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700">
+		{imgSrc && (
+			hasLink ? (
+				<a href={displayHref} aria-label={`Link to ${title}`} {...(!isInternalPage ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+					<img
+						alt={title}
+						src={imgSrc}
+						class="object-cover object-center md:h-36 lg:h-48 w-full"
+						loading="lazy"
+						width="544"
+						height="336"
+					/>
+				</a>
+			) : (
+				<img
+					alt={title}
+					src={imgSrc}
+					class="object-cover object-center md:h-36 lg:h-48 w-full"
+					loading="lazy"
+					width="544"
+					height="336"
+				/>
+			)
+		)}
+		<div class="flex flex-1 flex-col p-6">
+			<h2 class="mb-3 text-2xl font-bold leading-8 tracking-tight">
+				{hasLink ? (
+					<a href={displayHref} aria-label={`Link to ${title}`} {...(!isInternalPage ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+						{title}
+					</a>
+				) : (
+					title
+				)}
+			</h2>
+			{date && (
+				<p class="prose mb-0.5 max-w-none text-primary-500 dark:text-white">
+					<span class="font-bold">Date:</span> {date}
+				</p>
+			)}
+			{skills && skills.length > 0 && (
+				<p class="prose mb-0.5 max-w-none text-primary-500 dark:text-white">
+					<span class="font-bold">Skills:</span> {skills.join(', ')}
+				</p>
+			)}
+			{clientURL ? (
+				<a
+					href={clientURL}
+					aria-label={`Link to ${clientName}`}
+					class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
+					rel="noopener noreferrer"
+					target="_blank"
+				>
+					<p class="mb-5">
+						<span class="font-bold">Client:</span> {clientName}
+					</p>
+				</a>
+			) : clientName ? (
+				<p class="prose mb-5 max-w-none text-gray-500 dark:text-gray-400">
+					<span class="font-bold">Client:</span> {clientName}
+				</p>
+			) : null}
+
+			<div class="mt-auto">
+				{hasLink && (
+					<a
+						href={displayHref}
+						class="text-base font-bold leading-6 text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
+						aria-label={`${isInternalPage ? 'Learn more about' : 'Visit'} ${title}`}
+						{...(!isInternalPage ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+					>
+						{isInternalPage ? 'Learn more' : 'External link'} &rarr;
+					</a>
+				)}
+			</div>
+		</div>
+	</div>
+</div>

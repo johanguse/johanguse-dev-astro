@@ -1,0 +1,91 @@
+---
+import '../styles/global.css'
+import { siteConfig } from '../data/siteConfig'
+import { ClientRouter } from 'astro:transitions'
+
+interface Props {
+	title?: string
+	description?: string
+}
+
+const { title, description } = Astro.props
+const pageTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title
+const pageDescription = description ?? siteConfig.description
+---
+
+<!doctype html>
+<html lang={siteConfig.language}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/x-icon" href="/static/favicons/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+		<!-- Google Analytics 4 (production only) -->
+		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-747YQL1T1S"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-747YQL1T1S', {
+				page_path: window.location.pathname,
+			});
+		</script>
+
+		<title>{pageTitle}</title>
+		<meta name="description" content={pageDescription} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={siteConfig.siteUrl} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:image" content={`${siteConfig.siteUrl}${siteConfig.socialBanner}`} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={siteConfig.siteUrl} />
+		<meta property="twitter:title" content={pageTitle} />
+		<meta property="twitter:description" content={pageDescription} />
+		<meta property="twitter:image" content={`${siteConfig.siteUrl}${siteConfig.socialBanner}`} />
+
+		<ClientRouter />
+	</head>
+	<body class="bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
+		<a href="#main-content" class="skip-link">Skip to main content</a>
+		<div class="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+			<div class="flex h-screen flex-col justify-between font-sans">
+				<slot name="header" />
+				<main id="main-content" class="mb-auto">
+					<slot />
+				</main>
+				<slot name="footer" />
+			</div>
+		</div>
+		
+		<script is:inline>
+			function applyTheme() {
+				const stored = localStorage.getItem('theme')
+				if (stored === 'dark') {
+					document.documentElement.classList.add('dark')
+				} else if (stored === 'light') {
+					document.documentElement.classList.remove('dark')
+				} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					document.documentElement.classList.add('dark')
+				} else {
+					document.documentElement.classList.remove('dark')
+				}
+			}
+			applyTheme()
+			document.addEventListener('astro:after-swap', applyTheme)
+		</script>
+	</body>
+</html>

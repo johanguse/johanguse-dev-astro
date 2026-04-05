@@ -1,0 +1,174 @@
+---
+title: 'Google Search Console Regex Filtering: Find AI-Generated Queries'
+date: '2025-12-28'
+tags: ['seo', 'google', 'analytics']
+draft: false
+description: 'Learn how to use regex patterns in Google Search Console to identify queries that likely came from AI tools like ChatGPT, Perplexity, or Google AI Overviews.'
+image: '/static/images/google-search-console-regex.jpg'
+---
+
+Ever wondered if those long, conversational search queries hitting your site are coming from AI tools like ChatGPT, Perplexity, or Google AI Overviews? You're not alone! With the rise of AI-powered search, understanding what kind of queries are driving traffic to your site has become more important than ever.
+
+The good news? Google Search Console has a powerful feature that lets you filter queries using regex patterns. And the best part? You don't need any coding experience to use it!
+
+## Why This Matters
+
+AI-generated queries tend to be:
+
+- **Longer and more conversational** (think "how do I..." instead of "how to")
+- **Question-heavy** (lots of "what", "why", "how" queries)
+- **Natural language focused** (full sentences rather than keywords)
+
+By identifying these patterns, you can:
+
+- Understand how AI is changing search behavior
+- Optimize content for conversational queries
+- Spot opportunities to create FAQ-style content
+- Track the impact of AI on your search traffic
+
+## The 101 Guide: How to Use Regex in Google Search Console
+
+Here's the step-by-step process (seriously, no code experience required):
+
+### Step 1: Log into Google Search Console
+
+Navigate to your property in [Google Search Console](https://search.google.com/search-console).
+
+### Step 2: Go to Performance > Search results
+
+Click on "Performance" in the left sidebar, then make sure you're viewing the "Search results" tab.
+
+### Step 3: Apply a Regex Filter
+
+On the top filter list, click the "+ Add Filter" button → Select "Query" → Choose "Custom (regex)".
+
+### Step 4: Enter Your Regex Pattern
+
+Paste your regex pattern into the filter field. That's it!
+
+## Regex Patterns You Can Use Right Now
+
+I've compiled some powerful regex patterns that will help you identify different types of queries. Let me break them down:
+
+### Pattern 1: Finding Long Queries (7+ Words)
+
+This pattern catches searches that are at least seven words long - a common characteristic of AI-generated queries:
+
+```regex
+(\b\w+\b\s){7,}
+```
+
+**What it does:** Matches any query with 7 or more words. The `{7,}` means "at least 7 occurrences" of a word followed by a space.
+Feel free to change the number of words to your desired length.
+
+**Example matches:**
+
+- "how do I create a custom right click context menu item in macos finder"
+- "what is the difference between useState and useReducer in React"
+
+### Pattern 2: Long Natural Language Searches
+
+This one targets those really long, natural-sounding queries:
+
+```regex
+^\S+(?:\s+\S+){9,}.*
+```
+
+**What it does:** Matches queries with at least 10 words (the first word plus 9 more). The `\S+` matches non-whitespace characters (words), and `{9,}` means 9 or more additional words.
+
+**Example matches:**
+
+- "can you explain how to use external images on cloudflare with nextjs and what are the best practices"
+- "what are the differences between css nesting and sass nesting and when should I use each"
+
+### Pattern 3: Question Queries
+
+This comprehensive pattern catches almost every type of question:
+
+```regex
+^(are|arent|aren't|can|cannot|cant|can't|could|couldnt|couldn't|did|did not|didnt|didn't|do|does|doesnt|doesn't|how|if|is|should|shouldnt|shouldn't|was|were|werent|weren't|what|when|where|which|who|whom|why|will|wont|won't|would|wouldnt|wouldn't)
+```
+
+**What it does:** Matches queries that start with common question words. The `^` means "start of string", so it only matches questions at the beginning.
+
+**Example matches:**
+
+- "how do I use React useState"
+- "what is CSS nesting"
+- "can you explain Next.js image optimization"
+
+### Pattern 4: Comprehensive AI Query Pattern (The Big One!)
+
+This is the most comprehensive pattern - it catches classic question words, implicit questions, comparison queries, and more:
+
+```regex
+(?i)^(how|what|why|when|where|which|who|whom|whose|how many|how much|can|may|might|must|should|could|would|do|does|did|have|has|had|am|are|is|was|were|will|difference|compare|comparison|guide|how[-\s]?to|definition|explain|show|list|recipe|is there|are there|what are|what is|how does)\b|\b(vs\.?|versus|or)\b
+```
+
+**What it does:** This pattern matches:
+
+- **Classic W-questions:** "how", "what", "why", "when", "where", "which", "who", "whom", "whose"
+- **Implicit questions & commands:** "guide", "definition", "show me", "explain"
+- **Comparison queries:** "vs", "versus", "or"
+- **Confirmation & possibility questions:** "can", "is", "does", "are there"
+- **Question phrases:** "how to", "what is", "how does", "is there"
+
+The `(?i)` at the beginning makes it case-insensitive, so it matches "How" and "how" equally.
+
+**Example matches:**
+
+- "how to use regex in google search console"
+- "what is the difference between React and Vue"
+- "explain CSS nesting"
+- "React vs Vue comparison"
+- "guide to Next.js deployment"
+
+## Real-World Use Cases
+
+Here are some practical ways to use these patterns:
+
+### Use Case 1: Content Strategy
+
+Filter for question queries to identify topics people are asking about. Create FAQ pages or expand existing content to answer these questions directly.
+
+### Use Case 2: AI Impact Analysis
+
+Use the long query patterns to see what percentage of your traffic comes from AI-generated queries. Track this over time to understand how AI is changing search behavior.
+
+### Use Case 3: Keyword Research
+
+Long, natural language queries often reveal new keyword opportunities you might not have considered. These can inform your content creation strategy.
+
+### Use Case 4: Content Optimization
+
+If you see many comparison queries ("vs", "versus"), consider creating comparison content. If you see lots of "how to" queries, create more tutorial-style content.
+
+## Tips for Using Regex Filters
+
+1. **Combine with Date Ranges:** Use these patterns with specific date ranges to see trends over time.
+
+2. **Export Your Results:** Once filtered, export the data to analyze it further in Excel or Google Sheets.
+
+3. **Test Multiple Patterns:** Try different patterns to see which ones reveal the most interesting insights for your specific site.
+
+4. **Save Your Filters:** Google Search Console lets you save filter combinations, so you can quickly access your favorite patterns.
+
+5. **Start Simple:** Begin with the simpler patterns (like the 7+ words pattern) before diving into the more complex ones.
+
+## Common Regex Gotchas
+
+- **Case Sensitivity:** Most patterns are case-sensitive by default. Use `(?i)` at the start to make them case-insensitive.
+- **Special Characters:** Some characters have special meaning in regex (like `.`, `*`, `+`). If you need to match them literally, escape them with a backslash (`\.`).
+- **Anchors Matter:** `^` means "start of string" and `$` means "end of string". Use them when you want to match the entire query.
+
+## Further Reading
+
+If you want to dive deeper into regex patterns for Google Search Console, I highly recommend checking out [Aubrey Yung's comprehensive guide](https://aubreyyung.com/google-search-console-regex/). It's packed with even more patterns and insights.
+
+## Conclusion
+
+Regex filtering in Google Search Console is a powerful tool that doesn't require any coding knowledge to use effectively. By identifying AI-generated queries and understanding how search behavior is changing, you can make more informed decisions about your content strategy.
+
+Start with the simple patterns I've shared here, experiment with different combinations, and see what insights you can uncover about your search traffic. You might be surprised by what you find!
+
+Have you tried using regex filters in Google Search Console? What patterns have you found most useful? Let me know - I'd love to hear about your discoveries!

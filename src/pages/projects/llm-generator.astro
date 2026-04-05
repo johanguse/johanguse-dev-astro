@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Navigation from '../../components/Navigation.astro'
+import Footer from '../../components/Footer.astro'
+---
+
+<BaseLayout
+	title="LLM Generator"
+	description="Generate llms.txt files for websites to improve their visibility to large language models. Firecrawl integration with OpenAI enhancement."
+>
+	<Navigation slot="header" />
+
+	<article class="pt-6 pb-16">
+		<div>
+			<header class="mb-12 border-b border-gray-200 pb-10 dark:border-gray-700">
+				<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 mb-4">
+					LLM Generator
+				</h1>
+				<p class="text-lg text-gray-500 dark:text-gray-400">
+					Generate llms.txt files for websites to improve their visibility to large language models
+				</p>
+				<div class="flex flex-wrap gap-2 mt-6">
+					<span class="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-900 dark:text-orange-300">Personal Project</span>
+					<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">June 2025 - Present</span>
+				</div>
+			</header>
+
+			<div class="mb-12 rounded-lg overflow-hidden">
+				<img
+					src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766067027/jrguse/port/llmgenerator-dashboard.jpg"
+					alt="LLM Generator Dashboard"
+					class="w-full"
+					loading="lazy"
+				/>
+			</div>
+
+			<div class="space-y-12 text-gray-900 dark:text-gray-100">
+				<section>
+					<h2 class="text-2xl font-semibold mb-4">Project Overview</h2>
+					<p class="text-gray-500 dark:text-gray-400 leading-relaxed">
+						LLMGenerator is a service that generates <code class="text-primary-500 dark:text-primary-100 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-sm">llms.txt</code> files for websites to improve their visibility to large language models. The service uses Firecrawl's map + scrape approach with OpenAI enhancement to create high-quality, LLM-optimized content.
+					</p>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-4">What is llms.txt?</h2>
+					<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6 text-gray-500 dark:text-gray-400 leading-relaxed">
+						<p class="mb-3">llms.txt is a standardized format for making website content more accessible to Large Language Models (LLMs):</p>
+						<ul class="space-y-2 text-sm">
+							<li><strong class="text-gray-900 dark:text-gray-100">llms.txt:</strong> A concise index of all pages with AI-enhanced titles and descriptions</li>
+							<li><strong class="text-gray-900 dark:text-gray-100">llms-full.txt:</strong> Complete content of all pages for comprehensive access</li>
+						</ul>
+					</div>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-6">Key Features</h2>
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+						{[
+							{ icon: '🚀', title: 'Fast Generation', desc: 'Direct map + scrape with background processing' },
+							{ icon: '⚡', title: 'Reliable Jobs', desc: 'Trigger.dev integration with automatic retries' },
+							{ icon: '🤖', title: 'AI-Enhanced', desc: 'OpenAI-powered titles and descriptions' },
+							{ icon: '💰', title: 'Cost-Optimized', desc: '95% cheaper than competitors' },
+							{ icon: '📊', title: 'Analytics', desc: 'Track generation stats and usage' },
+							{ icon: '🔄', title: 'Real-time Updates', desc: 'Live progress tracking' },
+							{ icon: '📖', title: 'API Docs', desc: 'OpenAPI/Swagger 3.0 interactive docs' },
+							{ icon: '🔒', title: 'Flexible Pricing', desc: 'Credits (never expire) + subscriptions' },
+						].map((item) => (
+							<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-4">
+								<div class="flex items-start gap-3">
+									<span class="text-xl">{item.icon}</span>
+									<div>
+										<h3 class="font-medium text-sm">{item.title}</h3>
+										<p class="text-xs text-gray-500 dark:text-gray-400">{item.desc}</p>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-6">Generation Methods</h2>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Simple Generation (1x Credits)</h3>
+							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
+								<li>Fast generation (15-30 seconds)</li>
+								<li>Uses Firecrawl's /llmstxt endpoint</li>
+								<li>Cost-effective for free tier users</li>
+								<li>Locked for free plans, optional for paid</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6 border-orange-500">
+							<h3 class="text-lg font-medium mb-3">Enhanced Generation (2x Credits)</h3>
+							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
+								<li>AI-enhanced titles and descriptions</li>
+								<li>Uses map + scrape + OpenAI integration</li>
+								<li>Premium quality for paid plans</li>
+								<li>Default for paid users</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h2 class="text-2xl font-semibold mb-6">Tech Stack</h2>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Frontend</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>React 19 with TypeScript</li>
+								<li>Vite for fast builds</li>
+								<li>Tanstack Router & Query</li>
+								<li>Tailwind CSS & shadcn/ui</li>
+								<li>React Hook Form with Zod</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Backend</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>Hono on Cloudflare Workers</li>
+								<li>Cloudflare D1 (SQLite) with Drizzle ORM</li>
+								<li>Better Auth for authentication</li>
+								<li>Trigger.dev for background jobs</li>
+								<li>tRPC for type-safe APIs</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Integrations</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>Firecrawl API for web scraping</li>
+								<li>OpenAI API for content enhancement</li>
+								<li>Stripe for payments</li>
+								<li>Cloudflare KV for session caching</li>
+								<li>Sentry for error tracking</li>
+							</ul>
+						</div>
+						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
+							<h3 class="text-lg font-medium mb-3">Development</h3>
+							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+								<li>Biome for linting/formatting</li>
+								<li>Bun for package management</li>
+								<li>Wrangler for deployments</li>
+								<li>Vitest with 135 tests</li>
+								<li>OpenAPI/Swagger documentation</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<section class="border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-wrap gap-4">
+					<a href="https://llmgenerator.com/?utm_source=johan-website-projects" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white inline-flex items-center font-medium">
+						Visit Website &rarr;
+					</a>
+					<a href="/projects" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center font-medium">
+						&larr; All Projects
+					</a>
+				</section>
+			</div>
+		</div>
+	</article>
+
+	<Footer slot="footer" />
+</BaseLayout>
