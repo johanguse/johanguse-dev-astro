@@ -12,7 +12,7 @@ A modern personal portfolio and blog built with Astro and the Resend Design Syst
 - **Projects Showcase**: Portfolio grid with detailed project cards
 - **Responsive Design**: Mobile-first with elegant desktop layouts
 - **Vanilla JS**: No framework dependencies for interactions
-- **Cloudflare Ready**: Configured for Cloudflare Pages deployment
+- **Cloudflare**: Static deploy via Wrangler (`dist` + `wrangler.jsonc`)
 
 ## Design Principles
 
@@ -34,7 +34,7 @@ This site follows the Resend Design System aesthetic:
 - **TypeScript**: Full type safety with strict mode
 - **Runtime**: Node.js 22+ / Bun compatible
 - **Package Manager**: pnpm (preferred), yarn, or bun
-- **Deployment**: Cloudflare Pages / Workers ready
+- **Deployment**: Cloudflare Workers (static assets) via Wrangler
 
 ## Getting Started
 
@@ -112,53 +112,72 @@ yarn biome:check
 
 ## Project Structure
 
-\`\`\`
+```
 /
-├── public/             # Static assets
+├── public/                 # Static files (images, favicons, logo.svg)
+├── scripts/
+│   └── deploy.sh           # build + wrangler deploy (pipe for DNS-friendly CI)
 ├── src/
-│   ├── components/     # Astro components
-│   ├── content/        # Content collections (blog posts)
-│   ├── data/           # Site configuration and data
-│   ├── layouts/        # Page layouts
-│   ├── pages/          # Route pages
-│   └── styles/         # Global CSS and Tailwind
-├── astro.config.ts     # Astro configuration
-├── tailwind.config.ts  # Tailwind with Resend design tokens
-└── package.json
-\`\`\`
+│   ├── components/         # Astro components (Navigation, Footer, cards, …)
+│   ├── content/
+│   │   └── blog/           # Blog MDX files (glob-loaded via content.config)
+│   ├── content.config.ts   # Astro 6 collections + Zod schema
+│   ├── data/               # siteConfig.ts, projectsData.ts
+│   ├── layouts/            # BaseLayout.astro
+│   ├── pages/              # Routes (blog/, projects/, tags/, …)
+│   ├── styles/
+│   │   └── global.css      # Tailwind 4 + @theme (Resend tokens)
+│   ├── types/              # Shared TypeScript types
+│   └── utils/              # helpers (dates, tags, …)
+├── astro.config.ts         # Astro + MDX + sitemap + Vite/Tailwind
+├── biome.jsonc             # Lint & format (Astro-aware)
+├── package.json
+├── tsconfig.json
+└── wrangler.jsonc          # Cloudflare Worker + static assets from dist/
+```
 
 ## Content Management
 
 ### Adding Blog Posts
 
-Create MDX files in `src/content/blog/`:
+Create MDX files in `src/content/blog/`. Frontmatter must match `src/content.config.ts` (required: `title`, `description`, `date`; optional: `tags`, `draft`, `image`).
 
-\`\`\`mdx
+````mdx
 ---
 title: 'Your Post Title'
-description: 'Post summary'
+description: 'Post summary shown in listings and SEO.'
 date: '2025-04-04'
 tags: ['tag1', 'tag2']
 draft: false
+image: '/static/images/your-hero.jpg'
 ---
 
-Your content here...
-\`\`\`
+Your content here…
+````
+
+Use `draft: true` to hide a post from the public blog index (it is still in the collection for local preview).
 
 ### Adding Projects
 
-Edit `src/data/projectsData.ts` to add new projects:
+Edit `src/data/projectsData.ts` and append an object to the `projectsData` array (type `Project` from `src/types/index.ts`).
 
-\`\`\`typescript
+```typescript
 {
-  title: 'Project Name',
-  description: 'Project description',
-  imgSrc: 'https://...',
-  href: '/projects/slug',
-  date: 'Month Year',
-  skills: ['React', 'TypeScript', ...],
-}
-\`\`\`
+	title: 'Project Name',
+	description: 'Short summary for the card.',
+	imgSrc: 'https://example.com/preview.jpg',
+	href: '/projects/my-slug',
+	externalHref: 'https://live-site.com',
+	clientName: 'Client or Personal Project',
+	clientURL: 'https://client-site.com',
+	date: 'Month Year',
+	skills: ['Astro', 'TypeScript', 'Tailwind CSS'],
+},
+```
+
+- **`href`**: internal page under `src/pages/projects/my-slug.astro`, or an `https://…` URL (opens in a new tab), or `''` if the card should not link anywhere.
+- **`externalHref`**: optional; used where you want an explicit “live site” link separate from the card link.
+- **Detail pages**: for `/projects/slug`, add `src/pages/projects/slug.astro` (see existing project pages as templates).
 
 ## Customization
 
@@ -185,26 +204,48 @@ Current setup uses Google Fonts (Inter, JetBrains Mono). To use actual Resend fo
 
 ## Deployment
 
-### Cloudflare Pages
+### Cloudflare (this repo)
 
-1. Connect your repository to Cloudflare Pages
-2. Build command: `pnpm build`
-3. Output directory: `dist`
-4. Environment variables: None required
+The site is **static** (`output: "static"`). Build output is uploaded from `dist/` via Wrangler.
 
-### Vercel/Netlify
+```bash
+bun run deploy
+# or: pnpm deploy / yarn deploy — runs scripts/deploy.sh (astro build + wrangler deploy)
+```
 
-Change the adapter in `astro.config.ts`:
+Configure routes, zones, and custom domains in `wrangler.jsonc` and the [Cloudflare dashboard](https://dash.cloudflare.com). Ensure DNS records exist (e.g. proxied `www` CNAME) before expecting `www` to resolve.
 
-\`\`\`typescript
-// For Vercel
-import vercel from '@astrojs/vercel/serverless'
-adapter: vercel()
+### Cloudflare Pages (Git-based alternative)
 
-// For Netlify
+If you prefer CI from Git: connect the repo to **Cloudflare Pages**, build command `bun run build` (or `pnpm build`), output directory `dist`.
+
+### Vercel / Netlify
+
+Switch to SSR or hybrid and add an adapter in `astro.config.ts`, for example:
+
+```typescript
+import vercel from '@astrojs/vercel'
+import { defineConfig } from 'astro/config'
+
+export default defineConfig({
+	output: 'server',
+	adapter: vercel(),
+	// …
+})
+```
+
+```typescript
 import netlify from '@astrojs/netlify'
-adapter: netlify()
-\`\`\`
+import { defineConfig } from 'astro/config'
+
+export default defineConfig({
+	output: 'server',
+	adapter: netlify(),
+	// …
+})
+```
+
+For a fully static export you can often deploy the `dist/` folder without an adapter; follow each host’s static-site docs.
 
 ## Performance
 
@@ -224,13 +265,4 @@ adapter: netlify()
 
 MIT
 
-## Credits
 
-- Design System: Inspired by [Resend](https://resend.com)
-- Framework: [Astro](https://astro.build)
-- Fonts: Inter (Google Fonts), JetBrains Mono
-- Icons: Heroicons
-
----
-
-Built with Astro and the Resend Design System by Johan Guse
