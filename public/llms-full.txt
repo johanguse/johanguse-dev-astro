@@ -1647,7 +1647,7 @@ Skills: PHP, CSS, HTML, JavaScript
 
 ## Project Overview
 
-Bank Statement Converter is an AI-powered service that transforms PDF bank statements into Excel, CSV, JSON, and QBO format with 99%+ accuracy. Built on proven Resume-AI architecture, it serves individuals, small businesses, and enterprises who need structured financial data for analysis, accounting, and compliance.
+Bank Statement Converter is an AI-powered service that transforms PDF bank statements into Excel, CSV, JSON, and QBO format with OCR. Built on proven Resume-AI architecture, it serves individuals, small businesses, and enterprises who need structured financial data for analysis, accounting, and compliance.
 
 
 Convert any PDF or Docx bank statement to Excel, CSV, JSON, or QBO in under 30 seconds.
@@ -1659,7 +1659,7 @@ Convert any PDF or Docx bank statement to Excel, CSV, JSON, or QBO in under 30 s
 
 ### AI-Powered OCR
 
-99%+ accuracy on financial documents
+OCR technology
 
 ⚡
 
