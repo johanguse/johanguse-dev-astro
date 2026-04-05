@@ -4,9 +4,19 @@ date: '2024-01-02'
 tags: ['Next.js', 'Cloudflare']
 draft: false
 description: 'Working with external images on Cloudflare Workers & Pages using a custo loader from NextJS'
+tldr: 'Static-exported Next.js on Cloudflare Pages/Workers needs remote images allowlisted in `next.config` (for example `remotePatterns`) and a loader approach that matches how assets are served on the edge. This post covers the config checklist, a small custom loader idea, and redeploy steps so third-party image URLs render instead of failing silently.'
 ---
 
-![Cloudflare Workers & Pages](/static/images/cloudflare-workers-pages.jpg)
+<img
+	src="/static/images/cloudflare-workers-pages.jpg"
+	alt="Cloudflare Workers and Pages project overview in the dashboard"
+	width="1200"
+	height="675"
+	loading="eager"
+	fetchpriority="high"
+	decoding="async"
+	class="max-w-full h-auto rounded-md"
+/>
 
 ---
 
@@ -14,7 +24,7 @@ Today, I decided to deploy one of my testing applications in Next.js to Cloudfla
 
 After some research on the web, I couldn't find a quick answer as I expected. So, I decided to write this short tip to help other developers who might be struggling with the same problem.
 
-This project also serves as a small experiment, involving the recreation of a testimonial using the [new carousel component](https://x.com/shadcn/status/1738283281424982488?s=20). You can find the code for this experiment [here](https://github.com/johanguse/shadcn-carousel-testimonials). I'll delve into how to make external images work seamlessly on Cloudflare Pages. If you have any further questions or need assistance, feel free to reach out to me on [Twitter](https://twitter.com/johanguse).
+This project also serves as a small experiment, involving the recreation of a testimonial using the [new carousel component](https://x.com/shadcn/status/1738283281424982488?s=20). Browse the full source in the [shadcn carousel testimonials repo on GitHub](https://github.com/johanguse/shadcn-carousel-testimonials). I'll delve into how to make external images work seamlessly on Cloudflare Pages. If you have any further questions or need assistance, feel free to reach out to me on [Twitter](https://twitter.com/johanguse).
 
 To fix this issue, we will follow these three steps:
 
@@ -24,7 +34,7 @@ To fix this issue, we will follow these three steps:
 
 ### 1. `next.config.js`
 
-In the `next.config.js`, make sure that `output: 'export'` is set correctly. This is related to Cloudflare deployment. In my case, I used static deployment (`Next.js (Static HTML Export)`). In the images part, ensure that `remotePatterns` are correctly set according to your external images domain property setup. You can read more about Next.js `remotePatterns` [here](https://nextjs.org/docs/pages/api-reference/components/image#remotepatterns).
+In the `next.config.js`, make sure that `output: 'export'` is set correctly. This is related to Cloudflare deployment. In my case, I used static deployment (`Next.js (Static HTML Export)`). In the images part, ensure that `remotePatterns` are correctly set according to your external images domain property setup. See the official docs for [Next.js Image `remotePatterns`](https://nextjs.org/docs/pages/api-reference/components/image#remotepatterns).
 
 ### 2. Custom Image Loader
 
@@ -82,8 +92,24 @@ By following these steps, you can commit the modifications to your repository to
 
 Before: https://a18b9eba.shadcn-carousel-testimonials.pages.dev/
 
-![Cloudflare Workers & Pages](/static/images/cloudflare-workers-pages-code-1.jpg)
+<img
+	src="/static/images/cloudflare-workers-pages-code-1.jpg"
+	alt="Screenshot of the project before fixing external images on Cloudflare"
+	width="1200"
+	height="675"
+	loading="lazy"
+	decoding="async"
+	class="max-w-full h-auto rounded-md"
+/>
 
 After: https://shadcn-carousel-testimonials.pages.dev/
 
-![Cloudflare Workers & Pages](/static/images/cloudflare-workers-pages-code-2.jpg)
+<img
+	src="/static/images/cloudflare-workers-pages-code-2.jpg"
+	alt="Screenshot of the project after external images load correctly on Cloudflare"
+	width="1200"
+	height="675"
+	loading="lazy"
+	decoding="async"
+	class="max-w-full h-auto rounded-md"
+/>

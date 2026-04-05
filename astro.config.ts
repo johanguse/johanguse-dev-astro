@@ -7,8 +7,12 @@ import { browserslistToTargets } from "lightningcss";
 
 export default defineConfig({
 	site: "https://johanguse.dev",
+	trailingSlash: "always",
 	output: "static",
 	compressHTML: false,
+	build: {
+		inlineStylesheets: "auto",
+	},
 	experimental: {
 		clientPrerender: true,
 		contentIntellisense: true,

@@ -33,7 +33,7 @@ This site follows the Resend Design System aesthetic:
 - **Content**: MDX with Astro Content Collections (glob loader)
 - **TypeScript**: Full type safety with strict mode
 - **Runtime**: Node.js 22+ / Bun compatible
-- **Package Manager**: pnpm (preferred), yarn, or bun
+- **Package Manager**: [Bun](https://bun.sh) (preferred), pnpm, or yarn
 - **Deployment**: Cloudflare Workers (static assets) via Wrangler
 
 ## Getting Started
@@ -41,7 +41,7 @@ This site follows the Resend Design System aesthetic:
 ### Prerequisites
 
 - Node.js 22.12.0+ or Bun 1.0+ (Astro 6 requirement)
-- pnpm, yarn, or bun
+- Bun 1.0+, or pnpm / yarn if you prefer
 
 ### Installation
 
@@ -50,19 +50,13 @@ This site follows the Resend Design System aesthetic:
 git clone https://github.com/johanguse/johanguse-dev-astro.git
 cd johanguse-dev-astro
 
-# Install dependencies (choose one)
-pnpm install
-# or
+# Install dependencies
 bun install
-# or
-yarn install
+# or: pnpm install / yarn install
 
-# Start development server (choose one)
-pnpm dev
-# or
+# Start development server
 bun dev
-# or
-yarn dev
+# or: pnpm dev / yarn dev
 ```
 
 The site will be available at `http://localhost:4321`
@@ -70,44 +64,37 @@ The site will be available at `http://localhost:4321`
 ### Build for Production
 
 ```bash
-# Build the site (choose one)
-pnpm build
+# Build the site
 bun run build
-yarn build
+# or: pnpm build / yarn build
 
 # Preview production build locally
-pnpm preview
 bun run preview
-yarn preview
+# or: pnpm preview / yarn preview
 
 # Deploy to Cloudflare (requires wrangler setup)
-pnpm deploy
 bun run deploy
-yarn deploy
+# or: pnpm deploy / yarn deploy
 ```
 
 ### Code Quality (Biome)
 
 ```bash
 # Lint code
-pnpm lint
-bun lint
-yarn lint
+bun run lint
+# or: pnpm lint / yarn lint
 
 # Lint and fix issues
-pnpm lint:fix
-bun lint:fix
-yarn lint:fix
+bun run lint:fix
+# or: pnpm lint:fix / yarn lint:fix
 
 # Format code
-pnpm format
-bun format
-yarn format
+bun run format
+# or: pnpm format / yarn format
 
 # Check and fix everything (lint + format + organize imports)
-pnpm biome:check
-bun biome:check
-yarn biome:check
+bun run biome:check
+# or: pnpm biome:check / yarn biome:check
 ```
 
 ## Project Structure
@@ -217,7 +204,7 @@ Configure routes, zones, and custom domains in `wrangler.jsonc` and the [Cloudfl
 
 ### Cloudflare Pages (Git-based alternative)
 
-If you prefer CI from Git: connect the repo to **Cloudflare Pages**, build command `bun run build` (or `pnpm build`), output directory `dist`.
+If you prefer CI from Git: connect the repo to **Cloudflare Pages**, build command `bun run build` (alternatives: `pnpm build`, `yarn build`), output directory `dist`.
 
 ### Vercel / Netlify
 

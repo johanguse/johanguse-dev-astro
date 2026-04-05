@@ -9,8 +9,20 @@ const currentPath = Astro.url.pathname
 		<a href="/" aria-label={`Website ${siteConfig.headerTitle}`}>
 			<div class="flex items-center justify-between">
 				<div class="mr-3">
-					<img src="/logo.svg" alt="" class="hidden h-[30px] w-auto dark:block" />
-					<img src="/logo-light.svg" alt="" class="block h-[30px] w-auto dark:hidden" />
+					<img
+						src="/logo.svg"
+						alt="Johan Guse"
+						width="120"
+						height="30"
+						class="hidden h-[30px] w-auto dark:block"
+					/>
+					<img
+						src="/logo-light.svg"
+						alt="Johan Guse"
+						width="120"
+						height="30"
+						class="block h-[30px] w-auto dark:hidden"
+					/>
 				</div>
 				{typeof siteConfig.headerTitle === 'string' && (
 					<div class="hidden h-6 text-2xl font-semibold sm:block">

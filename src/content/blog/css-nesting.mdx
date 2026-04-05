@@ -4,6 +4,7 @@ description: 'CSS nesting is a new feature that allows you to nest one style rul
 date: '2025-03-02'
 tags: ['css', 'frontend']
 draft: false
+tldr: 'CSS nesting lets you write child selectors inside a parent rule so styles follow the DOM (like Sass), using the ampersand (`&`) or implicit nesting in supporting browsers. This post explains what changed now that nesting is native, when to prefer `&`, and practical patterns so you can adopt it without preprocessor-only habits.'
 ---
 
 Okay, let's talk about CSS nesting - this amazing feature that just dropped into the CSS world and is blowing my mind! Remember all those years we spent using Sass or Less just to get that sweet, sweet nesting functionality? Well, guess what? Now it's native!
@@ -212,7 +213,7 @@ Nothing's perfect, and there are a few things to be aware of:
 
 ## A real project showcasing CSS nesting
 
-If you're curious about seeing CSS nesting in action, I've put together a small demo project that showcases various nesting techniques and patterns: [Check it out here](https://codepen.io/johanguse/pen/abRVjQZ)
+If you're curious about seeing CSS nesting in action, I've put together a small demo project that showcases various nesting techniques and patterns: open the [CSS nesting demo on CodePen](https://codepen.io/johanguse/pen/abRVjQZ).
 
 This demo includes common UI components like cards, forms, and navigation, all styled using native CSS nesting. Feel free to fork it and experiment!
 

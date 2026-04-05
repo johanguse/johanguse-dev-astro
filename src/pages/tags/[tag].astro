@@ -2,38 +2,51 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
-import { getCollection } from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content'
 import { formatDate } from '../../utils/helpers'
+import { tagToUrlPath } from '../../utils/tagUrl'
 import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (async () => {
 	const posts = await getCollection('blog')
-	const allTags = new Set<string>()
-	
-	posts.forEach(post => {
-		post.data.tags?.forEach(tag => allTags.add(tag))
-	})
+	const groups = new Map<string, { displayLabel: string; posts: CollectionEntry<'blog'>[] }>()
 
-	return Array.from(allTags).map(tag => ({
-		params: { tag },
-		props: { 
-			tag,
-			posts: posts.filter(post => post.data.tags?.includes(tag) && !post.data.draft)
-				.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	for (const post of posts) {
+		if (post.data.draft) continue
+		for (const rawTag of post.data.tags ?? []) {
+			const key = tagToUrlPath(rawTag)
+			if (!groups.has(key)) {
+				groups.set(key, { displayLabel: rawTag, posts: [] })
+			}
+			const g = groups.get(key)
+			if (g && !g.posts.some((p) => p.id === post.id)) {
+				g.posts.push(post)
+			}
 		}
+	}
+
+	return Array.from(groups.entries()).map(([tagParam, { displayLabel, posts: tagPosts }]) => ({
+		params: { tag: tagParam },
+		props: {
+			tagDisplay: displayLabel,
+			posts: tagPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+		},
 	}))
 }) satisfies GetStaticPaths
 
-const { tag, posts } = Astro.props
+const { tagDisplay, posts } = Astro.props
 ---
 
-<BaseLayout title={tag}>
+<BaseLayout
+	title={tagDisplay}
+	description={`Blog posts tagged “${tagDisplay}” — development, tutorials, and notes by Johan Guse.`}
+>
 	<Navigation slot="header" />
 
 	<div class="divide-y">
 		<div class="space-y-2 pb-8 pt-6 md:space-y-5">
 			<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-				{tag}
+				{tagDisplay}
 			</h1>
 		</div>
 		<ul>
@@ -50,15 +63,18 @@ const { tag, posts } = Astro.props
 						</dl>
 						<div class="space-y-3 xl:col-span-3">
 							<div>
-								<h3 class="text-2xl font-bold leading-8 tracking-tight">
-									<a href={`/blog/${post.id}`} class="text-gray-900 dark:text-gray-100">
+								<h2 class="text-2xl font-bold leading-8 tracking-tight">
+									<a href={`/blog/${post.id}/`} class="text-gray-900 dark:text-gray-100">
 										{post.data.title}
 									</a>
-								</h3>
+								</h2>
 								{post.data.tags && (
 									<div class="flex flex-wrap">
 										{post.data.tags.map((t) => (
-											<a href={`/tags/${t}`} class="mr-3 text-sm font-medium uppercase text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
+											<a
+												href={`/tags/${tagToUrlPath(t)}/`}
+												class="mr-3 text-sm font-medium uppercase text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
+											>
 												{t}
 											</a>
 										))}

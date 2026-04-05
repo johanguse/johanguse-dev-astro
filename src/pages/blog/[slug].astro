@@ -4,6 +4,8 @@ import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import { getCollection, render } from 'astro:content'
 import { formatDate } from '../../utils/helpers'
+import { tagToUrlPath } from '../../utils/tagUrl'
+import { siteConfig } from '../../data/siteConfig'
 import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (async () => {
@@ -19,14 +21,66 @@ const { Content } = await render(post)
 
 const allPosts = await getCollection('blog')
 const sortedPosts = allPosts
-	.filter(p => !p.data.draft)
+	.filter((p) => !p.data.draft)
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-const postIndex = sortedPosts.findIndex(p => p.id === post.id)
+const postIndex = sortedPosts.findIndex((p) => p.id === post.id)
 const prevPost = postIndex < sortedPosts.length - 1 ? sortedPosts[postIndex + 1] : null
 const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
+
+const modifiedDate = post.data.updated ?? post.data.date
+const publishedIso = post.data.date.toISOString()
+const modifiedIso = modifiedDate.toISOString()
+
+const postPath = `/blog/${post.id}/`
+const postUrl = new URL(postPath, `${siteConfig.siteUrl}/`).href
+const imageUrl = post.data.image
+	? new URL(
+			post.data.image.startsWith('/') ? post.data.image : `/${post.data.image}`,
+			`${siteConfig.siteUrl}/`,
+		).href
+	: `${siteConfig.siteUrl}${siteConfig.socialBanner}`
+
+const sameAs = [siteConfig.github, siteConfig.twitter, siteConfig.linkedin].filter(
+	(h): h is string => Boolean(h),
+)
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Person',
+			'@id': `${siteConfig.siteUrl}/#person`,
+			name: siteConfig.author,
+			url: `${siteConfig.siteUrl}/`,
+			sameAs,
+		},
+		{
+			'@type': 'BlogPosting',
+			'@id': `${postUrl}#article`,
+			headline: post.data.title,
+			description: post.data.description,
+			image: imageUrl,
+			datePublished: publishedIso,
+			dateModified: modifiedIso,
+			url: postUrl,
+			mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+			author: { '@type': 'Person', '@id': `${siteConfig.siteUrl}/#person` },
+			publisher: { '@type': 'Person', '@id': `${siteConfig.siteUrl}/#person` },
+		},
+	],
+}
+	const jsonLdRaw = JSON.stringify(jsonLd)
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout
+	title={post.data.title}
+	description={post.data.description}
+	ogType="article"
+	{...(post.data.image ? { ogImage: post.data.image } : {})}
+	articlePublishedTime={publishedIso}
+	articleModifiedTime={modifiedIso}
+>
+	<script is:inline type="application/ld+json" set:html={jsonLdRaw} slot="head" />
 	<Navigation slot="header" />
 
 	<article>
@@ -37,9 +91,18 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 						<div>
 							<dt class="sr-only">Published on</dt>
 							<dd class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-								<time datetime={post.data.date.toISOString()}>
-									{formatDate(post.data.date)}
-								</time>
+								<time datetime={publishedIso}>{formatDate(post.data.date)}</time>
+								{post.data.updated && (
+									<>
+										{' '}
+										<span class="text-gray-400 dark:text-gray-500">·</span>
+										{' '}
+										<span class="sr-only">Updated on</span>
+										<time datetime={modifiedIso} class="text-gray-500 dark:text-gray-400">
+											Updated {formatDate(post.data.updated)}
+										</time>
+									</>
+								)}
 							</dd>
 						</div>
 					</dl>
@@ -50,7 +113,10 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 					</div>
 				</div>
 			</header>
-			<div class="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0" style="grid-template-rows: auto 1fr;">
+			<div
+				class="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
+				style="grid-template-rows: auto 1fr;"
+			>
 				<dl class="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
 					<dt class="sr-only">Author</dt>
 					<dd>
@@ -58,7 +124,7 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 							<li class="flex items-center space-x-2">
 								<img
 									src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1652237380/pics/me-4x4.jpg"
-									alt="Johan Guse"
+									alt=""
 									width="38"
 									height="38"
 									class="h-10 w-10 rounded-full"
@@ -68,7 +134,12 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 									<dd class="text-gray-900 dark:text-gray-100">Johan Guse</dd>
 									<dt class="sr-only">Twitter</dt>
 									<dd>
-										<a href="https://twitter.com/johanguse" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white" target="_blank" rel="noopener noreferrer">
+										<a
+											href="https://twitter.com/johanguse"
+											class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
 											@johanguse
 										</a>
 									</dd>
@@ -79,6 +150,17 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 				</dl>
 				<div class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
 					<div class="prose max-w-none pb-8 pt-10 dark:prose-invert">
+						{post.data.tldr && (
+							<aside
+								class="not-prose mb-8 rounded-lg border border-primary-200 bg-primary-50 p-4 dark:border-primary-800 dark:bg-primary-950/40"
+								aria-label="Article summary"
+							>
+								<p class="text-sm font-semibold uppercase tracking-wide text-primary-800 dark:text-primary-200">
+									In this post
+								</p>
+								<p class="mt-2 whitespace-pre-line text-gray-800 dark:text-gray-200">{post.data.tldr}</p>
+							</aside>
+						)}
 						<Content />
 					</div>
 				</div>
@@ -89,7 +171,10 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 								<h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Tags</h2>
 								<div class="flex flex-wrap">
 									{post.data.tags.map((tag) => (
-										<a href={`/tags/${tag}`} class="mr-3 text-sm font-medium uppercase text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
+										<a
+											href={`/tags/${tagToUrlPath(tag)}/`}
+											class="mr-3 text-sm font-medium uppercase text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
+										>
 											{tag}
 										</a>
 									))}
@@ -100,9 +185,11 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 							<div class="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
 								{prevPost && (
 									<div>
-										<h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Previous Article</h2>
+										<h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+											Previous Article
+										</h2>
 										<div class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-											<a href={`/blog/${prevPost.id}`}>{prevPost.data.title}</a>
+											<a href={`/blog/${prevPost.id}/`}>{prevPost.data.title}</a>
 										</div>
 									</div>
 								)}
@@ -110,7 +197,7 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 									<div>
 										<h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Next Article</h2>
 										<div class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-											<a href={`/blog/${nextPost.id}`}>{nextPost.data.title}</a>
+											<a href={`/blog/${nextPost.id}/`}>{nextPost.data.title}</a>
 										</div>
 									</div>
 								)}
@@ -118,7 +205,7 @@ const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
 						)}
 					</div>
 					<div class="pt-4 xl:pt-8">
-						<a href="/blog" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
+						<a href="/blog/" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
 							&larr; Back to the blog
 						</a>
 					</div>

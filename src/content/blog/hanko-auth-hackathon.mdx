@@ -7,14 +7,15 @@ description: 'Unpacking NextJS 14, playing with cool authentication, and making 
 ---
 
 Upon know about Hanko's Hackathon, I was quick to conceptualize and implement a project using NextJS.
-As it happens, Vercel recently released NextJS 14, and I saw it fitting to base this guide on a new installation of this version. For those interested in viewing the project I submitted for the Hackathon, you can access it [here](https://hanko-hackathon.vercel.app/) and the [final code is here](https://github.com/johanguse/hanko_hackathon).
+As it happens, Vercel recently released NextJS 14, and I saw it fitting to base this guide on a new installation of this version. For those interested in viewing the project I submitted for the Hackathon, you can open the [live demo on Vercel](https://hanko-hackathon.vercel.app/) and browse the [Hanko hackathon source on GitHub](https://github.com/johanguse/hanko_hackathon).
 
 To proceed with this tutorial, it's essential to have NextJS 14 installed. If you haven't done so, you can refer to the [official documentation](https://nextjs.org/docs/getting-started/installation). It's worth noting that I utilized the APP Directory structure coupled with TypeScript.
 
-Once you have NextJS ready, the next step is to integrate Hanko. This integration with Next is achieved using "elements". Following the [official Hanko documentation](https://docs.hanko.io/quickstarts/fullstack/next), I employed `pnpm` for the installation. However, depending on your preference, `npm` or `yarn` are also viable options:
+Once you have NextJS ready, the next step is to integrate Hanko. This integration with Next is achieved using "elements". Following the [official Hanko documentation](https://docs.hanko.io/quickstarts/fullstack/next), install the package with your preferred client—for example:
 
 ```
-pnpm add @teamhanko/hanko-elements
+bun add @teamhanko/hanko-elements
+# or: pnpm add / npm install / yarn add @teamhanko/hanko-elements
 ```
 
 For Hanko to function, you must have an account and obtain the API URL:
@@ -25,7 +26,7 @@ For Hanko to function, you must have an account and obtain the API URL:
 
 After obtaining the API URL, make sure to add it to your `.env` file. If you're deploying your site on Vercel, remember to include this in the Vercel dashboard as well.
 
-With the setup complete, you're all set to implement the authentication process. This includes constructing the login/register page, a private dashboard, and a user profile page. To assist you further, I've prepared a boilerplate project with NextJS 14, incorporating App Router, TypeScript, and TailwindCSS. You can explore and utilize this repository [here](https://github.com/johanguse/nextjs14-hanko-auth).
+With the setup complete, you're all set to implement the authentication process. This includes constructing the login/register page, a private dashboard, and a user profile page. To assist you further, I've prepared a boilerplate project with NextJS 14, incorporating App Router, TypeScript, and TailwindCSS. Clone or fork the [Next.js 14 + Hanko boilerplate on GitHub](https://github.com/johanguse/nextjs14-hanko-auth).
 
 When you explore my boilerplate, you'll spot an auth folder within the components directory. Let's break down the purpose of each item within:
 

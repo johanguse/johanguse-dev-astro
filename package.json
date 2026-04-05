@@ -26,6 +26,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@biomejs/biome": "^2.4.10",
     "@cloudflare/vite-plugin": "^1.31.0",
+    "@fontsource-variable/inter": "^5.2.8",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
     "@types/node": "^25.5.2",

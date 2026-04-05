@@ -5,7 +5,10 @@ import Footer from '../components/Footer.astro'
 import { siteConfig } from '../data/siteConfig'
 ---
 
-<BaseLayout title={`About - ${siteConfig.author}`} description={`About me - ${siteConfig.author}`}>
+<BaseLayout
+	title={`About ${siteConfig.author}`}
+	description={`About Johan Guse — software engineer, portfolio, and contact links. Experience across full-stack web, React, TypeScript, and cloud platforms.`}
+>
 	<Navigation slot="header" />
 
 	<div class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -19,12 +22,13 @@ import { siteConfig } from '../data/siteConfig'
 				<img
 					src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1652237380/pics/me-4x4.jpg"
 					alt="Photo of Johan Guse"
-					loading="lazy"
+					loading="eager"
+					fetchpriority="high"
 					width="192"
 					height="192"
 					class="h-48 w-48 rounded-full"
 				/>
-				<h3 class="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">{siteConfig.author}</h3>
+				<h2 class="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">{siteConfig.author}</h2>
 				<div class="text-gray-500 dark:text-gray-400">Software Engineer</div>
 				<div class="text-gray-500 dark:text-gray-400">Currently working at Radix - radixeng.com</div>
 				<div class="flex space-x-3 pt-6">

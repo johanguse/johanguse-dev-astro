@@ -9,35 +9,55 @@ interface Props {
 	clientName?: string | undefined
 	clientURL?: string | undefined
 	externalHref?: string | undefined
+	/** First visible cards: eager load for LCP */
+	imagePriority?: boolean
 }
 
-const { title, description, imgSrc, href, date, skills, clientName, clientURL, externalHref } = Astro.props
+const {
+	title,
+	imgSrc,
+	href,
+	date,
+	skills,
+	clientName,
+	clientURL,
+	externalHref,
+	imagePriority = false,
+} = Astro.props
 
 const isInternalPage = href.startsWith('/')
 const displayHref = isInternalPage ? href : (externalHref ?? href)
 const hasLink = displayHref.length > 0
+const learnLabel = isInternalPage ? `Learn more about ${title}` : `Visit ${title} (opens in a new tab)`
 ---
 
 <div class="md p-4 md:w-1/2" style="max-width: 544px;">
 	<div class="flex h-full flex-col overflow-hidden rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700">
 		{imgSrc && (
 			hasLink ? (
-				<a href={displayHref} aria-label={`Link to ${title}`} {...(!isInternalPage ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+				<a
+					href={displayHref}
+					aria-label={`Open project: ${title}`}
+					{...(!isInternalPage ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+				>
 					<img
-						alt={title}
+						alt=""
+						role="presentation"
 						src={imgSrc}
 						class="object-cover object-center md:h-36 lg:h-48 w-full"
-						loading="lazy"
+						loading={imagePriority ? 'eager' : 'lazy'}
+						{...(imagePriority ? { fetchpriority: 'high' } : {})}
 						width="544"
 						height="336"
 					/>
 				</a>
 			) : (
 				<img
-					alt={title}
+					alt=""
 					src={imgSrc}
 					class="object-cover object-center md:h-36 lg:h-48 w-full"
-					loading="lazy"
+					loading={imagePriority ? 'eager' : 'lazy'}
+					{...(imagePriority ? { fetchpriority: 'high' } : {})}
 					width="544"
 					height="336"
 				/>
@@ -46,7 +66,7 @@ const hasLink = displayHref.length > 0
 		<div class="flex flex-1 flex-col p-6">
 			<h2 class="mb-3 text-2xl font-bold leading-8 tracking-tight">
 				{hasLink ? (
-					<a href={displayHref} aria-label={`Link to ${title}`} {...(!isInternalPage ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+					<a href={displayHref} {...(!isInternalPage ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
 						{title}
 					</a>
 				) : (
@@ -66,7 +86,6 @@ const hasLink = displayHref.length > 0
 			{clientURL ? (
 				<a
 					href={clientURL}
-					aria-label={`Link to ${clientName}`}
 					class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
 					rel="noopener noreferrer"
 					target="_blank"
@@ -86,10 +105,9 @@ const hasLink = displayHref.length > 0
 					<a
 						href={displayHref}
 						class="text-base font-bold leading-6 text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
-						aria-label={`${isInternalPage ? 'Learn more about' : 'Visit'} ${title}`}
 						{...(!isInternalPage ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
 					>
-						{isInternalPage ? 'Learn more' : 'External link'} &rarr;
+						{learnLabel} &rarr;
 					</a>
 				)}
 			</div>
