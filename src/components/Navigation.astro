@@ -1,183 +1,266 @@
 ---
 import { siteConfig, navLinks } from '../data/siteConfig'
-
 const currentPath = Astro.url.pathname
 ---
 
-<header class="flex items-center justify-between py-10">
-	<div>
-		<a href="/" aria-label={`Website ${siteConfig.headerTitle}`}>
-			<div class="flex items-center justify-between">
-				<div class="mr-3">
-					<img
-						src="/logo.svg"
-						alt="Johan Guse"
-						width="120"
-						height="30"
-						class="hidden h-[30px] w-auto dark:block"
-					/>
-					<img
-						src="/logo-light.svg"
-						alt="Johan Guse"
-						width="120"
-						height="30"
-						class="block h-[30px] w-auto dark:hidden"
-					/>
-				</div>
-				{typeof siteConfig.headerTitle === 'string' && (
-					<div class="hidden h-6 text-2xl font-semibold sm:block">
-						{siteConfig.headerTitle}
-					</div>
-				)}
-			</div>
-		</a>
-	</div>
-	<div class="flex items-center text-base leading-5">
-		<nav aria-label="Main" class="hidden sm:block">
-			{navLinks.map((link) => {
-				const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-				return (
-					<a
-						href={link.href}
-						class="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4"
-						{...(isActive ? { 'aria-current': 'page' } : {})}
-					>
-						{link.title}
-					</a>
-				)
-			})}
-		</nav>
-		<!-- Theme Toggle -->
-		<button
-			id="theme-toggle"
-			aria-label="Toggle Dark Mode"
-			type="button"
-			class="ml-1 mr-1 h-8 w-8 rounded p-1 sm:ml-4"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 20 20"
-				fill="currentColor"
-				class="text-gray-900 dark:text-gray-100"
-				aria-hidden="true"
-			>
-				<path
-					id="theme-icon-sun"
-					class="hidden"
-					fill-rule="evenodd"
-					d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-					clip-rule="evenodd"
-				/>
-				<path
-					id="theme-icon-moon"
-					d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-				/>
-			</svg>
-		</button>
-		<!-- Mobile Nav Button -->
-		<button
-			id="mobile-menu-button"
-			type="button"
-			class="sm:hidden ml-1 mr-1 h-8 w-8 rounded p-1"
-			aria-label="Toggle Menu"
-			aria-expanded="false"
-			aria-controls="mobile-menu"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 20 20"
-				fill="currentColor"
-				class="text-gray-900 dark:text-gray-100"
-				aria-hidden="true"
-			>
-				<path
-					class="menu-open"
-					fill-rule="evenodd"
-					d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-					clip-rule="evenodd"
-				/>
-				<path
-					class="menu-close hidden"
-					fill-rule="evenodd"
-					d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-					clip-rule="evenodd"
-				/>
-			</svg>
-		</button>
-	</div>
+<header id="site-nav" class="nav-bar">
+  <div class="nav-inner">
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="Johan Guse — Home">
+      <span class="nav-logo-mark">JG</span>
+    </a>
+
+    <!-- Desktop links -->
+    <nav aria-label="Main" class="nav-links">
+      {navLinks.filter(l => l.href !== '/').map((link) => {
+        const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+        return (
+          <a
+            href={link.href}
+            class:list={['nav-link', { 'nav-link--active': isActive }]}
+            {...(isActive ? { 'aria-current': 'page' } : {})}
+          >
+            {link.title}
+          </a>
+        )
+      })}
+    </nav>
+
+    <!-- Actions -->
+    <div class="nav-actions">
+      <button
+        id="theme-toggle"
+        aria-label="Toggle dark mode"
+        type="button"
+        class="nav-toggle-btn"
+      >
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="nav-icon hidden">
+          <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="nav-icon">
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+      </button>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="nav-toggle-btn sm:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg class="menu-open-icon nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+        </svg>
+        <svg class="menu-close-icon nav-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </div>
 </header>
 
-<!-- Mobile Menu Overlay -->
+<!-- Mobile menu overlay -->
 <div
-	id="mobile-menu"
-	class="fixed right-0 top-24 z-10 hidden h-full w-full bg-gray-200 opacity-95 dark:bg-gray-800 sm:hidden"
-	role="dialog"
-	aria-label="Mobile navigation"
+  id="mobile-menu"
+  class="mobile-menu hidden"
+  role="dialog"
+  aria-label="Mobile navigation"
 >
-	<nav aria-label="Mobile" class="fixed mt-8 h-full">
-		{navLinks.map((link) => {
-			const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-			return (
-				<a
-					href={link.href}
-					class="block px-12 py-4 text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100"
-					{...(isActive ? { 'aria-current': 'page' } : {})}
-				>
-					{link.title}
-				</a>
-			)
-		})}
-	</nav>
+  <nav aria-label="Mobile" class="mobile-menu-nav">
+    {navLinks.map((link) => {
+      const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+      return (
+        <a
+          href={link.href}
+          class:list={['mobile-menu-link', { 'mobile-menu-link--active': isActive }]}
+          {...(isActive ? { 'aria-current': 'page' } : {})}
+        >
+          {link.title}
+        </a>
+      )
+    })}
+  </nav>
 </div>
 
+<style>
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    /* translucent bg that picks up the token */
+    background: color-mix(in oklch, var(--bg) 80%, transparent);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 0 clamp(1.25rem, 5vw, 4rem);
+    height: 64px;
+  }
+
+  /* Logo */
+  .nav-logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo-mark {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text-1);
+    line-height: 1;
+    transition: color 0.15s ease;
+  }
+
+  .nav-logo:hover .nav-logo-mark {
+    color: var(--accent);
+  }
+
+  /* Desktop nav */
+  .nav-links {
+    display: none;
+    gap: 0.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .nav-links { display: flex; }
+  }
+
+  .nav-link {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-2);
+    text-decoration: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.5rem;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link--active {
+    color: var(--text-1);
+    background: var(--bg-elevated);
+  }
+
+  /* Actions */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-2);
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .nav-toggle-btn:hover {
+    color: var(--text-1);
+    background: var(--bg-elevated);
+  }
+
+  .nav-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  /* Mobile menu */
+  .mobile-menu {
+    position: fixed;
+    inset: 64px 0 0 0;
+    z-index: 40;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+
+  .mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem clamp(1.25rem, 5vw, 4rem);
+    gap: 0.25rem;
+  }
+
+  .mobile-menu-link {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-2);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: color 0.15s ease;
+  }
+
+  .mobile-menu-link:hover,
+  .mobile-menu-link--active {
+    color: var(--accent);
+  }
+</style>
+
 <script is:inline>
-	function setupNavigation() {
-		function updateThemeIcons() {
-			const isDark = document.documentElement.classList.contains('dark')
-			const sunIcon = document.getElementById('theme-icon-sun')
-			const moonIcon = document.getElementById('theme-icon-moon')
-			if (sunIcon && moonIcon) {
-				sunIcon.classList.toggle('hidden', !isDark)
-				moonIcon.classList.toggle('hidden', isDark)
-			}
-		}
+  function setupNav() {
+    const sunIcon = document.getElementById('icon-sun')
+    const moonIcon = document.getElementById('icon-moon')
+    const themeBtn = document.getElementById('theme-toggle')
+    const mobileBtn = document.getElementById('mobile-menu-btn')
+    const mobileMenu = document.getElementById('mobile-menu')
 
-		updateThemeIcons()
+    function syncIcons() {
+      const dark = document.documentElement.classList.contains('dark')
+      sunIcon?.classList.toggle('hidden', !dark)
+      moonIcon?.classList.toggle('hidden', dark)
+    }
+    syncIcons()
 
-		const themeToggle = document.getElementById('theme-toggle')
-		if (themeToggle && !themeToggle.dataset.bound) {
-			themeToggle.dataset.bound = 'true'
-			themeToggle.addEventListener('click', () => {
-				const isDark = document.documentElement.classList.contains('dark')
-				if (isDark) {
-					document.documentElement.classList.remove('dark')
-					localStorage.setItem('theme', 'light')
-				} else {
-					document.documentElement.classList.add('dark')
-					localStorage.setItem('theme', 'dark')
-				}
-				updateThemeIcons()
-			})
-		}
+    if (themeBtn && !themeBtn.dataset.bound) {
+      themeBtn.dataset.bound = 'true'
+      themeBtn.addEventListener('click', () => {
+        const dark = document.documentElement.classList.contains('dark')
+        document.documentElement.classList.toggle('dark', !dark)
+        localStorage.setItem('theme', dark ? 'light' : 'dark')
+        syncIcons()
+      })
+    }
 
-		const menuButton = document.getElementById('mobile-menu-button')
-		const mobileMenu = document.getElementById('mobile-menu')
-		const menuOpen = menuButton?.querySelector('.menu-open')
-		const menuClose = menuButton?.querySelector('.menu-close')
+    if (mobileBtn && !mobileBtn.dataset.bound) {
+      mobileBtn.dataset.bound = 'true'
+      mobileBtn.addEventListener('click', () => {
+        const open = mobileBtn.getAttribute('aria-expanded') === 'true'
+        mobileBtn.setAttribute('aria-expanded', String(!open))
+        mobileMenu?.classList.toggle('hidden')
+        mobileBtn.querySelector('.menu-open-icon')?.classList.toggle('hidden')
+        mobileBtn.querySelector('.menu-close-icon')?.classList.toggle('hidden')
+        document.body.classList.toggle('overflow-hidden')
+      })
+    }
+  }
 
-		if (menuButton && !menuButton.dataset.bound) {
-			menuButton.dataset.bound = 'true'
-			menuButton.addEventListener('click', () => {
-				const isExpanded = menuButton.getAttribute('aria-expanded') === 'true'
-				menuButton.setAttribute('aria-expanded', String(!isExpanded))
-				mobileMenu?.classList.toggle('hidden')
-				menuOpen?.classList.toggle('hidden')
-				menuClose?.classList.toggle('hidden')
-				document.body.classList.toggle('overflow-hidden')
-			})
-		}
-	}
-
-	setupNavigation()
-	document.addEventListener('astro:page-load', setupNavigation)
+  setupNav()
+  document.addEventListener('astro:page-load', setupNav)
 </script>

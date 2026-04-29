@@ -1,106 +1,155 @@
-@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/bricolage-grotesque/wght.css";
+@import "@fontsource/barlow/400.css";
+@import "@fontsource/barlow/500.css";
+@import "@fontsource/barlow/600.css";
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark, .dark *));
 
+/* ─── Design tokens ──────────────────────────────────────────── */
+:root {
+  /* Light mode */
+  --bg:          oklch(0.97 0.006 280);
+  --bg-elevated: oklch(0.93 0.008 280);
+  --bg-card:     oklch(0.90 0.009 280);
+  --border:      oklch(0.82 0.01 280);
+  --text-1:      oklch(0.14 0.016 280);
+  --text-2:      oklch(0.40 0.012 280);
+  --text-3:      oklch(0.58 0.009 280);
+  --accent:      oklch(0.52 0.19 55);
+  --accent-dim:  oklch(0.92 0.06 55);
+  --accent-text: oklch(0.45 0.17 55);
+
+  /* Spacing scale */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  48px;
+  --space-2xl: 96px;
+}
+
+.dark {
+  --bg:          oklch(0.10 0.014 275);
+  --bg-elevated: oklch(0.13 0.013 275);
+  --bg-card:     oklch(0.14 0.013 275);
+  --border:      oklch(0.22 0.011 275);
+  --text-1:      oklch(0.96 0.006 275);
+  --text-2:      oklch(0.65 0.010 275);
+  --text-3:      oklch(0.44 0.009 275);
+  --accent:      oklch(0.76 0.190 55);
+  --accent-dim:  oklch(0.24 0.07 55);
+  --accent-text: oklch(0.78 0.18 55);
+}
+
+/* ─── Fonts ──────────────────────────────────────────────────── */
 @theme {
-	/* Primary link colors — WCAG AA compliant
-	   Light mode: #1d4ed8 on #fff = 5.56:1 ✓
-	   Dark mode:  #e8effb on #111827 = ~14:1 ✓✓
-	   Hover light: #1e40af on #fff = 7.73:1 ✓
-	   Hover dark:  #fff on #111827 = ~18:1 ✓✓ */
-	--color-primary-500: #1d4ed8;
-	--color-primary-600: #1e40af;
-	--color-primary-400: #93bbfd;
-	--color-primary-300: #bdd4fe;
-	--color-primary-100: #e8effb;
+  --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-sans:    'Barlow', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-	--font-sans:
-		'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-		Roboto, 'Helvetica Neue', Arial, sans-serif;
-	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-
-	--leading-11: 2.75rem;
-	--leading-12: 3rem;
-	--leading-13: 3.25rem;
-	--leading-14: 3.5rem;
+  /* Carry forward primary palette for prose/blog pages */
+  --color-primary-500: #c47b2b;
+  --color-primary-600: #a3651f;
+  --color-primary-400: #dba355;
+  --color-primary-300: #e8c08a;
+  --color-primary-100: #f5e6cc;
 }
 
+/* ─── Base ───────────────────────────────────────────────────── */
 html {
-	scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	*,
-	*::before,
-	*::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-		scroll-behavior: auto !important;
-	}
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--text-1);
 }
 
 body {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text-1);
 }
 
-/* Skip link */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Skip link ──────────────────────────────────────────────── */
 .skip-link {
-	position: absolute;
-	left: -9999px;
-	top: auto;
-	width: 1px;
-	height: 1px;
-	overflow: hidden;
-	z-index: 100;
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 100;
 }
 
 .skip-link:focus {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: auto;
-	height: auto;
-	padding: 0.75rem 1.5rem;
-	background: #1d4ed8;
-	color: #fff;
-	font-size: 0.875rem;
-	font-weight: 600;
-	z-index: 100;
-	outline: 2px solid #fff;
-	outline-offset: 2px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: oklch(0.08 0.01 275);
+  font-size: 0.875rem;
+  font-weight: 600;
+  z-index: 100;
+  outline: 2px solid var(--text-1);
+  outline-offset: 2px;
 }
 
-/* Focus visible */
-:focus {
-	outline: none;
-}
+/* ─── Focus ──────────────────────────────────────────────────── */
+:focus { outline: none; }
 
 :focus-visible {
-	outline: 2px solid #1d4ed8;
-	outline-offset: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-.dark :focus-visible {
-	outline-color: #93bbfd;
-}
-
-/* Scroll margin for focus not obscured (2.4.11) */
 :target {
-	scroll-margin-top: 2rem;
+  scroll-margin-top: 5rem;
 }
 
-.task-list-item:before {
-	@apply hidden;
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
 }
+
+/* ─── Layout primitives ──────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 4rem);
+}
+
+.container--narrow {
+  max-width: 760px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 4rem);
+}
+
+/* ─── Blog / prose pages (unchanged) ────────────────────────── */
+.task-list-item:before { @apply hidden; }
 
 .remark-code-title {
-	@apply rounded-t bg-gray-700 px-5 py-3 font-mono text-sm font-bold text-gray-200;
+  @apply rounded-t bg-gray-700 px-5 py-3 font-mono text-sm font-bold text-gray-200;
 }
-
 .remark-code-title + div > pre {
-	@apply mt-0 rounded-t-none;
+  @apply mt-0 rounded-t-none;
 }
