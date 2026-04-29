@@ -46,7 +46,7 @@ const currentPath = Astro.url.pathname
       <button
         id="mobile-menu-btn"
         type="button"
-        class="nav-toggle-btn sm:hidden"
+        class="nav-toggle-btn nav-mobile-btn"
         aria-label="Open menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -92,11 +92,10 @@ const currentPath = Astro.url.pathname
     left: 0;
     right: 0;
     z-index: 50;
-    /* translucent bg that picks up the token */
-    background: color-mix(in oklch, var(--bg) 80%, transparent);
-    backdrop-filter: blur(16px) saturate(1.4);
-    -webkit-backdrop-filter: blur(16px) saturate(1.4);
-    border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px) saturate(1.3);
+    -webkit-backdrop-filter: blur(12px) saturate(1.3);
+    border-bottom: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
     transition: background 0.3s ease, border-color 0.3s ease;
   }
 
@@ -157,6 +156,11 @@ const currentPath = Astro.url.pathname
   .nav-link--active {
     color: var(--text-1);
     background: var(--bg-elevated);
+  }
+
+  /* Hide mobile button on desktop */
+  @media (min-width: 640px) {
+    .nav-mobile-btn { display: none; }
   }
 
   /* Actions */

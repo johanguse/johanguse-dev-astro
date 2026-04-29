@@ -33,27 +33,62 @@ const blogPosts = allPosts
       speed={32}
       pattern="center"
       darkColors="#2e2a45,#252238,#332b1a"
-      lightColors="#ddd8ec,#cfc9e2,#e8dfc8"
+      lightColors="#d2cfe0,#c5c2d4,#b8b5c8"
       className="hero-canvas"
     >
-      <div class="hero-content">
-        <p class="hero-eyebrow">
-          <span class="hero-dot" aria-hidden="true" />
-          Available for work &mdash; based in Brazil
-        </p>
+      <div class="hero-inner">
+        <!-- Left: text content -->
+        <div class="hero-content">
+          <p class="hero-eyebrow">
+            <span class="hero-dot" aria-hidden="true" />
+            Available for work &mdash; based in Brazil
+          </p>
 
-        <h1 class="hero-heading" aria-label="Design Engineer">
-          <span class="hero-word hero-word--thin">design</span>
-          <span class="hero-word hero-word--bold">Engineer</span>
-        </h1>
+          <h1 class="hero-heading">
+            Hi, I'm Johan.<br />
+            I design &amp; <em class="hero-accent">engineer</em><br />
+            interfaces.
+          </h1>
 
-        <p class="hero-tagline">
-          Making interfaces that feel<br />as good as they work.
-        </p>
+          <p class="hero-tagline">
+            Design Engineer building interfaces that feel
+            as good as they work. Based in Brazil.
+          </p>
 
-        <div class="hero-actions">
-          <a href="#work" class="btn-primary">View work</a>
-          <a href="/blog/" class="btn-ghost">Writing &rarr;</a>
+          <div class="hero-actions">
+            <a href="#work" class="btn-primary">View work &rarr;</a>
+            <a href="/blog/" class="btn-ghost">Writing</a>
+          </div>
+        </div>
+
+        <!-- Right: terminal panel -->
+        <div class="hero-terminal" aria-hidden="true">
+          <div class="terminal-bar">
+            <span class="terminal-dot terminal-dot--red"></span>
+            <span class="terminal-dot terminal-dot--yellow"></span>
+            <span class="terminal-dot terminal-dot--green"></span>
+          </div>
+          <div class="terminal-body">
+            <p class="terminal-line">
+              <span class="terminal-prompt">$</span> whoami
+            </p>
+            <p class="terminal-line terminal-line--accent">
+              johanguse &mdash; design engineer
+            </p>
+            <p class="terminal-line terminal-line--gap">
+              <span class="terminal-prompt">$</span> skills --list
+            </p>
+            <p class="terminal-line terminal-line--output">&gt; React, TypeScript, Next.js</p>
+            <p class="terminal-line terminal-line--output">&gt; Design Systems, Tailwind CSS</p>
+            <p class="terminal-line terminal-line--output">&gt; Motion, Framer Motion, UX</p>
+            <p class="terminal-line terminal-line--gap">
+              <span class="terminal-prompt">$</span> availability
+            </p>
+            <p class="terminal-line terminal-line--success">&gt; open to projects in 2026</p>
+            <p class="terminal-line terminal-line--gap">
+              <span class="terminal-prompt">$</span> building interfaces &rarr;<span class="terminal-cursor">_</span>
+            </p>
+          </div>
         </div>
       </div>
 
@@ -79,10 +114,10 @@ const blogPosts = allPosts
         />
       </div>
 
-      <!-- Projects grid: asymmetric layout -->
+      <!-- Projects grid: featured card full-width, two below -->
       <div class="projects-grid">
         {featuredProjects.map((p, i) => (
-          <div class:list={['project-slot', i === 0 ? 'project-slot--featured' : '']}>
+          <div class:list={['project-slot', i === 0 ? 'project-slot--featured' : 'project-slot--secondary']}>
             <TiltCard
               client:visible
               title={p.title}
@@ -92,7 +127,8 @@ const blogPosts = allPosts
               externalHref={p.externalHref}
               skills={p.skills}
               date={p.date}
-              rotationFactor={i === 0 ? 8 : 12}
+              rotationFactor={i === 0 ? 8 : 11}
+              imageHeight={i === 0 ? 260 : 180}
             />
           </div>
         ))}
@@ -178,27 +214,46 @@ const blogPosts = allPosts
     min-height: 100svh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: 6rem;
+    justify-content: center;
+    padding-block: 6rem;
   }
 
-  .hero-content {
+  .hero-inner {
     max-width: 1200px;
     margin-inline: auto;
-    padding: 6rem clamp(1.25rem, 5vw, 4rem) 0;
-    padding-top: 7rem; /* clear fixed nav */
+    padding: 0 clamp(1.25rem, 5vw, 4rem);
+    padding-top: 4rem; /* clear fixed nav */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
   }
 
+  @media (min-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+    }
+  }
+
+  /* Left: text */
+  .hero-content {}
+
   .hero-eyebrow {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-3);
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    background: color-mix(in oklch, var(--bg) 70%, transparent);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.85rem;
+    border-radius: 99px;
   }
 
   .hero-dot {
@@ -206,49 +261,38 @@ const blogPosts = allPosts
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--accent);
+    background: oklch(0.65 0.2 145);
     animation: pulse 2.5s ease-in-out infinite;
   }
 
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.5; transform: scale(0.85); }
+    50%       { opacity: 0.4; transform: scale(0.8); }
   }
 
   .hero-heading {
-    display: flex;
-    flex-direction: column;
-    line-height: 0.9;
-    margin: 0 0 2.5rem;
-    letter-spacing: -0.04em;
     font-family: var(--font-display);
-  }
-
-  .hero-word {
-    display: block;
-  }
-
-  .hero-word--thin {
-    font-size: clamp(3rem, 9vw, 8rem);
-    font-weight: 300;
-    color: var(--text-2);
-    letter-spacing: -0.02em;
-  }
-
-  .hero-word--bold {
-    font-size: clamp(3.5rem, 12vw, 11rem);
-    font-weight: 800;
+    font-size: clamp(2.4rem, 5.5vw, 4.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
     color: var(--text-1);
-    letter-spacing: -0.05em;
+    margin: 0 0 1.75rem;
+  }
+
+  .hero-accent {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 700;
   }
 
   .hero-tagline {
-    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
     font-weight: 400;
     color: var(--text-2);
-    line-height: 1.55;
-    margin: 0 0 3rem;
-    max-width: 38ch;
+    line-height: 1.65;
+    margin: 0 0 2.5rem;
+    max-width: 42ch;
   }
 
   .hero-actions {
@@ -257,13 +301,92 @@ const blogPosts = allPosts
     flex-wrap: wrap;
   }
 
+  /* ── Terminal panel ───────────────────────────────────────────── */
+  .hero-terminal {
+    background: oklch(0.11 0.018 275 / 0.92);
+    backdrop-filter: blur(16px) saturate(1.2);
+    border: 1px solid oklch(0.28 0.025 275 / 0.7);
+    border-radius: 0.875rem;
+    overflow: hidden;
+    box-shadow:
+      0 32px 64px -16px oklch(0 0 0 / 0.45),
+      0 0 0 1px oklch(1 0 0 / 0.04) inset;
+    font-family: var(--font-mono);
+    font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+    line-height: 1.8;
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid oklch(0.22 0.02 275 / 0.8);
+    background: oklch(0.09 0.015 275 / 0.6);
+  }
+
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .terminal-dot--red    { background: #ff5f57; }
+  .terminal-dot--yellow { background: #ffbd2e; }
+  .terminal-dot--green  { background: #28c840; }
+
+  .terminal-body {
+    padding: 1.25rem 1.4rem 1.5rem;
+  }
+
+  .terminal-line {
+    margin: 0;
+    color: oklch(0.72 0.025 270);
+  }
+
+  .terminal-line--gap {
+    margin-top: 0.5rem;
+  }
+
+  .terminal-line--output {
+    color: oklch(0.58 0.02 270);
+    padding-left: 0.25rem;
+  }
+
+  .terminal-line--accent {
+    color: oklch(0.70 0.14 52);
+    padding-left: 0.25rem;
+  }
+
+  .terminal-line--success {
+    color: oklch(0.72 0.18 145);
+    padding-left: 0.25rem;
+  }
+
+  .terminal-prompt {
+    color: oklch(0.70 0.14 52);
+    margin-right: 0.5rem;
+    user-select: none;
+  }
+
+  .terminal-cursor {
+    display: inline-block;
+    animation: blink 1.1s step-end infinite;
+    color: oklch(0.70 0.14 52);
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
   .btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.75rem;
-    background: var(--accent);
-    color: oklch(0.08 0.01 275);
+    background: var(--btn-bg);
+    color: var(--btn-text);
     font-family: var(--font-sans);
     font-weight: 600;
     font-size: 0.9rem;
@@ -274,7 +397,7 @@ const blogPosts = allPosts
   }
 
   .btn-primary:hover {
-    opacity: 0.88;
+    opacity: 0.85;
     transform: translateY(-1px);
   }
 
@@ -362,6 +485,11 @@ const blogPosts = allPosts
   }
 
   /* ── Projects grid ────────────────────────────────────────────── */
+  /*
+   * Layout:
+   *   mobile  → 1 column, all stacked
+   *   ≥640px  → featured spans full width, secondaries side by side below
+   */
   .projects-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -372,22 +500,15 @@ const blogPosts = allPosts
     .projects-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    /* Featured card spans both columns */
     .project-slot--featured {
       grid-column: 1 / -1;
     }
-  }
 
-  @media (min-width: 900px) {
-    .projects-grid {
-      grid-template-columns: 3fr 2fr;
-      grid-template-rows: auto auto;
-    }
-    .project-slot--featured {
-      grid-column: 1;
-      grid-row: 1 / 3;
-    }
-    .project-slot--featured :global(.tilt-card-img) {
-      height: 280px;
+    /* The two secondary cards share the row below */
+    .project-slot--secondary {
+      grid-column: span 1;
     }
   }
 

@@ -9,11 +9,11 @@ import { siteConfig } from '../../data/siteConfig'
 import type { GetStaticPaths } from 'astro'
 
 export const getStaticPaths = (async () => {
-	const posts = await getCollection('blog')
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: { post },
-	}))
+  const posts = await getCollection('blog')
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }))
 }) satisfies GetStaticPaths
 
 const { post } = Astro.props
@@ -21,8 +21,8 @@ const { Content } = await render(post)
 
 const allPosts = await getCollection('blog')
 const sortedPosts = allPosts
-	.filter((p) => !p.data.draft)
-	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 const postIndex = sortedPosts.findIndex((p) => p.id === post.id)
 const prevPost = postIndex < sortedPosts.length - 1 ? sortedPosts[postIndex + 1] : null
 const nextPost = postIndex > 0 ? sortedPosts[postIndex - 1] : null
@@ -34,185 +34,283 @@ const modifiedIso = modifiedDate.toISOString()
 const postPath = `/blog/${post.id}/`
 const postUrl = new URL(postPath, `${siteConfig.siteUrl}/`).href
 const imageUrl = post.data.image
-	? new URL(
-			post.data.image.startsWith('/') ? post.data.image : `/${post.data.image}`,
-			`${siteConfig.siteUrl}/`,
-		).href
-	: `${siteConfig.siteUrl}${siteConfig.socialBanner}`
+  ? new URL(
+      post.data.image.startsWith('/') ? post.data.image : `/${post.data.image}`,
+      `${siteConfig.siteUrl}/`,
+    ).href
+  : `${siteConfig.siteUrl}${siteConfig.socialBanner}`
 
 const sameAs = [siteConfig.github, siteConfig.twitter, siteConfig.linkedin].filter(
-	(h): h is string => Boolean(h),
+  (h): h is string => Boolean(h),
 )
 
 const jsonLd = {
-	'@context': 'https://schema.org',
-	'@graph': [
-		{
-			'@type': 'Person',
-			'@id': `${siteConfig.siteUrl}/#person`,
-			name: siteConfig.author,
-			url: `${siteConfig.siteUrl}/`,
-			sameAs,
-		},
-		{
-			'@type': 'BlogPosting',
-			'@id': `${postUrl}#article`,
-			headline: post.data.title,
-			description: post.data.description,
-			image: imageUrl,
-			datePublished: publishedIso,
-			dateModified: modifiedIso,
-			url: postUrl,
-			mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
-			author: { '@type': 'Person', '@id': `${siteConfig.siteUrl}/#person` },
-			publisher: { '@type': 'Person', '@id': `${siteConfig.siteUrl}/#person` },
-		},
-	],
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${siteConfig.siteUrl}/#person`,
+      name: siteConfig.author,
+      url: `${siteConfig.siteUrl}/`,
+      sameAs,
+    },
+    {
+      '@type': 'BlogPosting',
+      '@id': `${postUrl}#article`,
+      headline: post.data.title,
+      description: post.data.description,
+      image: imageUrl,
+      datePublished: publishedIso,
+      dateModified: modifiedIso,
+      url: postUrl,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+      author: { '@type': 'Person', '@id': `${siteConfig.siteUrl}/#person` },
+      publisher: { '@type': 'Person', '@id': `${siteConfig.siteUrl}/#person` },
+    },
+  ],
 }
-	const jsonLdRaw = JSON.stringify(jsonLd)
+const jsonLdRaw = JSON.stringify(jsonLd)
 ---
 
 <BaseLayout
-	title={post.data.title}
-	description={post.data.description}
-	ogType="article"
-	{...(post.data.image ? { ogImage: post.data.image } : {})}
-	articlePublishedTime={publishedIso}
-	articleModifiedTime={modifiedIso}
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  {... (post.data.image ? { ogImage: post.data.image } : {})}
+  articlePublishedTime={publishedIso}
+  articleModifiedTime={modifiedIso}
+  fullBleed
 >
-	<script is:inline type="application/ld+json" set:html={jsonLdRaw} slot="head" />
-	<Navigation slot="header" />
+  <script is:inline type="application/ld+json" set:html={jsonLdRaw} slot="head" />
+  <Navigation slot="header" />
 
-	<article>
-		<div>
-			<header class="pt-6 xl:pb-6">
-				<div class="space-y-1 text-center">
-					<dl class="space-y-10">
-						<div>
-							<dt class="sr-only">Published on</dt>
-							<dd class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-								<time datetime={publishedIso}>{formatDate(post.data.date)}</time>
-								{post.data.updated && (
-									<>
-										{' '}
-										<span class="text-gray-400 dark:text-gray-500">·</span>
-										{' '}
-										<span class="sr-only">Updated on</span>
-										<time datetime={modifiedIso} class="text-gray-500 dark:text-gray-400">
-											Updated {formatDate(post.data.updated)}
-										</time>
-									</>
-								)}
-							</dd>
-						</div>
-					</dl>
-					<div>
-						<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
-							{post.data.title}
-						</h1>
-					</div>
-				</div>
-			</header>
-			<div
-				class="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
-				style="grid-template-rows: auto 1fr;"
-			>
-				<dl class="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
-					<dt class="sr-only">Author</dt>
-					<dd>
-						<ul class="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
-							<li class="flex items-center space-x-2">
-								<img
-									src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1652237380/pics/me-4x4.jpg"
-									alt=""
-									width="38"
-									height="38"
-									class="h-10 w-10 rounded-full"
-								/>
-								<dl class="whitespace-nowrap text-sm font-medium leading-5">
-									<dt class="sr-only">Name</dt>
-									<dd class="text-gray-900 dark:text-gray-100">Johan Guse</dd>
-									<dt class="sr-only">Twitter</dt>
-									<dd>
-										<a
-											href="https://twitter.com/johanguse"
-											class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											@johanguse
-										</a>
-									</dd>
-								</dl>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<div class="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-					<div class="prose max-w-none pb-8 pt-10 dark:prose-invert">
-						{post.data.tldr && (
-							<aside
-								class="not-prose mb-8 rounded-lg border border-primary-200 bg-primary-50 p-4 dark:border-primary-800 dark:bg-primary-950/40"
-								aria-label="Article summary"
-							>
-								<p class="text-sm font-semibold uppercase tracking-wide text-primary-800 dark:text-primary-200">
-									In this post
-								</p>
-								<p class="mt-2 whitespace-pre-line text-gray-800 dark:text-gray-200">{post.data.tldr}</p>
-							</aside>
-						)}
-						<Content />
-					</div>
-				</div>
-				<footer>
-					<div class="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-						{post.data.tags && post.data.tags.length > 0 && (
-							<div class="py-4 xl:py-8">
-								<h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Tags</h2>
-								<div class="flex flex-wrap">
-									{post.data.tags.map((tag) => (
-										<a
-											href={`/tags/${tagToUrlPath(tag)}/`}
-											class="mr-3 text-sm font-medium uppercase text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white"
-										>
-											{tag}
-										</a>
-									))}
-								</div>
-							</div>
-						)}
-						{(nextPost ?? prevPost) && (
-							<div class="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
-								{prevPost && (
-									<div>
-										<h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-											Previous Article
-										</h2>
-										<div class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-											<a href={`/blog/${prevPost.id}/`}>{prevPost.data.title}</a>
-										</div>
-									</div>
-								)}
-								{nextPost && (
-									<div>
-										<h2 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Next Article</h2>
-										<div class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-											<a href={`/blog/${nextPost.id}/`}>{nextPost.data.title}</a>
-										</div>
-									</div>
-								)}
-							</div>
-						)}
-					</div>
-					<div class="pt-4 xl:pt-8">
-						<a href="/blog/" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-							&larr; Back to the blog
-						</a>
-					</div>
-				</footer>
-			</div>
-		</div>
-	</article>
+  <div class="post-page">
+    <div class="container--narrow">
+      <!-- Back link -->
+      <div class="post-back">
+        <a href="/blog/" class="back-link">&larr; All writing</a>
+      </div>
 
-	<Footer slot="footer" />
+      <!-- Article header -->
+      <header class="post-header">
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="post-header-tags">
+            {post.data.tags.map((tag) => (
+              <a href={`/tags/${tagToUrlPath(tag)}/`} class="post-header-tag">
+                {tag}
+              </a>
+            ))}
+          </div>
+        )}
+
+        <h1 class="post-heading">{post.data.title}</h1>
+
+        <div class="post-meta">
+          <time class="post-meta-date" datetime={publishedIso}>
+            {formatDate(post.data.date)}
+          </time>
+          {post.data.updated && (
+            <>
+              <span class="post-meta-sep">·</span>
+              <time datetime={modifiedIso} class="post-meta-date">
+                Updated {formatDate(post.data.updated)}
+              </time>
+            </>
+          )}
+          <span class="post-meta-sep">·</span>
+          <span class="post-meta-author">{siteConfig.author}</span>
+        </div>
+      </header>
+
+      <!-- TLDR box -->
+      {post.data.tldr && (
+        <aside class="post-tldr" aria-label="Article summary">
+          <p class="post-tldr-label">In this post</p>
+          <p class="post-tldr-text">{post.data.tldr}</p>
+        </aside>
+      )}
+
+      <!-- Content -->
+      <div class="prose dark:prose-invert max-w-none">
+        <Content />
+      </div>
+
+      <!-- Footer nav -->
+      <nav class="post-nav" aria-label="Post navigation">
+        <div class="post-nav-inner">
+          {prevPost && (
+            <a href={`/blog/${prevPost.id}/`} class="post-nav-link post-nav-link--prev">
+              <span class="post-nav-dir">← Previous</span>
+              <span class="post-nav-title">{prevPost.data.title}</span>
+            </a>
+          )}
+          {nextPost && (
+            <a href={`/blog/${nextPost.id}/`} class="post-nav-link post-nav-link--next">
+              <span class="post-nav-dir">Next →</span>
+              <span class="post-nav-title">{nextPost.data.title}</span>
+            </a>
+          )}
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
 </BaseLayout>
+
+<style>
+  .post-page {
+    padding-top: calc(64px + clamp(2rem, 5vw, 3.5rem));
+    padding-bottom: clamp(4rem, 8vw, 8rem);
+    min-height: 100svh;
+  }
+
+  .post-back {
+    margin-bottom: 2.5rem;
+  }
+
+  .back-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-3);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  /* Header */
+  .post-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-header-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-header-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .post-header-tag:hover {
+    opacity: 0.75;
+  }
+
+  .post-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text-1);
+    line-height: 1.05;
+    margin: 0 0 1.25rem;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--text-3);
+  }
+
+  .post-meta-date,
+  .post-meta-author {
+    color: var(--text-3);
+  }
+
+  .post-meta-sep {
+    opacity: 0.4;
+  }
+
+  /* TLDR */
+  .post-tldr {
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.75rem;
+    background: var(--accent-dim);
+    border: 1px solid color-mix(in oklch, var(--accent) 25%, transparent);
+  }
+
+  .post-tldr-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0 0 0.6rem;
+  }
+
+  .post-tldr-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-1);
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  /* Post nav */
+  .post-nav {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .post-nav-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .post-nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .post-nav-link:hover {
+    border-color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 5%, var(--bg-elevated));
+  }
+
+  .post-nav-link--next {
+    text-align: right;
+    grid-column: 2;
+  }
+
+  .post-nav-dir {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .post-nav-title {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-1);
+    line-height: 1.3;
+  }
+</style>

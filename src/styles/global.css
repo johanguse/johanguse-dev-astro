@@ -9,17 +9,27 @@
 
 /* ─── Design tokens ──────────────────────────────────────────── */
 :root {
-  /* Light mode */
-  --bg:          oklch(0.97 0.006 280);
-  --bg-elevated: oklch(0.93 0.008 280);
-  --bg-card:     oklch(0.90 0.009 280);
-  --border:      oklch(0.82 0.01 280);
-  --text-1:      oklch(0.14 0.016 280);
-  --text-2:      oklch(0.40 0.012 280);
-  --text-3:      oklch(0.58 0.009 280);
-  --accent:      oklch(0.52 0.19 55);
-  --accent-dim:  oklch(0.92 0.06 55);
-  --accent-text: oklch(0.45 0.17 55);
+  /* Light mode — neutral grays, white cards, dark charcoal button */
+  --bg:          oklch(0.96 0.003 270);
+  --bg-elevated: oklch(0.98 0.002 270);
+  --bg-card:     oklch(1.00 0.000 0);
+  --border:      oklch(0.87 0.005 270);
+  --text-1:      oklch(0.13 0.008 270);
+  --text-2:      oklch(0.38 0.005 270);
+  --text-3:      oklch(0.57 0.004 270);
+  --accent:      oklch(0.50 0.21 52);
+  --accent-dim:  oklch(0.94 0.06 52);
+  --accent-text: oklch(0.44 0.18 52);
+
+  /* Buttons */
+  --btn-bg:      oklch(0.14 0.010 270);
+  --btn-text:    oklch(0.97 0.003 270);
+
+  /* Card shadow (only meaningful in light mode) */
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.06), 0 3px 10px oklch(0 0 0 / 0.07);
+
+  /* Nav background */
+  --nav-bg: color-mix(in oklch, var(--bg) 92%, transparent);
 
   /* Spacing scale */
   --space-xs:  4px;
@@ -41,6 +51,16 @@
   --accent:      oklch(0.76 0.190 55);
   --accent-dim:  oklch(0.24 0.07 55);
   --accent-text: oklch(0.78 0.18 55);
+
+  /* Buttons */
+  --btn-bg:      oklch(0.76 0.190 55);
+  --btn-text:    oklch(0.08 0.010 275);
+
+  /* No shadow in dark mode */
+  --shadow-card: none;
+
+  /* Nav background */
+  --nav-bg: color-mix(in oklch, var(--bg) 82%, transparent);
 }
 
 /* ─── Fonts ──────────────────────────────────────────────────── */
@@ -142,6 +162,37 @@ body {
   max-width: 760px;
   margin-inline: auto;
   padding-inline: clamp(1.25rem, 5vw, 4rem);
+}
+
+/* ─── Inner page layout (fullBleed pages below the fixed nav) ── */
+.inner-page {
+  padding-top: calc(64px + clamp(2.5rem, 6vw, 5rem));
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+  min-height: 100svh;
+}
+
+.page-header {
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  color: var(--text-1);
+  line-height: 0.93;
+  margin: 0.5rem 0 0;
+}
+
+.page-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-2);
+  margin-top: 1rem;
+  max-width: 54ch;
 }
 
 /* ─── Blog / prose pages (unchanged) ────────────────────────── */

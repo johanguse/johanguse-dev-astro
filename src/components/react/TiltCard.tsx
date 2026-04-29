@@ -17,6 +17,8 @@ export interface TiltCardProps {
   className?: string
   /** Max rotation in degrees (default 12) */
   rotationFactor?: number
+  /** Image height in px (default 180) */
+  imageHeight?: number
 }
 
 /**
@@ -41,6 +43,7 @@ export function TiltCard({
   children,
   className = '',
   rotationFactor = 12,
+  imageHeight = 180,
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const shineRef = useRef<HTMLDivElement>(null)
@@ -98,6 +101,7 @@ export function TiltCard({
         borderRadius: '1rem',
         background: 'var(--bg-card)',
         border: '1px solid var(--border)',
+        boxShadow: 'var(--shadow-card)',
         transition:
           'transform 0.14s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.14s ease',
         transformStyle: 'preserve-3d',
@@ -125,7 +129,7 @@ export function TiltCard({
         <div
           style={{
             overflow: 'hidden',
-            height: '180px',
+            height: `${imageHeight}px`,
             transformStyle: 'preserve-3d',
           }}
         >
