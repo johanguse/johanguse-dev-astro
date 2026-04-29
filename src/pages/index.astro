@@ -2,125 +2,531 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
-import ProjectCard from '../components/ProjectCard.astro'
-import { siteConfig } from '../data/siteConfig'
+import { TiltCard } from '../components/react/TiltCard'
+import { TextReveal } from '../components/react/TextReveal'
+import { PixelBackground } from '../components/react/PixelBackground'
 import { projectsData } from '../data/projectsData'
 import { getCollection } from 'astro:content'
 import { formatDate } from '../utils/helpers'
-import { tagToUrlPath } from '../utils/tagUrl'
 
-const featuredProjects = projectsData.slice(0, 6)
+const featuredProjects = projectsData.slice(0, 3)
 
 const allPosts = await getCollection('blog')
 const blogPosts = allPosts
-	.filter(post => !post.data.draft)
-	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-	.slice(0, 5)
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4)
 ---
 
 <BaseLayout
-	title="Portfolio, projects & technical blog"
-	description="Personal portfolio and blog by Johan Guse — full-stack engineering, React, TypeScript, cloud, and web performance. Based in Brazil."
+  title="Johan Guse — Design Engineer"
+  description="Design Engineer building interfaces that feel as good as they work. Based in Brazil."
+  fullBleed
 >
-	<Navigation slot="header" />
+  <Navigation slot="header" />
 
-	<div class="divide-y divide-gray-200 dark:divide-gray-700">
-		<!-- Latest Works -->
-		<div class="mb-14 mt-7">
-			<h1 class="mb-3 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-				Latest Works
-			</h1>
-			<p class="mb-8 text-lg leading-7 text-gray-500 dark:text-gray-400">
-				Check out my latest works!
-			</p>
-			<div class="-m-4 mb-6 flex flex-wrap">
-				{featuredProjects.map((project, index) => (
-					<ProjectCard
-						title={project.title}
-						description={project.description}
-						imgSrc={project.imgSrc}
-						href={project.href}
-						date={project.date}
-						skills={project.skills}
-						clientName={project.clientName}
-						clientURL={project.clientURL}
-						externalHref={project.externalHref}
-						imagePriority={index < 2}
-					/>
-				))}
-			</div>
-			<div class="flex justify-center text-base font-medium leading-6 pb-6">
-				<a href="/projects/" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-					Check out all projects &rarr;
-				</a>
-			</div>
-		</div>
+  <!-- ═══ HERO ════════════════════════════════════════════════════ -->
+  <section class="hero" aria-label="Introduction">
+    <PixelBackground
+      client:load
+      gap={8}
+      speed={32}
+      pattern="center"
+      darkColors="#2e2a45,#252238,#332b1a"
+      lightColors="#ddd8ec,#cfc9e2,#e8dfc8"
+      className="hero-canvas"
+    >
+      <div class="hero-content">
+        <p class="hero-eyebrow">
+          <span class="hero-dot" aria-hidden="true" />
+          Available for work &mdash; based in Brazil
+        </p>
 
-		<!-- Latest from Blog -->
-		<div class="mb-14 space-y-2 pb-8 pt-6 md:space-y-5">
-			<h2 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-				Latest from blog
-			</h2>
-			<p class="text-lg leading-7 text-gray-500 dark:text-gray-400">
-				{siteConfig.description}
-			</p>
+        <h1 class="hero-heading" aria-label="Design Engineer">
+          <span class="hero-word hero-word--thin">design</span>
+          <span class="hero-word hero-word--bold">Engineer</span>
+        </h1>
 
-			<ul class="divide-y divide-gray-200 dark:divide-gray-700">
-				{blogPosts.map((post) => (
-					<li class="py-12">
-						<article>
-							<div class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-								<dl>
-									<dt class="sr-only">Published on</dt>
-									<dd class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-										<time datetime={post.data.date.toISOString()}>
-											{formatDate(post.data.date)}
-										</time>
-									</dd>
-								</dl>
-								<div class="space-y-5 xl:col-span-3">
-									<div class="space-y-6">
-										<div>
-											<h2 class="text-2xl font-bold leading-8 tracking-tight">
-												<a href={`/blog/${post.id}/`} class="text-gray-900 dark:text-gray-100">
-													{post.data.title}
-												</a>
-											</h2>
-											{post.data.tags && (
-												<div class="flex flex-wrap">
-													{post.data.tags.map((tag) => (
-														<a href={`/tags/${tagToUrlPath(tag)}/`} class="mr-3 text-sm font-medium uppercase text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-															{tag}
-														</a>
-													))}
-												</div>
-											)}
-										</div>
-										<div class="prose max-w-none text-gray-500 dark:text-gray-400">
-											{post.data.description}
-										</div>
-									</div>
-									<div class="text-base font-medium leading-6">
-										<a href={`/blog/${post.id}/`} class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-											Read more: {post.data.title} &rarr;
-										</a>
-									</div>
-								</div>
-							</div>
-						</article>
-					</li>
-				))}
-			</ul>
+        <p class="hero-tagline">
+          Making interfaces that feel<br />as good as they work.
+        </p>
 
-			{allPosts.length > 5 && (
-				<div class="flex justify-end text-base font-medium leading-6">
-					<a href="/blog/" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white">
-						All Posts &rarr;
-					</a>
-				</div>
-			)}
-		</div>
-	</div>
+        <div class="hero-actions">
+          <a href="#work" class="btn-primary">View work</a>
+          <a href="/blog/" class="btn-ghost">Writing &rarr;</a>
+        </div>
+      </div>
 
-	<Footer slot="footer" />
+      <!-- Scroll hint -->
+      <div class="scroll-hint" aria-hidden="true">
+        <div class="scroll-hint-line" />
+      </div>
+    </PixelBackground>
+  </section>
+
+  <!-- ═══ SELECTED WORK ═══════════════════════════════════════════ -->
+  <section id="work" class="section" aria-label="Selected projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Selected Work</span>
+        <TextReveal
+          client:visible
+          text="Things I've built that I'm proud of."
+          as="h2"
+          className="section-heading"
+          staggerDelay={0.045}
+          duration={0.6}
+        />
+      </div>
+
+      <!-- Projects grid: asymmetric layout -->
+      <div class="projects-grid">
+        {featuredProjects.map((p, i) => (
+          <div class:list={['project-slot', i === 0 ? 'project-slot--featured' : '']}>
+            <TiltCard
+              client:visible
+              title={p.title}
+              description={p.description}
+              imageSrc={p.imgSrc}
+              href={p.href}
+              externalHref={p.externalHref}
+              skills={p.skills}
+              date={p.date}
+              rotationFactor={i === 0 ? 8 : 12}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div class="section-cta">
+        <a href="/projects/" class="cta-link">All projects &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ════════════════════════════════════════════════════ -->
+  <section class="section section--about" aria-label="About Johan">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-left">
+          <span class="section-label">About</span>
+          <div class="about-role">
+            <span class="about-role-line">Design</span>
+            <span class="about-role-line about-role-line--muted">Engineer</span>
+          </div>
+        </div>
+        <div class="about-right">
+          <TextReveal
+            client:visible
+            text="I'm a Design Engineer from Brazil who believes the best digital products are the ones you feel before you understand them."
+            as="p"
+            className="about-statement"
+            staggerDelay={0.022}
+            duration={0.65}
+          />
+          <p class="about-body">
+            I work in the space between design systems and production code —
+            where a component needs to be both pixel-perfect and battle-tested.
+            Currently focused on React, TypeScript, and building things that last.
+          </p>
+          <div class="about-actions">
+            <a href="/about/" class="cta-link">Full story &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WRITING ══════════════════════════════════════════════════ -->
+  <section class="section" aria-label="Recent writing">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Writing</span>
+        <h2 class="section-heading">Thoughts &amp; notes</h2>
+      </div>
+
+      <ul class="posts-list" role="list">
+        {blogPosts.map((post, i) => (
+          <li class="post-item" style={`--i: ${i}`}>
+            <a href={`/blog/${post.id}/`} class="post-link">
+              <time class="post-date" datetime={post.data.date.toISOString()}>
+                {formatDate(post.data.date)}
+              </time>
+              <span class="post-title">{post.data.title}</span>
+              <span class="post-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="section-cta">
+        <a href="/blog/" class="cta-link">All writing &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
 </BaseLayout>
+
+<style>
+  /* ── Hero ─────────────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+  }
+
+  .hero-canvas {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 6rem;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 6rem clamp(1.25rem, 5vw, 4rem) 0;
+    padding-top: 7rem; /* clear fixed nav */
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .hero-heading {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.9;
+    margin: 0 0 2.5rem;
+    letter-spacing: -0.04em;
+    font-family: var(--font-display);
+  }
+
+  .hero-word {
+    display: block;
+  }
+
+  .hero-word--thin {
+    font-size: clamp(3rem, 9vw, 8rem);
+    font-weight: 300;
+    color: var(--text-2);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-word--bold {
+    font-size: clamp(3.5rem, 12vw, 11rem);
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.05em;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    font-weight: 400;
+    color: var(--text-2);
+    line-height: 1.55;
+    margin: 0 0 3rem;
+    max-width: 38ch;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--accent);
+    color: oklch(0.08 0.01 275);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: var(--text-2);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .btn-ghost:hover {
+    color: var(--text-1);
+    border-color: var(--text-3);
+    background: var(--bg-elevated);
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0.35;
+  }
+
+  .scroll-hint-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--text-2), transparent);
+    animation: scrollDown 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+    40%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    60%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+
+  /* ── Sections ─────────────────────────────────────────────────── */
+  .section {
+    padding-block: clamp(5rem, 10vw, 8rem);
+  }
+
+  .section--about {
+    background: var(--bg-elevated);
+    border-block: 1px solid var(--border);
+  }
+
+  .section-header {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--text-1);
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  /* ── Projects grid ────────────────────────────────────────────── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .project-slot--featured {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .projects-grid {
+      grid-template-columns: 3fr 2fr;
+      grid-template-rows: auto auto;
+    }
+    .project-slot--featured {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+    .project-slot--featured :global(.tilt-card-img) {
+      height: 280px;
+    }
+  }
+
+  /* ── About ────────────────────────────────────────────────────── */
+  .about-grid {
+    display: grid;
+    gap: 3rem 5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+
+  .about-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .about-role {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .about-role-line--muted {
+    color: var(--text-3);
+  }
+
+  .about-statement {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+    color: var(--text-1);
+    margin: 0 0 1.5rem;
+  }
+
+  .about-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-2);
+    max-width: 58ch;
+    margin: 0 0 2rem;
+  }
+
+  .about-actions {
+    margin-top: 0.5rem;
+  }
+
+  /* ── Writing ──────────────────────────────────────────────────── */
+  .posts-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-item {
+    border-top: 1px solid var(--border);
+    transition: background 0.15s ease;
+  }
+
+  .post-item:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 0;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.15s ease;
+  }
+
+  .post-link:hover .post-title {
+    color: var(--accent);
+  }
+
+  .post-link:hover .post-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+
+  .post-date {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    min-width: 7rem;
+  }
+
+  .post-title {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-1);
+    transition: color 0.15s ease;
+    line-height: 1.3;
+  }
+
+  .post-arrow {
+    font-size: 1rem;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  /* ── CTA link ─────────────────────────────────────────────────── */
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in oklch, var(--accent) 35%, transparent);
+    padding-bottom: 1px;
+    transition: border-color 0.15s ease;
+  }
+
+  .cta-link:hover {
+    border-color: var(--accent);
+  }
+
+  .section-cta {
+    margin-top: 2.5rem;
+  }
+</style>
