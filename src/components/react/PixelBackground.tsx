@@ -108,8 +108,10 @@ export function PixelBackground({
 
       // Advance waves
       for (let i = waves.length - 1; i >= 0; i--) {
-        waves[i].radius += speedPx * dt
-        if (waves[i].radius > waves[i].maxRadius + falloff) {
+        const wave = waves[i]
+        if (!wave) continue
+        wave.radius += speedPx * dt
+        if (wave.radius > wave.maxRadius + falloff) {
           waves.splice(i, 1)
         }
       }
@@ -137,7 +139,7 @@ export function PixelBackground({
               colors.length) %
             colors.length
 
-          ctx.fillStyle = colors[ci]
+          ctx.fillStyle = colors[ci] ?? '#000'
           ctx.globalAlpha = brightness
           ctx.fillRect(px - pixelSz / 2, py - pixelSz / 2, pixelSz, pixelSz)
         }

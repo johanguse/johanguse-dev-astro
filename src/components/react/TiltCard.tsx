@@ -7,9 +7,9 @@ export interface TiltCardProps {
   imageSrc?: string
   imageAlt?: string
   href?: string
-  externalHref?: string
-  skills?: string[]
-  date?: string
+  externalHref?: string | undefined
+  skills?: string[] | undefined
+  date?: string | undefined
   /** Optional badge label */
   badge?: string
   badgeVariant?: 'success' | 'warning'
