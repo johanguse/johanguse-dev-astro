@@ -2,6 +2,7 @@
 import '../styles/global.css'
 import { siteConfig } from '../data/siteConfig'
 import { ClientRouter } from 'astro:transitions'
+import CookieConsent from '../components/CookieConsent.astro'
 
 interface Props {
 	title?: string
@@ -50,16 +51,21 @@ const ogImageAbsolute = ogImage?.startsWith('http')
 		<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="canonical" href={canonicalURL.href} />
-
-		<!-- Google Analytics 4 (production only) -->
-		<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-747YQL1T1S"></script>
+		<!-- Google consent defaults. GTM itself is loaded only after optional consent. -->
 		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-747YQL1T1S', {
-				page_path: window.location.pathname,
-			});
+			window.dataLayer = window.dataLayer || []
+			function gtag() {
+				dataLayer.push(arguments)
+			}
+			gtag('consent', 'default', {
+				analytics_storage: 'denied',
+				ad_storage: 'denied',
+				ad_user_data: 'denied',
+				ad_personalization: 'denied',
+				functionality_storage: 'granted',
+				security_storage: 'granted',
+				wait_for_update: 500,
+			})
 		</script>
 
 		<title>{pageTitle}</title>
@@ -117,5 +123,6 @@ const ogImageAbsolute = ogImage?.startsWith('http')
 			applyTheme()
 			document.addEventListener('astro:after-swap', applyTheme)
 		</script>
+		<CookieConsent />
 	</body>
 </html>

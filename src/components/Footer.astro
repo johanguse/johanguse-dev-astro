@@ -35,6 +35,16 @@ import { siteConfig } from '../data/siteConfig'
 		<div class="mb-8 text-sm text-gray-500 dark:text-gray-400">
 			Built with{' '}
 			<a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="underline">Astro</a>
+			<span aria-hidden="true"> &bull; </span>
+			<a href="/privacy/" class="underline">Privacy</a>
+			<span aria-hidden="true"> &bull; </span>
+			<button
+				type="button"
+				class="js-manage-cookies cursor-pointer underline"
+				data-cc="show-preferencesModal"
+			>
+				Cookie preferences
+			</button>
 		</div>
 	</div>
 </footer>

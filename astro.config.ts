@@ -16,12 +16,6 @@ export default defineConfig({
 	experimental: {
 		clientPrerender: true,
 		contentIntellisense: true,
-		svgo: true,
-		rustCompiler: true,
-		queuedRendering: {
-			enabled: true,
-			contentCache: true,
-		},
 	},
 	prefetch: {
 		defaultStrategy: "hover",
