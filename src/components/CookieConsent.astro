@@ -1,0 +1,268 @@
+<script>
+	import 'vanilla-cookieconsent/dist/cookieconsent.css'
+	import * as CookieConsent from 'vanilla-cookieconsent'
+
+	declare global {
+		interface Window {
+			dataLayer?: unknown[]
+			gtag?: (...args: unknown[]) => void
+		}
+	}
+
+	function loadGTM() {
+		if (document.querySelector('[data-gtm-container="GTM-TRQC29GV"]')) return
+
+		window.dataLayer = window.dataLayer || []
+		window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+
+		const script = document.createElement('script')
+		script.async = true
+		script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TRQC29GV'
+		script.dataset.gtmContainer = 'GTM-TRQC29GV'
+		document.head?.appendChild(script)
+	}
+
+	function updateGTMConsent(analytics: boolean, marketing: boolean) {
+		window.gtag?.('consent', 'update', {
+			analytics_storage: analytics ? 'granted' : 'denied',
+			ad_storage: marketing ? 'granted' : 'denied',
+			ad_user_data: marketing ? 'granted' : 'denied',
+			ad_personalization: marketing ? 'granted' : 'denied',
+		})
+		window.dataLayer?.push({
+			event: 'cookie_consent_updated',
+			analytics_consent: analytics ? 'granted' : 'denied',
+			marketing_consent: marketing ? 'granted' : 'denied',
+		})
+
+		if (analytics || marketing) loadGTM()
+	}
+
+	void CookieConsent.run({
+		cookie: {
+			name: 'johanguse_cookie_consent',
+			path: '/',
+			sameSite: 'Lax',
+			expiresAfterDays: 365,
+		},
+		guiOptions: {
+			consentModal: {
+				layout: 'box inline',
+				position: 'bottom right',
+				equalWeightButtons: true,
+			},
+			preferencesModal: {
+				layout: 'box',
+				position: 'right',
+				equalWeightButtons: true,
+			},
+		},
+		categories: {
+			necessary: {
+				enabled: true,
+				readOnly: true,
+			},
+			analytics: {
+				enabled: false,
+				readOnly: false,
+				autoClear: {
+					cookies: [{ name: /^_ga($|_)/ }, { name: /^_gid$/ }, { name: /^_gat/ }],
+				},
+			},
+			marketing: {
+				enabled: false,
+				readOnly: false,
+				autoClear: {
+					cookies: [{ name: /^_twclid$/ }],
+				},
+			},
+		},
+		language: {
+			default: 'en',
+			translations: {
+				en: {
+					consentModal: {
+						title: 'We use cookies',
+						description:
+							'We use a necessary cookie to remember your choices. With your permission, we use analytics and marketing technologies. <a href="/privacy/">Privacy Policy</a>',
+						acceptAllBtn: 'Accept all',
+						acceptNecessaryBtn: 'Reject optional',
+						showPreferencesBtn: 'Manage preferences',
+						footer: '<a href="/privacy/">Privacy Policy</a>',
+					},
+					preferencesModal: {
+						title: 'Cookie preferences',
+						acceptAllBtn: 'Accept all',
+						acceptNecessaryBtn: 'Reject optional',
+						savePreferencesBtn: 'Save preferences',
+						closeIconLabel: 'Close',
+						serviceCounterLabel: 'Service|Services',
+						sections: [
+							{
+								title: 'How we use cookies',
+								description:
+									'You can choose analytics and marketing separately. Your choice can be changed at any time from the Cookie preferences link in the footer.',
+							},
+							{
+								title: 'Strictly necessary cookies <span class="pm__badge">Always enabled</span>',
+								description:
+									'These cookies remember your cookie choice and are required for the consent controls to work.',
+								linkedCategory: 'necessary',
+							},
+							{
+								title: 'Analytics cookies',
+								description:
+									'Google Analytics 4 and Request Metrics help us understand site usage and performance. They are loaded only after you opt in.',
+								linkedCategory: 'analytics',
+								cookieTable: {
+									headers: {
+										name: 'Cookie / service',
+										domain: 'Domain',
+										description: 'Purpose',
+										expiration: 'Expiration',
+									},
+									body: [
+										{
+											name: '_ga',
+											domain: window.location.hostname,
+											description: 'Google Analytics visitor identifier',
+											expiration: 'Up to 2 years',
+										},
+										{
+											name: '_gid',
+											domain: window.location.hostname,
+											description: 'Google Analytics session identifier',
+											expiration: 'Up to 24 hours',
+										},
+										{
+											name: 'Request Metrics local storage',
+											domain: window.location.hostname,
+											description: 'Session timestamp used for performance analytics; not a cookie',
+											expiration: 'Set by the provider',
+										},
+									],
+								},
+							},
+							{
+								title: 'Marketing cookies',
+								description:
+									'The X website tag measures advertising effectiveness and may store or read advertising identifiers. It is loaded only after you opt in.',
+								linkedCategory: 'marketing',
+								cookieTable: {
+									headers: {
+										name: 'Cookie / service',
+										domain: 'Domain',
+										description: 'Purpose',
+										expiration: 'Expiration',
+									},
+									body: [
+										{
+											name: '_twclid',
+											domain: window.location.hostname,
+											description: 'X advertising click identifier',
+											expiration: '30 days',
+										},
+									],
+								},
+							},
+						],
+					},
+				},
+			},
+		},
+		onConsent: () => {
+			updateGTMConsent(
+				CookieConsent.acceptedCategory('analytics'),
+				CookieConsent.acceptedCategory('marketing'),
+			)
+		},
+		onChange: () => {
+			updateGTMConsent(
+				CookieConsent.acceptedCategory('analytics'),
+				CookieConsent.acceptedCategory('marketing'),
+			)
+		},
+	})
+
+	document.addEventListener('click', (event) => {
+		const button = (event.target as Element | null)?.closest('.js-manage-cookies')
+		if (!button) return
+
+		event.preventDefault()
+		CookieConsent.showPreferences()
+	})
+</script>
+
+<style is:global>
+	#cc-main {
+		--cc-font-family: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+		--cc-bg: #ffffff;
+		--cc-primary-color: #111827;
+		--cc-secondary-color: #4b5563;
+		--cc-btn-primary-bg: #1d4ed8;
+		--cc-btn-primary-color: #ffffff;
+		--cc-btn-primary-border-color: #1d4ed8;
+		--cc-btn-primary-hover-bg: #1e40af;
+		--cc-btn-primary-hover-color: #ffffff;
+		--cc-btn-primary-hover-border-color: #1e40af;
+		--cc-btn-secondary-bg: #f3f4f6;
+		--cc-btn-secondary-color: #111827;
+		--cc-btn-secondary-border-color: #d1d5db;
+		--cc-btn-secondary-hover-bg: #e5e7eb;
+		--cc-btn-secondary-hover-color: #111827;
+		--cc-btn-secondary-hover-border-color: #9ca3af;
+		--cc-separator-border-color: #d1d5db;
+		--cc-toggle-on-bg: #1d4ed8;
+		--cc-toggle-off-bg: #9ca3af;
+		--cc-toggle-on-knob-bg: #ffffff;
+		--cc-toggle-off-knob-bg: #ffffff;
+		--cc-toggle-enabled-icon-color: #ffffff;
+		--cc-toggle-disabled-icon-color: #ffffff;
+		--cc-toggle-readonly-bg: #e5e7eb;
+		--cc-toggle-readonly-knob-bg: #9ca3af;
+		--cc-toggle-readonly-knob-icon-color: #ffffff;
+		--cc-cookie-category-block-bg: #f9fafb;
+		--cc-cookie-category-block-border: #d1d5db;
+		--cc-cookie-category-block-hover-bg: #eff6ff;
+		--cc-cookie-category-block-hover-border: #1d4ed8;
+		--cc-section-category-border: #d1d5db;
+		--cc-footer-bg: #f9fafb;
+		--cc-footer-border-color: #d1d5db;
+		--cc-footer-color: #4b5563;
+	}
+
+	html.dark #cc-main {
+		--cc-bg: #111827;
+		--cc-primary-color: #f3f4f6;
+		--cc-secondary-color: #d1d5db;
+		--cc-btn-primary-bg: #93bbfd;
+		--cc-btn-primary-color: #111827;
+		--cc-btn-primary-border-color: #93bbfd;
+		--cc-btn-primary-hover-bg: #bdd4fe;
+		--cc-btn-primary-hover-color: #111827;
+		--cc-btn-primary-hover-border-color: #bdd4fe;
+		--cc-btn-secondary-bg: #1f2937;
+		--cc-btn-secondary-color: #f3f4f6;
+		--cc-btn-secondary-border-color: #4b5563;
+		--cc-btn-secondary-hover-bg: #374151;
+		--cc-btn-secondary-hover-color: #ffffff;
+		--cc-btn-secondary-hover-border-color: #6b7280;
+		--cc-separator-border-color: #4b5563;
+		--cc-toggle-off-bg: #6b7280;
+		--cc-toggle-readonly-bg: #374151;
+		--cc-toggle-readonly-knob-bg: #9ca3af;
+		--cc-cookie-category-block-bg: #1f2937;
+		--cc-cookie-category-block-border: #4b5563;
+		--cc-cookie-category-block-hover-bg: #172554;
+		--cc-cookie-category-block-hover-border: #93bbfd;
+		--cc-section-category-border: #4b5563;
+		--cc-footer-bg: #1f2937;
+		--cc-footer-border-color: #4b5563;
+		--cc-footer-color: #d1d5db;
+	}
+
+	#cc-main .cm,
+	#cc-main .pm {
+		border-radius: 0.5rem;
+	}
+</style>

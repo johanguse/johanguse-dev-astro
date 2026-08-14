@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Navigation from '../components/Navigation.astro'
+import Footer from '../components/Footer.astro'
+import { siteConfig } from '../data/siteConfig'
+---
+
+<BaseLayout title="Privacy Policy" description="How johanguse.dev uses cookies and analytics data.">
+	<Navigation slot="header" />
+
+	<article class="prose max-w-none pb-12 pt-8 dark:prose-invert">
+		<h1>Privacy Policy</h1>
+		<p><strong>Last updated:</strong> July 29, 2026</p>
+
+		<h2>Who is responsible for this site</h2>
+		<p>
+			{siteConfig.author} operates johanguse.dev (the “site”) and is responsible for the data practices described here. This policy applies to the portfolio and blog at this domain. For privacy questions or requests, contact <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+		</p>
+
+		<h2>Information we collect</h2>
+		<ul>
+			<li><strong>Cookie preferences:</strong> the choice you make in the cookie-consent banner, so we can respect it on later visits.</li>
+			<li><strong>Analytics data:</strong> if you allow analytics, Google Analytics 4 may collect pages viewed, approximate location, device or browser details, traffic source, and interactions with the site. Request Metrics collects performance and usage information and stores a session timestamp in local storage. According to its documentation, it creates a site-scoped hash from the website token, IP address, and browser user agent, then discards the IP address.</li>
+			<li><strong>Marketing data:</strong> if you allow marketing, the X website tag may process advertising click identifiers and technical information to measure advertising effectiveness.</li>
+			<li><strong>Contact information:</strong> if you email us, we receive the information you include in that message.</li>
+		</ul>
+
+		<h2>Cookies and consent</h2>
+		<p>
+			The necessary <code>johanguse_cookie_consent</code> cookie stores your consent choice for up to one year. Analytics and marketing are optional and disabled by default. You may accept, reject, or change each choice at any time using the <strong>Cookie preferences</strong> link in the site footer. Withdrawing consent prevents future optional-tag loading; first-party cookies managed by the consent tool are cleared where possible. Browser controls may be needed to clear third-party cookies set on another provider’s domain.
+		</p>
+		<p>
+			The current optional technologies are Google Analytics 4 (including <code>_ga</code> and <code>_gid</code> cookies), Request Metrics local storage, and the X website tag. X documents a first-party <code>_twclid</code> advertising cookie with a 30-day lifetime; it may also use third-party cookies under its own domains. The preference centre lists the first-party storage known to this site.
+		</p>
+
+		<h2>How we use information</h2>
+		<p>
+			We use consent preferences to honour your choices, analytics and performance data to improve site content and reliability, marketing data to measure advertising effectiveness, and email messages to respond to your request. We do not sell personal information.
+		</p>
+
+		<h2>Service providers</h2>
+		<p>
+			Google Tag Manager loads the optional services only after you make an optional-consent choice. The providers are Google LLC for Tag Manager and Google Analytics, Request Metrics for performance analytics, and X for marketing measurement. Their processing may occur outside your country. Review their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>, <a href="https://requestmetrics.com/docs/security-privacy/end-user-data" target="_blank" rel="noopener noreferrer">Request Metrics end-user data documentation</a>, and <a href="https://x.com/en/privacy" target="_blank" rel="noopener noreferrer">X Privacy Policy</a> for their current practices. The site may also use hosting and security providers to deliver and protect the service.
+		</p>
+
+		<h2>Retention</h2>
+		<p>
+			The consent record is retained for up to one year unless you clear it earlier. The known first-party cookie durations are listed above; analytics, performance, marketing, and email data are retained according to the active provider settings or only as long as reasonably needed to respond or maintain necessary records.
+		</p>
+
+		<h2>Your choices and rights</h2>
+		<p>
+			Depending on where you live, including under Brazil’s LGPD, you may have rights to request confirmation of processing, access, correction, deletion or anonymisation in applicable circumstances, information about sharing, and withdrawal of consent. To make a request or ask a privacy question, email <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+		</p>
+
+		<h2>Changes to this policy</h2>
+		<p>
+			We may update this policy when the site or its data practices change. The latest version will always be available on this page.
+		</p>
+	</article>
+
+	<Footer slot="footer" />
+</BaseLayout>

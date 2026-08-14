@@ -22,6 +22,16 @@ import { siteConfig } from '../data/siteConfig'
         <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="footer-built-link">
           Built with Astro
         </a>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <a href="/privacy/" class="footer-built-link">Privacy</a>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <button
+          type="button"
+          class="footer-built-link footer-cookie-button js-manage-cookies"
+          data-cc="show-preferencesModal"
+        >
+          Cookie preferences
+        </button>
       </div>
 
       <div class="footer-socials">
@@ -134,6 +144,14 @@ import { siteConfig } from '../data/siteConfig'
 
   .footer-built-link:hover {
     color: var(--text-2);
+  }
+
+  .footer-cookie-button {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
   }
 
   .footer-socials {
