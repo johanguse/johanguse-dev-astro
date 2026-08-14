@@ -115,11 +115,6 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5f'
               <textarea id="message" name="message" rows="6" required maxlength="5000"></textarea>
             </div>
 
-            <div class="contact-honeypot" aria-hidden="true">
-              <label for="website">Website</label>
-              <input id="website" name="website" tabindex="-1" autocomplete="off" />
-            </div>
-
             <div
               class="cf-turnstile"
               data-sitekey={turnstileSiteKey}
@@ -546,16 +541,6 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5f'
     border-color: var(--accent);
     box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 24%, transparent);
     outline: none;
-  }
-
-  .contact-honeypot {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    white-space: nowrap;
   }
 
   .contact-form-footer {

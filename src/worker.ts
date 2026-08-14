@@ -1,5 +1,5 @@
 const CONTACT_RECIPIENT = "johanguse@gmail.com";
-const CONTACT_SENDER = "contact@johanguse.dev";
+const CONTACT_SENDER = "contact@email.johanguse.dev";
 const TURNSTILE_ACTION = "turnstile-spin-v1";
 
 declare global {
@@ -21,7 +21,6 @@ type ContactPayload = {
 	projectType: string;
 	message: string;
 	token: string;
-	website: string;
 };
 
 const json = (body: Record<string, string>, init: ResponseInit = {}) =>
@@ -66,7 +65,6 @@ async function parseContactPayload(request: Request): Promise<ContactPayload | n
 		projectType: field(formData, "projectType", 80),
 		message: field(formData, "message", 5_000),
 		token: field(formData, "cf-turnstile-response", 2_048),
-		website: field(formData, "website", 200),
 	};
 }
 
@@ -94,8 +92,6 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 
 	const payload = await parseContactPayload(request);
 	if (!payload) return json({ error: "Invalid form submission." }, { status: 400 });
-
-	if (payload.website) return json({ message: "Thanks — your message is on its way." });
 
 	if (!payload.name || !payload.email || !payload.message || !isEmail(payload.email)) {
 		return json({ error: "Please provide your name, a valid email address, and a message." }, { status: 400 });
@@ -139,14 +135,15 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 	`;
 
 	try {
-		await env.EMAIL.send({
+		const emailResponse = await env.EMAIL.send({
 			to: CONTACT_RECIPIENT,
-			from: { email: CONTACT_SENDER, name: "JohanGuse.dev" },
+			from: { email: CONTACT_SENDER, name: "Johan Guse" },
 			replyTo: { email: payload.email, name: payload.name },
 			subject,
 			html,
 			text,
 		});
+		console.info("Contact email accepted by Cloudflare", { messageId: emailResponse.messageId });
 	} catch (error) {
 		console.error("Contact email failed to send", error);
 		return json({ error: "Your message could not be sent. Please try again or email Johan directly." }, { status: 502 });
