@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
+import ContactCta from '../../components/ContactCta.astro'
 import { getCollection, render } from 'astro:content'
 import { formatDate } from '../../utils/helpers'
 import { tagToUrlPath } from '../../utils/tagUrl'
@@ -96,6 +97,7 @@ const jsonLdRaw = JSON.stringify(jsonLd)
         {post.data.tags && post.data.tags.length > 0 && (
           <div class="post-header-tags">
             {post.data.tags.map((tag) => (
+              // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this tag list statically.
               <a href={`/tags/${tagToUrlPath(tag)}/`} class="post-header-tag">
                 {tag}
               </a>
@@ -152,6 +154,12 @@ const jsonLdRaw = JSON.stringify(jsonLd)
           )}
         </div>
       </nav>
+
+      <ContactCta
+        eyebrow="Continue the conversation"
+        title="Working through a similar problem?"
+        description="Share the context and I’ll see whether I can help move it forward."
+      />
     </div>
   </div>
 

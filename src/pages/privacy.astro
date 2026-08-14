@@ -5,59 +5,80 @@ import Footer from '../components/Footer.astro'
 import { siteConfig } from '../data/siteConfig'
 ---
 
-<BaseLayout title="Privacy Policy" description="How johanguse.dev uses cookies and analytics data.">
+<BaseLayout title="Privacy Policy" description="How johanguse.dev uses contact information, cookies, and optional analytics." fullBleed>
 	<Navigation slot="header" />
 
-	<article class="prose max-w-none pb-12 pt-8 dark:prose-invert">
-		<h1>Privacy Policy</h1>
-		<p><strong>Last updated:</strong> July 29, 2026</p>
+	<article class="inner-page legal-page">
+		<div class="container--narrow">
+			<header class="page-header">
+				<span class="section-label">Legal</span>
+				<h1 class="page-title">Privacy Policy</h1>
+				<p class="page-subtitle">A clear account of the limited data this portfolio uses and the choices you have.</p>
+			</header>
 
-		<h2>Who is responsible for this site</h2>
-		<p>
-			{siteConfig.author} operates johanguse.dev (the “site”) and is responsible for the data practices described here. This policy applies to the portfolio and blog at this domain. For privacy questions or requests, contact <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
-		</p>
+			<div class="prose legal-prose dark:prose-invert max-w-none">
+				<p><strong>Last updated:</strong> August 14, 2026</p>
 
-		<h2>Information we collect</h2>
-		<ul>
-			<li><strong>Cookie preferences:</strong> the choice you make in the cookie-consent banner, so we can respect it on later visits.</li>
-			<li><strong>Analytics data:</strong> if you allow analytics, Google Analytics 4 may collect pages viewed, approximate location, device or browser details, traffic source, and interactions with the site. Request Metrics collects performance and usage information and stores a session timestamp in local storage. According to its documentation, it creates a site-scoped hash from the website token, IP address, and browser user agent, then discards the IP address.</li>
-			<li><strong>Marketing data:</strong> if you allow marketing, the X website tag may process advertising click identifiers and technical information to measure advertising effectiveness.</li>
-			<li><strong>Contact information:</strong> if you email us, we receive the information you include in that message.</li>
-		</ul>
+				<h2>Who is responsible for this site</h2>
+				<p>
+					{siteConfig.author} operates johanguse.dev (the “site”) and is responsible for the practices described here. This policy applies to the portfolio, blog, and contact form. For privacy questions or requests, email <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+				</p>
 
-		<h2>Cookies and consent</h2>
-		<p>
-			The necessary <code>johanguse_cookie_consent</code> cookie stores your consent choice for up to one year. Analytics and marketing are optional and disabled by default. You may accept, reject, or change each choice at any time using the <strong>Cookie preferences</strong> link in the site footer. Withdrawing consent prevents future optional-tag loading; first-party cookies managed by the consent tool are cleared where possible. Browser controls may be needed to clear third-party cookies set on another provider’s domain.
-		</p>
-		<p>
-			The current optional technologies are Google Analytics 4 (including <code>_ga</code> and <code>_gid</code> cookies), Request Metrics local storage, and the X website tag. X documents a first-party <code>_twclid</code> advertising cookie with a 30-day lifetime; it may also use third-party cookies under its own domains. The preference centre lists the first-party storage known to this site.
-		</p>
+				<h2>Information we collect</h2>
+				<ul>
+					<li><strong>Cookie preferences:</strong> the consent choice you make, so the site can remember it on later visits.</li>
+					<li><strong>Contact submissions:</strong> your name, email address, company, project type, and message when you use the contact form. Cloudflare Turnstile also processes technical information needed to protect the form from abuse.</li>
+					<li><strong>Analytics data:</strong> if you allow analytics, Google Analytics 4 may collect pages viewed, approximate location, device or browser details, traffic source, and interactions. Request Metrics collects performance and usage information and stores a session timestamp in local storage.</li>
+					<li><strong>Marketing data:</strong> if you allow marketing, the X website tag may process advertising click identifiers and technical information to measure advertising effectiveness.</li>
+				</ul>
 
-		<h2>How we use information</h2>
-		<p>
-			We use consent preferences to honour your choices, analytics and performance data to improve site content and reliability, marketing data to measure advertising effectiveness, and email messages to respond to your request. We do not sell personal information.
-		</p>
+				<h2>Cookies and consent</h2>
+				<p>
+					The necessary <code>johanguse_cookie_consent</code> cookie stores your choices for up to one year. Analytics and marketing are optional and disabled by default. You can accept, reject, or change each choice at any time through <button class="legal-cookie-button js-manage-cookies" type="button">Cookie preferences</button>. Withdrawing consent prevents future optional-tag loading; first-party cookies managed by the consent tool are cleared where possible.
+				</p>
+				<p>
+					The current optional technologies are Google Analytics 4 (including <code>_ga</code> and <code>_gid</code> cookies), Request Metrics local storage, and the X website tag. The preference centre lists the first-party storage known to this site.
+				</p>
 
-		<h2>Service providers</h2>
-		<p>
-			Google Tag Manager loads the optional services only after you make an optional-consent choice. The providers are Google LLC for Tag Manager and Google Analytics, Request Metrics for performance analytics, and X for marketing measurement. Their processing may occur outside your country. Review their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>, <a href="https://requestmetrics.com/docs/security-privacy/end-user-data" target="_blank" rel="noopener noreferrer">Request Metrics end-user data documentation</a>, and <a href="https://x.com/en/privacy" target="_blank" rel="noopener noreferrer">X Privacy Policy</a> for their current practices. The site may also use hosting and security providers to deliver and protect the service.
-		</p>
+				<h2>How we use information</h2>
+				<p>
+					We use consent preferences to honour your choices, optional analytics and performance data to improve the site, marketing data to measure advertising effectiveness, and contact submissions to respond to your enquiry. We do not sell personal information.
+				</p>
 
-		<h2>Retention</h2>
-		<p>
-			The consent record is retained for up to one year unless you clear it earlier. The known first-party cookie durations are listed above; analytics, performance, marketing, and email data are retained according to the active provider settings or only as long as reasonably needed to respond or maintain necessary records.
-		</p>
+				<h2>Service providers</h2>
+				<p>
+					Cloudflare provides hosting, Turnstile bot protection, and the contact-form email delivery. Google Tag Manager loads optional services only after you choose optional consent. Other current providers include Google for Analytics, Request Metrics for performance analytics, and X for marketing measurement. Their processing may occur outside your country. Review the <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare Privacy Policy</a>, <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>, <a href="https://requestmetrics.com/docs/security-privacy/end-user-data" target="_blank" rel="noopener noreferrer">Request Metrics end-user data documentation</a>, and <a href="https://x.com/en/privacy" target="_blank" rel="noopener noreferrer">X Privacy Policy</a> for their current practices.
+				</p>
 
-		<h2>Your choices and rights</h2>
-		<p>
-			Depending on where you live, including under Brazil’s LGPD, you may have rights to request confirmation of processing, access, correction, deletion or anonymisation in applicable circumstances, information about sharing, and withdrawal of consent. To make a request or ask a privacy question, email <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
-		</p>
+				<h2>Retention</h2>
+				<p>
+					The consent record is retained for up to one year unless you clear it earlier. Contact enquiries are retained only as long as reasonably needed to respond or maintain necessary records. Optional analytics and marketing data are retained according to the active provider settings.
+				</p>
 
-		<h2>Changes to this policy</h2>
-		<p>
-			We may update this policy when the site or its data practices change. The latest version will always be available on this page.
-		</p>
+				<h2>Your choices and rights</h2>
+				<p>
+					Depending on where you live, including under Brazil’s LGPD, you may have rights to request confirmation of processing, access, correction, deletion or anonymisation in applicable circumstances, information about sharing, and withdrawal of consent. To make a request or ask a privacy question, email <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+				</p>
+
+				<h2>Changes to this policy</h2>
+				<p>We may update this policy when the site or its practices change. The latest version will always be available on this page.</p>
+			</div>
+		</div>
 	</article>
 
 	<Footer slot="footer" />
 </BaseLayout>
+
+<style>
+	.legal-prose :global(.legal-cookie-button) {
+		color: var(--accent);
+		font: inherit;
+		font-weight: 600;
+		text-decoration: underline;
+		text-underline-offset: 0.16em;
+		background: transparent;
+		border: 0;
+		padding: 0;
+		cursor: pointer;
+	}
+</style>

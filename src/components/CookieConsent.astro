@@ -1,11 +1,13 @@
 <script>
 	import 'vanilla-cookieconsent/dist/cookieconsent.css'
-	import * as CookieConsent from 'vanilla-cookieconsent'
+	import { acceptedCategory, run, showPreferences } from 'vanilla-cookieconsent'
 
 	declare global {
 		interface Window {
 			dataLayer?: unknown[]
 			gtag?: (...args: unknown[]) => void
+			johanCookieConsentInitialized?: boolean
+			johanCookiePreferenceListenerBound?: boolean
 		}
 	}
 
@@ -13,7 +15,7 @@
 		if (document.querySelector('[data-gtm-container="GTM-TRQC29GV"]')) return
 
 		window.dataLayer = window.dataLayer || []
-		window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+		window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' })
 
 		const script = document.createElement('script')
 		script.async = true
@@ -23,6 +25,8 @@
 	}
 
 	function updateGTMConsent(analytics: boolean, marketing: boolean) {
+		window.dataLayer = window.dataLayer || []
+		window.gtag = window.gtag || ((...args) => window.dataLayer?.push(args))
 		window.gtag?.('consent', 'update', {
 			analytics_storage: analytics ? 'granted' : 'denied',
 			ad_storage: marketing ? 'granted' : 'denied',
@@ -38,7 +42,11 @@
 		if (analytics || marketing) loadGTM()
 	}
 
-	void CookieConsent.run({
+	function initialiseCookieConsent() {
+		if (window.johanCookieConsentInitialized) return
+		window.johanCookieConsentInitialized = true
+
+		void run({
 		cookie: {
 			name: 'johanguse_cookie_consent',
 			path: '/',
@@ -88,7 +96,7 @@
 						acceptAllBtn: 'Accept all',
 						acceptNecessaryBtn: 'Reject optional',
 						showPreferencesBtn: 'Manage preferences',
-						footer: '<a href="/privacy/">Privacy Policy</a>',
+						footer: '<a href="/privacy/">Privacy Policy</a> · <a href="/terms/">Terms</a>',
 					},
 					preferencesModal: {
 						title: 'Cookie preferences',
@@ -172,25 +180,37 @@
 		},
 		onConsent: () => {
 			updateGTMConsent(
-				CookieConsent.acceptedCategory('analytics'),
-				CookieConsent.acceptedCategory('marketing'),
+				acceptedCategory('analytics'),
+				acceptedCategory('marketing'),
+			)
+		},
+		onFirstConsent: () => {
+			updateGTMConsent(
+				acceptedCategory('analytics'),
+				acceptedCategory('marketing'),
 			)
 		},
 		onChange: () => {
 			updateGTMConsent(
-				CookieConsent.acceptedCategory('analytics'),
-				CookieConsent.acceptedCategory('marketing'),
+				acceptedCategory('analytics'),
+				acceptedCategory('marketing'),
 			)
 		},
-	})
+		})
+	}
 
-	document.addEventListener('click', (event) => {
-		const button = (event.target as Element | null)?.closest('.js-manage-cookies')
-		if (!button) return
+	initialiseCookieConsent()
 
-		event.preventDefault()
-		CookieConsent.showPreferences()
-	})
+	if (!window.johanCookiePreferenceListenerBound) {
+		window.johanCookiePreferenceListenerBound = true
+		document.addEventListener('click', (event) => {
+			const button = (event.target as Element | null)?.closest('.js-manage-cookies')
+			if (!button) return
+
+			event.preventDefault()
+			showPreferences()
+		})
+	}
 </script>
 
 <style is:global>

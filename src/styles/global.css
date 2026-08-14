@@ -195,6 +195,38 @@ body {
   max-width: 54ch;
 }
 
+/* ─── Project case studies ──────────────────────────────────── */
+.project-header {
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.project-header .page-title {
+  max-width: 13ch;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.project-meta-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-2);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 /* ─── Blog / prose pages (unchanged) ────────────────────────── */
 .task-list-item:before { @apply hidden; }
 

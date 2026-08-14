@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
+import ContactCta from '../components/ContactCta.astro'
 import { getCollection } from 'astro:content'
 import { formatDate } from '../utils/helpers'
 
@@ -31,8 +32,9 @@ const sortedPosts = allPosts
       {sortedPosts.length === 0 ? (
         <p class="empty-state">No posts yet — check back soon.</p>
       ) : (
-        <ul class="posts-list" role="list">
+        <ul class="posts-list">
           {sortedPosts.map((post) => (
+            // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this post list statically.
             <li class="post-item">
               <a href={`/blog/${post.id}/`} class="post-link">
                 <time class="post-date" datetime={post.data.date.toISOString()}>
@@ -43,6 +45,7 @@ const sortedPosts = allPosts
                   {post.data.tags && post.data.tags.length > 0 && (
                     <div class="post-tags">
                       {post.data.tags.map(tag => (
+                        // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this tag list statically.
                         <span class="post-tag">{tag}</span>
                       ))}
                     </div>
@@ -54,6 +57,12 @@ const sortedPosts = allPosts
           ))}
         </ul>
       )}
+
+      <ContactCta
+        eyebrow="Beyond the notes"
+        title="Have a product problem worth unpacking?"
+        description="If the work here sparked an idea, tell me what you are trying to improve."
+      />
     </div>
   </div>
 
@@ -90,15 +99,6 @@ const sortedPosts = allPosts
     text-decoration: none;
     color: inherit;
     transition: color 0.15s ease;
-  }
-
-  .post-link:hover .post-title {
-    color: var(--accent);
-  }
-
-  .post-link:hover .post-arrow {
-    opacity: 1;
-    transform: translateX(4px);
   }
 
   .post-date {
@@ -145,6 +145,15 @@ const sortedPosts = allPosts
     color: var(--accent);
     opacity: 0;
     transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .post-link:hover .post-title {
+    color: var(--accent);
+  }
+
+  .post-link:hover .post-arrow {
+    opacity: 1;
+    transform: translateX(4px);
   }
 
   @media (max-width: 540px) {

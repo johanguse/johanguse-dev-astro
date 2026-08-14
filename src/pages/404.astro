@@ -4,27 +4,95 @@ import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
 ---
 
-<BaseLayout title="404 - Page Not Found">
+<BaseLayout title="Page not found" description="The requested page could not be found." fullBleed>
 	<Navigation slot="header" />
 
-	<div class="flex flex-col items-start justify-start md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6">
-		<div class="space-x-2 pb-8 pt-6 md:space-y-5">
-			<h1 class="text-6xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:border-r-2 md:px-6 md:text-8xl md:leading-14">
-				404
-			</h1>
+	<section class="inner-page not-found" aria-labelledby="not-found-heading">
+		<div class="container--narrow">
+			<span class="section-label">404</span>
+			<h1 id="not-found-heading">This page has moved on.</h1>
+			<p>Try the homepage, browse the work, or start a conversation about what you are building.</p>
+			<div class="not-found-actions">
+				<a href="/" class="not-found-primary">Back to homepage <span aria-hidden="true">→</span></a>
+				<a href="/contact/" class="not-found-secondary">Contact Johan</a>
+			</div>
 		</div>
-		<div class="max-w-md">
-			<p class="mb-4 text-xl font-bold leading-normal md:text-2xl">
-				Sorry we couldn't find this page.
-			</p>
-			<p class="mb-8 text-gray-500 dark:text-gray-400">
-				But don't worry, you can find plenty of other things on our homepage.
-			</p>
-			<a href="/" class="inline rounded-lg border border-transparent bg-primary-500 px-4 py-2 text-sm font-medium leading-5 text-white shadow transition-colors duration-150 hover:bg-primary-600 dark:bg-primary-400 dark:text-gray-900 dark:hover:bg-primary-300">
-				Back to homepage
-			</a>
-		</div>
-	</div>
+	</section>
 
 	<Footer slot="footer" />
 </BaseLayout>
+
+<style>
+	.not-found {
+		display: grid;
+		place-items: center;
+		text-align: center;
+	}
+
+	.not-found :global(.container--narrow) {
+		max-width: 48rem;
+	}
+
+	.not-found h1 {
+		margin: 0.6rem auto 0;
+		color: var(--text-1);
+		font-family: var(--font-display);
+		font-size: clamp(3rem, 9vw, 6.5rem);
+		font-weight: 800;
+		letter-spacing: -0.065em;
+		line-height: 0.9;
+	}
+
+	.not-found p {
+		max-width: 40ch;
+		margin: 1.75rem auto 0;
+		color: var(--text-2);
+		font-size: 1.08rem;
+		line-height: 1.65;
+	}
+
+	.not-found-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+
+	.not-found-primary,
+	.not-found-secondary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		min-height: 3rem;
+		padding: 0.75rem 1rem;
+		font-size: 0.9rem;
+		font-weight: 700;
+		text-decoration: none;
+		transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+	}
+
+	.not-found-primary {
+		border: 1px solid color-mix(in oklch, var(--accent) 80%, var(--border));
+		background: var(--accent);
+		color: var(--btn-text);
+	}
+
+	.not-found-secondary {
+		border: 1px solid var(--border);
+		color: var(--text-1);
+	}
+
+	.not-found-primary:hover,
+	.not-found-secondary:hover {
+		transform: translateY(-2px);
+	}
+
+	.not-found-primary:hover {
+		background: var(--accent-text);
+	}
+
+	.not-found-secondary:hover {
+		background: var(--bg-elevated);
+	}
+</style>

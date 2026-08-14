@@ -39,15 +39,25 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5fv'
         <section class="contact-details" aria-labelledby="contact-details-heading">
           <div class="contact-detail-heading">
             <span class="contact-index" aria-hidden="true">A</span>
-            <h2 id="contact-details-heading">A good note is enough to start.</h2>
+            <h2 id="contact-details-heading">A clear brief is enough to start.</h2>
           </div>
 
-          <div class="contact-detail-list">
-            <a href={`mailto:${siteConfig.email}`} class="contact-detail">
-              <span class="contact-detail-label">Email</span>
-              <span class="contact-detail-value">{siteConfig.email}</span>
-              <span class="contact-detail-arrow" aria-hidden="true">↗</span>
-            </a>
+          <dl class="contact-detail-list">
+            <div class="contact-principle">
+              <dt class="contact-detail-label">The problem</dt>
+              <dd class="contact-detail-value">What needs to work better?</dd>
+            </div>
+            <div class="contact-principle">
+              <dt class="contact-detail-label">The people</dt>
+              <dd class="contact-detail-value">Who is it meant to help?</dd>
+            </div>
+            <div class="contact-principle">
+              <dt class="contact-detail-label">The timing</dt>
+              <dd class="contact-detail-value">What does a good next step look like?</dd>
+            </div>
+          </dl>
+
+          <div class="contact-detail-list contact-detail-list--social">
             <a href={siteConfig.linkedin} class="contact-detail" target="_blank" rel="noopener noreferrer">
               <span class="contact-detail-label">LinkedIn</span>
               <span class="contact-detail-value">Connect professionally</span>
@@ -56,7 +66,7 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5fv'
           </div>
 
           <p class="contact-details-footnote">
-            Prefer email? That works too. The form sends directly to my inbox.
+            The form is the best place to share the useful context. I’ll reply when there is a good fit.
           </p>
         </section>
 
@@ -95,6 +105,7 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5fv'
                   <option>Website or portfolio</option>
                   <option>Accessibility improvement</option>
                   <option>Existing product support</option>
+                  <option>Other</option>
                 </select>
               </div>
             </div>
@@ -322,6 +333,17 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5fv'
     border-top: 1px solid var(--border);
   }
 
+  .contact-detail-list--social {
+    margin-top: 0;
+  }
+
+  .contact-principle {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
   .contact-detail {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
@@ -348,6 +370,7 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5fv'
 
   .contact-detail-value {
     grid-column: 1;
+    margin: 0;
     color: var(--text-1);
     font-size: 0.95rem;
     font-weight: 500;

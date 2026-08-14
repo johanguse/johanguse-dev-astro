@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
+import ContactCta from '../components/ContactCta.astro'
 import { TiltCard } from '../components/react/TiltCard'
 import { projectsData } from '../data/projectsData'
 ---
@@ -26,6 +27,7 @@ import { projectsData } from '../data/projectsData'
 
       <div class="projects-all-grid">
         {projectsData.map((p) => (
+          // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this project list statically.
           <TiltCard
             client:visible
             title={p.title}
@@ -39,6 +41,12 @@ import { projectsData } from '../data/projectsData'
           />
         ))}
       </div>
+
+      <ContactCta
+        eyebrow="Your project"
+        title="Need a thoughtful partner for the next one?"
+        description="I work across product, AI, systems, and accessibility — with a bias for clear goals and useful outcomes."
+      />
     </div>
   </div>
 

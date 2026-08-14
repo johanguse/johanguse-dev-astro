@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
+import ContactCta from '../../components/ContactCta.astro'
 ---
 
 	<BaseLayout
@@ -11,18 +12,19 @@ import Footer from '../../components/Footer.astro'
 	>
 	<Navigation slot="header" />
 
-	<article class="pt-[calc(64px+clamp(2.5rem,6vw,5rem))] pb-[clamp(4rem,8vw,8rem)]">
+	<article class="inner-page project-page">
 		<div class="container--narrow">
-			<header class="mb-12 border-b border-gray-200 pb-10 dark:border-gray-700">
-				<h1 class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 mb-4">
+			<header class="project-header">
+				<span class="section-label">Case study</span>
+				<h1 class="page-title">
 					Bank Statement Converter
 				</h1>
-				<p class="text-lg text-gray-500 dark:text-gray-400">
+				<p class="page-subtitle">
 					Transform PDF bank statements into Excel, CSV, JSON, and QBO formats with AI
 				</p>
-				<div class="flex flex-wrap gap-2 mt-6">
-					<span class="inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 dark:bg-orange-900 dark:text-orange-300">Personal Project</span>
-					<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">July 2025 - Present</span>
+				<div class="project-meta">
+					<span class="project-meta-item">Personal Project</span>
+					<span class="project-meta-item">July 2025 - Present</span>
 				</div>
 			</header>
 
@@ -61,12 +63,13 @@ import Footer from '../../components/Footer.astro'
 							{ icon: '🔌', title: 'API Integration', desc: 'Developer-friendly endpoints' },
 							{ icon: '🏷️', title: 'Auto Categorization', desc: 'AI-powered spending analysis' },
 						].map((item) => (
-							<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-4">
+							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this feature list statically.
+							<div class="rounded-md border-2 border-gray-200 border-opacity-60 p-4 dark:border-gray-700">
 								<div class="flex items-start gap-3">
 									<span class="text-xl">{item.icon}</span>
 									<div>
 										<h3 class="font-medium text-sm">{item.title}</h3>
-										<p class="text-xs text-gray-500 dark:text-gray-400">{item.desc}</p>
+										<p class="text-gray-500 text-xs dark:text-gray-400">{item.desc}</p>
 									</div>
 								</div>
 							</div>
@@ -147,6 +150,7 @@ import Footer from '../../components/Footer.astro'
 					</a>
 				</section>
 			</div>
+			<ContactCta />
 		</div>
 	</article>
 
