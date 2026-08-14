@@ -158,10 +158,14 @@ const techStackHighlights = [
 
             <div class="tech-stack-grid">
               {techStackHighlights.map(({ category, items }) => (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this technology list statically.
                 <article class="tech-stack-card">
                   <h3>{category}</h3>
                   <ul class="tech-stack-list">
-                    {items.map((item) => <li>{item}</li>)}
+                    {items.map((item) => (
+                      // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this technology list statically.
+                      <li>{item}</li>
+                    ))}
                   </ul>
                 </article>
               ))}
