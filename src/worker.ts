@@ -145,7 +145,12 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 		});
 		console.info("Contact email accepted by Cloudflare", { messageId: emailResponse.messageId });
 	} catch (error) {
-		console.error("Contact email failed to send", error);
+		const errorCode =
+			typeof error === "object" && error && "code" in error && typeof error.code === "string"
+				? error.code
+				: "UNKNOWN";
+		const errorMessage = error instanceof Error ? error.message : "Unknown email sending error";
+		console.error("Contact email failed to send", { code: errorCode, message: errorMessage });
 		return json({ error: "Your message could not be sent. Please try again or email Johan directly." }, { status: 502 });
 	}
 

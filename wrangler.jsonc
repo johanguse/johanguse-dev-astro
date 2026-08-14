@@ -14,7 +14,7 @@
 	"send_email": [
 		{
 			"name": "EMAIL",
-			"allowed_sender_addresses": ["contact@johanguse.dev"],
+			"allowed_sender_addresses": ["contact@email.johanguse.dev"],
 			"allowed_destination_addresses": ["johanguse@gmail.com"]
 		}
 	],
