@@ -1,4 +1,5 @@
 import mdx from "@astrojs/mdx";
+import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
@@ -20,7 +21,7 @@ export default defineConfig({
 	prefetch: {
 		defaultStrategy: "hover",
 	},
-	integrations: [mdx(), sitemap()],
+	integrations: [react(), mdx(), sitemap()],
 	devToolbar: {
 		enabled: false,
 	},

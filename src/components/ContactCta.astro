@@ -1,0 +1,116 @@
+---
+interface Props {
+  eyebrow?: string
+  title?: string
+  description?: string
+}
+
+const {
+  eyebrow = 'Start a conversation',
+  title = 'Have a useful problem to solve?',
+  description = 'Tell me what you are making, where it is getting stuck, and what a good outcome looks like.',
+} = Astro.props
+---
+
+<section class="contact-cta" aria-labelledby="contact-cta-heading">
+  <div class="contact-cta-mark" aria-hidden="true">↗</div>
+  <div class="contact-cta-copy">
+    <span class="section-label">{eyebrow}</span>
+    <h2 id="contact-cta-heading">{title}</h2>
+    <p>{description}</p>
+  </div>
+  <a href="/contact/" class="contact-cta-link">
+    Contact Johan <span aria-hidden="true">→</span>
+  </a>
+</section>
+
+<style>
+  .contact-cta {
+    position: relative;
+    display: grid;
+    gap: 1.5rem;
+    margin-top: clamp(4rem, 9vw, 8rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: color-mix(in oklch, var(--bg-card) 78%, transparent);
+    box-shadow: var(--shadow-card);
+  }
+
+  .contact-cta::before {
+    position: absolute;
+    inset: 0.75rem;
+    border: 1px solid color-mix(in oklch, var(--accent) 18%, transparent);
+    content: '';
+    pointer-events: none;
+  }
+
+  .contact-cta-mark {
+    position: absolute;
+    top: clamp(1rem, 3vw, 2rem);
+    right: clamp(1rem, 3vw, 2rem);
+    width: 3.25rem;
+    height: 3.25rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid color-mix(in oklch, var(--accent) 38%, transparent);
+    border-radius: 50%;
+    color: var(--accent);
+    font-size: 1.25rem;
+  }
+
+  .contact-cta-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+
+  .contact-cta h2 {
+    max-width: 17ch;
+    margin: 0.55rem 0 0;
+    color: var(--text-1);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 750;
+    letter-spacing: -0.055em;
+    line-height: 0.95;
+  }
+
+  .contact-cta p {
+    max-width: 52ch;
+    margin: 1.25rem 0 0;
+    color: var(--text-2);
+    line-height: 1.65;
+  }
+
+  .contact-cta-link {
+    position: relative;
+    z-index: 1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid color-mix(in oklch, var(--accent) 80%, var(--border));
+    background: var(--accent);
+    color: var(--btn-text);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .contact-cta-link:hover {
+    background: var(--accent-text);
+    transform: translateY(-2px);
+  }
+
+  @media (min-width: 760px) {
+    .contact-cta {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 2rem;
+    }
+  }
+</style>

@@ -2,12 +2,22 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"account_id": "7f28ed1894bb6eae10f75ec0933a4726",
 	"name": "johanguse-dev",
+	"main": "src/worker.ts",
 	"compatibility_date": "2026-04-04",
 	"workers_dev": true,
 	"preview_urls": true,
 	"assets": {
-		"directory": "./dist"
+		"directory": "./dist",
+		"binding": "ASSETS",
+		"run_worker_first": ["/api/*"]
 	},
+	"send_email": [
+		{
+			"name": "EMAIL",
+			"allowed_sender_addresses": ["contact@johanguse.dev"],
+			"allowed_destination_addresses": ["johanguse@gmail.com"]
+		}
+	],
 	"observability": {
 		"enabled": true
 	},
