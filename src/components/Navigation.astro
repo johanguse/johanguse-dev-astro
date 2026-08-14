@@ -15,6 +15,7 @@ const currentPath = Astro.url.pathname
       {navLinks.filter(l => l.href !== '/').map((link) => {
         const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
         return (
+          // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this navigation list statically.
           <a
             href={link.href}
             class:list={['nav-link', { 'nav-link--active': isActive }]}
@@ -63,16 +64,16 @@ const currentPath = Astro.url.pathname
 </header>
 
 <!-- Mobile menu overlay -->
-<div
+<nav
   id="mobile-menu"
   class="mobile-menu hidden"
-  role="dialog"
   aria-label="Mobile navigation"
 >
-  <nav aria-label="Mobile" class="mobile-menu-nav">
+  <div class="mobile-menu-nav">
     {navLinks.map((link) => {
       const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
       return (
+        // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this navigation list statically.
         <a
           href={link.href}
           class:list={['mobile-menu-link', { 'mobile-menu-link--active': isActive }]}
@@ -82,8 +83,8 @@ const currentPath = Astro.url.pathname
         </a>
       )
     })}
-  </nav>
-</div>
+  </div>
+</nav>
 
 <style>
   .nav-bar {
@@ -136,7 +137,7 @@ const currentPath = Astro.url.pathname
     gap: 0.25rem;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .nav-links { display: flex; }
   }
 
@@ -156,11 +157,6 @@ const currentPath = Astro.url.pathname
   .nav-link--active {
     color: var(--text-1);
     background: var(--bg-elevated);
-  }
-
-  /* Hide mobile button on desktop */
-  @media (min-width: 640px) {
-    .nav-mobile-btn { display: none; }
   }
 
   /* Actions */
@@ -184,6 +180,11 @@ const currentPath = Astro.url.pathname
     transition: color 0.15s ease, background 0.15s ease;
   }
 
+  /* This must follow .nav-toggle-btn so the desktop display override wins. */
+  @media (min-width: 768px) {
+    .nav-mobile-btn { display: none; }
+  }
+
   .nav-toggle-btn:hover {
     color: var(--text-1);
     background: var(--bg-elevated);
@@ -201,6 +202,16 @@ const currentPath = Astro.url.pathname
     z-index: 40;
     background: var(--bg);
     border-top: 1px solid var(--border);
+  }
+
+  .mobile-menu.hidden {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .mobile-menu {
+      display: none;
+    }
   }
 
   .mobile-menu-nav {
@@ -235,6 +246,31 @@ const currentPath = Astro.url.pathname
     const mobileBtn = document.getElementById('mobile-menu-btn')
     const mobileMenu = document.getElementById('mobile-menu')
 
+    function closeMobileMenu({ returnFocus = false } = {}) {
+      if (!mobileBtn || !mobileMenu) return
+
+      mobileBtn.setAttribute('aria-expanded', 'false')
+      mobileBtn.setAttribute('aria-label', 'Open menu')
+      mobileMenu.classList.add('hidden')
+      mobileBtn.querySelector('.menu-open-icon')?.classList.remove('hidden')
+      mobileBtn.querySelector('.menu-close-icon')?.classList.add('hidden')
+      document.body.classList.remove('overflow-hidden')
+
+      if (returnFocus) mobileBtn.focus()
+    }
+
+    function openMobileMenu() {
+      if (!mobileBtn || !mobileMenu) return
+
+      mobileBtn.setAttribute('aria-expanded', 'true')
+      mobileBtn.setAttribute('aria-label', 'Close menu')
+      mobileMenu.classList.remove('hidden')
+      mobileBtn.querySelector('.menu-open-icon')?.classList.add('hidden')
+      mobileBtn.querySelector('.menu-close-icon')?.classList.remove('hidden')
+      document.body.classList.add('overflow-hidden')
+      requestAnimationFrame(() => mobileMenu.querySelector('a')?.focus())
+    }
+
     function syncIcons() {
       const dark = document.documentElement.classList.contains('dark')
       sunIcon?.classList.toggle('hidden', !dark)
@@ -256,11 +292,30 @@ const currentPath = Astro.url.pathname
       mobileBtn.dataset.bound = 'true'
       mobileBtn.addEventListener('click', () => {
         const open = mobileBtn.getAttribute('aria-expanded') === 'true'
-        mobileBtn.setAttribute('aria-expanded', String(!open))
-        mobileMenu?.classList.toggle('hidden')
-        mobileBtn.querySelector('.menu-open-icon')?.classList.toggle('hidden')
-        mobileBtn.querySelector('.menu-close-icon')?.classList.toggle('hidden')
-        document.body.classList.toggle('overflow-hidden')
+        if (open) closeMobileMenu({ returnFocus: true })
+        else openMobileMenu()
+      })
+
+      mobileMenu?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => closeMobileMenu())
+      })
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) closeMobileMenu()
+      })
+    }
+
+    if (!document.documentElement.dataset.mobileMenuKeyboardBound) {
+      document.documentElement.dataset.mobileMenuKeyboardBound = 'true'
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return
+
+        const currentButton = document.getElementById('mobile-menu-btn')
+        const currentMenu = document.getElementById('mobile-menu')
+        if (currentButton?.getAttribute('aria-expanded') === 'true') {
+          currentButton.click()
+        }
+        currentMenu?.classList.add('hidden')
       })
     }
   }

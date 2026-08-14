@@ -7,7 +7,7 @@ import { siteConfig } from '../data/siteConfig'
 
 <BaseLayout
   title="About"
-  description="About Johan Guse — Design Engineer from Brazil. Experience across full-stack web, React, TypeScript, and cloud platforms."
+  description="About Johan Guse — full-stack developer from Brazil specializing in AI-powered applications, real-time systems, and accessible web experiences."
   fullBleed
 >
   <Navigation slot="header" />
@@ -25,7 +25,7 @@ import { siteConfig } from '../data/siteConfig'
           <div class="about-photo-wrap">
             <img
               src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1652237380/pics/me-4x4.jpg"
-              alt="Photo of Johan Guse"
+              alt="Johan Guse"
               loading="eager"
               fetchpriority="high"
               width="240"
@@ -36,7 +36,7 @@ import { siteConfig } from '../data/siteConfig'
 
           <div class="about-identity">
             <p class="about-name">{siteConfig.author}</p>
-            <p class="about-role-tag">Design Engineer</p>
+            <p class="about-role-tag">Full-Stack Developer &amp; Accessibility Enthusiast</p>
             <p class="about-location">Brazil</p>
           </div>
 
@@ -63,25 +63,25 @@ import { siteConfig } from '../data/siteConfig'
         <!-- Right: bio content -->
         <div class="about-content">
           <p class="about-lead">
-            I'm a Design Engineer from Brazil who's been building for the web since 2006.
+            I'm a full-stack developer from Brazil with more than a decade of industry experience.
           </p>
 
           <div class="about-prose">
             <p>
-              I work in the space between design and engineering — where a component needs to
-              be both pixel-perfect and battle-tested. I believe the best digital products are
-              the ones you <em>feel</em> before you understand them.
+              I build AI-powered applications, real-time systems, and modern SaaS platforms on
+              cloud-native architectures. My work brings together LLM-powered tools, WebSocket
+              systems, and advanced data processing to solve real-world problems.
             </p>
             <p>
-              Over the past decade-plus I've shipped full-stack applications spanning AI-powered
-              tools, real-time systems, SaaS platforms, and content experiences — using React,
-              TypeScript, Node.js, and whatever else the problem actually needs.
+              I pair traditional web development expertise with emerging AI technologies to
+              create thoughtful, user-friendly experiences — using React, TypeScript, Node.js,
+              and the tools each problem calls for.
             </p>
             <p>
-              Currently pursuing Applied Artificial Intelligence studies while building
-              production platforms that leverage LLMs and modern cloud architectures.
-              Passionate about accessibility, performance, and the craft of building things
-              that last.
+              While pursuing Applied Artificial Intelligence studies, I continue to build
+              production software with accessibility at its core. I believe the web should be
+              inclusive and work to make every application I build more accessible and
+              intelligent.
             </p>
           </div>
 
@@ -93,6 +93,7 @@ import { siteConfig } from '../data/siteConfig'
                 'Node.js', 'PostgreSQL', 'Tailwind CSS', 'Cloudflare',
                 'Figma', 'Design Systems', 'AI / LLMs', 'Accessibility',
               ].map(skill => (
+                // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this skill list statically.
                 <span class="skill-tag">{skill}</span>
               ))}
             </div>
