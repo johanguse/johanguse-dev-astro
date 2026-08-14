@@ -3,6 +3,73 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
 import { siteConfig } from '../data/siteConfig'
+
+const techStackHighlights = [
+  {
+    category: 'Frontend',
+    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'TanStack Router', 'TanStack Query', 'TanStack Table', 'Tailwind CSS', 'Radix UI', 'Shadcn/ui', 'Material UI', 'Styled Components', 'Sass', 'Storybook'],
+  },
+  {
+    category: 'Backend',
+    items: ['Node.js', 'Python', 'FastAPI', 'Hono', 'C#/.NET', 'PHP', 'Laravel', 'Cloudflare Workers', 'Convex'],
+  },
+  {
+    category: 'APIs & Integration',
+    items: ['REST APIs', 'GraphQL', 'Webhooks', 'OAuth', 'Third-party API integrations'],
+  },
+  {
+    category: 'Databases & ORMs',
+    items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Cloudflare D1', 'Supabase', 'Prisma', 'Drizzle ORM'],
+  },
+  {
+    category: 'AI & LLMs',
+    items: ['OpenAI API', 'Anthropic', 'AI SDK', 'RAG', 'LLM workflows', 'Embeddings', 'Prompt engineering', 'Mistral OCR', 'Replicate'],
+  },
+  {
+    category: 'Real-time & Async',
+    items: ['WebSockets', 'Real-time data pipelines', 'Convex Real-time DB', 'Trigger.dev', 'Cloudflare Queues'],
+  },
+  {
+    category: 'Authentication',
+    items: ['Better Auth', 'NextAuth/Auth.js', 'Clerk', 'Hanko', 'OAuth', 'Passwordless authentication'],
+  },
+  {
+    category: 'Cloud & Serverless',
+    items: ['Cloudflare Workers', 'R2', 'D1', 'Queues', 'Vercel', 'DigitalOcean', 'Edge computing', 'Serverless architectures'],
+  },
+  {
+    category: 'Testing & Quality',
+    items: ['Vitest', 'Jest', 'React Testing Library', 'Playwright', 'Cypress', 'ESLint', 'Biome'],
+  },
+  {
+    category: 'DevOps & CI/CD',
+    items: ['Git', 'GitHub Actions', 'Jenkins', 'Cloudflare', 'WP Engine', 'Automated deployments'],
+  },
+  {
+    category: 'Payments',
+    items: ['Stripe Subscriptions', 'Checkout', 'Billing Portal', 'Webhooks', 'Recurring billing'],
+  },
+  {
+    category: 'Data Visualization & 3D',
+    items: ['Recharts', 'D3.js', 'Three.js', 'Interactive dashboards', 'Real-time visualization'],
+  },
+  {
+    category: 'CMS & Content Platforms',
+    items: ['WordPress', 'Custom themes/plugins', 'ACF', 'WP REST API', 'HubSpot CMS', 'Astro'],
+  },
+  {
+    category: 'Accessibility',
+    items: ['WCAG 2.1/2.2', 'Semantic HTML', 'Keyboard accessibility', 'Screen-reader support', 'Accessibility testing'],
+  },
+  {
+    category: 'Mobile',
+    items: ['React Native', 'Flutter', 'SwiftUI', 'Kotlin', 'Jetpack Compose'],
+  },
+  {
+    category: 'Analytics & Tracking',
+    items: ['GA4', 'Google Tag Manager', 'Segment', 'PostHog', 'Amplitude', 'Hotjar', 'Microsoft Clarity', 'Meta Pixel'],
+  },
+]
 ---
 
 <BaseLayout
@@ -81,6 +148,25 @@ import { siteConfig } from '../data/siteConfig'
               solve real problems.
             </p>
           </div>
+
+          <section class="tech-stack" aria-labelledby="tech-stack-heading">
+            <div class="tech-stack-intro">
+              <span class="section-label">Toolbox</span>
+              <h2 id="tech-stack-heading">Tech Stack Highlights</h2>
+              <p>Technologies I use to take digital products from idea to production.</p>
+            </div>
+
+            <div class="tech-stack-grid">
+              {techStackHighlights.map(({ category, items }) => (
+                <article class="tech-stack-card">
+                  <h3>{category}</h3>
+                  <ul class="tech-stack-list">
+                    {items.map((item) => <li>{item}</li>)}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
 
           <div class="about-cta">
             <a href="/contact/" class="btn-primary">
@@ -223,6 +309,79 @@ import { siteConfig } from '../data/siteConfig'
   .about-prose em {
     color: var(--text-1);
     font-style: italic;
+  }
+
+  .tech-stack {
+    margin: 0 0 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .tech-stack-intro {
+    max-width: 60ch;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-stack-intro .section-label {
+    display: block;
+    margin-bottom: 0.65rem;
+  }
+
+  .tech-stack-intro h2 {
+    margin: 0;
+    color: var(--text-1);
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  .tech-stack-intro p {
+    margin: 0.75rem 0 0;
+    color: var(--text-2);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 0.75rem;
+  }
+
+  .tech-stack-card {
+    min-width: 0;
+    padding: 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--bg-elevated);
+  }
+
+  .tech-stack-card h3 {
+    margin: 0 0 0.85rem;
+    color: var(--text-1);
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  .tech-stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tech-stack-list li {
+    max-width: 100%;
+    padding: 0.28rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-2);
+    font-size: 0.75rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
   }
 
   .about-skills {
