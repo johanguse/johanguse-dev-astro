@@ -81,20 +81,6 @@ import { siteConfig } from '../data/siteConfig'
             </p>
           </div>
 
-          <div class="about-skills">
-            <h2 class="about-skills-heading">Things I work with</h2>
-            <div class="skills-grid">
-              {[
-                'React', 'TypeScript', 'Next.js', 'Astro',
-                'Node.js', 'PostgreSQL', 'Tailwind CSS', 'Cloudflare',
-                'Figma', 'Design Systems', 'AI / LLMs', 'Accessibility',
-              ].map(skill => (
-                // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this skill list statically.
-                <span class="skill-tag">{skill}</span>
-              ))}
-            </div>
-          </div>
-
           <div class="about-cta">
             <a href="/contact/" class="btn-primary">
               Start a conversation
