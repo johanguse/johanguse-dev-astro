@@ -1,255 +1,120 @@
-# Johan Guse Portfolio - Astro
+# johanguse.dev
 
-A modern personal portfolio and blog built with Astro and the Resend Design System.
+Personal portfolio and blog built with Astro, MDX, and StyleX. The site is statically generated and deployed to Cloudflare.
 
-## Features
+## Highlights
 
-- **Resend Design System**: Pure black void background with frost blue-tinted borders, cinematic spacing
-- **Typography**: Three-font hierarchy - Domaine Display (hero), ABC Favorit (sections), Inter (body)
-- **Astro 6**: Latest framework with Content Layer API
-- **TypeScript**: Full type safety with strict mode
-- **MDX Blog**: Blog support with Astro 6 Content Layer API
-- **Projects Showcase**: Portfolio grid with detailed project cards
-- **Responsive Design**: Mobile-first with elegant desktop layouts
-- **Vanilla JS**: No framework dependencies for interactions
-- **Cloudflare**: Static deploy via Wrangler (`dist` + `wrangler.jsonc`)
+- Astro 7 static site with content collections and MDX blog posts
+- StyleX utilities and reusable typography styles compiled through Vite
+- Responsive portfolio, project case studies, blog, tags, and contact form
+- Light/dark theme toggle with persisted user preference
+- Cookie consent preferences for analytics and marketing categories
+- Cloudflare static deployment through Wrangler
 
-## Design Principles
+## Tech stack
 
-This site follows the Resend Design System aesthetic:
+- [Astro](https://astro.build) 7
+- [StyleX](https://stylexjs.com) with `@stylexjs/unplugin`
+- MDX and Astro Content Collections
+- TypeScript
+- Bun
+- Biome
+- Cloudflare Workers / Wrangler
 
-- **Pure black background** (`#000000`) - the void is the canvas
-- **Frost borders** (`rgba(214, 235, 253, 0.19)`) - signature blue-tinted structural lines
-- **Three-font editorial hierarchy** - Domaine/ABC Favorit/Inter with strict role separation
-- **Aggressive negative tracking** on display fonts (-0.96px, -2.8px)
-- **Pill-shaped buttons** (9999px radius) with transparent backgrounds
-- **Multi-color accent system** (orange/green/blue/yellow/red) at low opacity
-- **No traditional shadows** - depth through frost borders only
+The visual system uses Bricolage Grotesque for display text and Barlow for interface and body text. Global semantic theme variables live in `src/styles/global.css`; shared StyleX utilities and typography are in `src/styles/`.
 
-## Tech Stack
+## Getting started
 
-- **Framework**: [Astro 6.1.3](https://astro.build) with Content Layer API
-- **Styling**: [Tailwind CSS 4.1.8](https://tailwindcss.com) (CSS-first configuration)
-- **Content**: MDX with Astro Content Collections (glob loader)
-- **TypeScript**: Full type safety with strict mode
-- **Runtime**: Node.js 22+ / Bun compatible
-- **Package Manager**: [Bun](https://bun.sh) (preferred), pnpm, or yarn
-- **Deployment**: Cloudflare Workers (static assets) via Wrangler
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 22.12.0+ or Bun 1.0+ (Astro 6 requirement)
-- Bun 1.0+, or pnpm / yarn if you prefer
-
-### Installation
+Requirements: Bun 1.x or Node.js 22+.
 
 ```bash
-# Clone the repository
 git clone https://github.com/johanguse/johanguse-dev-astro.git
 cd johanguse-dev-astro
-
-# Install dependencies
 bun install
-# or: pnpm install / yarn install
-
-# Start development server
-bun dev
-# or: pnpm dev / yarn dev
+bun run dev
 ```
 
-The site will be available at `http://localhost:4321`
+The development server runs at `http://localhost:4321`.
 
-### Build for Production
+## Commands
 
 ```bash
-# Build the site
-bun run build
-# or: pnpm build / yarn build
-
-# Preview production build locally
-bun run preview
-# or: pnpm preview / yarn preview
-
-# Deploy to Cloudflare (requires wrangler setup)
-bun run deploy
-# or: pnpm deploy / yarn deploy
+bun run dev       # Start the development server
+bun run check     # Run Astro and TypeScript diagnostics
+bun run build     # Generate the production site in dist/
+bun run preview   # Build and preview the production site
+bun run lint      # Run Biome linting
+bun run format    # Format files with Biome
+bun run deploy    # Build and deploy with Wrangler
 ```
 
-### Code Quality (Biome)
+## Project structure
 
-```bash
-# Lint code
-bun run lint
-# or: pnpm lint / yarn lint
+```text
+src/
+├── components/          # Shared Astro and React components
+│   └── markdown/        # StyleX-backed Markdown element components
+├── content/blog/        # Blog posts written in MDX
+├── data/                # Site and project data
+├── layouts/             # Base document layout
+├── pages/               # Astro routes
+├── styles/
+│   ├── global.css       # Global reset, theme variables, and component CSS
+│   ├── utilities.stylex.ts
+│   └── typography.stylex.ts
+├── types/               # Shared TypeScript types
+└── utils/               # Date, tag, and helper functions
 
-# Lint and fix issues
-bun run lint:fix
-# or: pnpm lint:fix / yarn lint:fix
-
-# Format code
-bun run format
-# or: pnpm format / yarn format
-
-# Check and fix everything (lint + format + organize imports)
-bun run biome:check
-# or: pnpm biome:check / yarn biome:check
+astro.config.ts          # Astro integrations and StyleX Vite plugin
+wrangler.jsonc           # Cloudflare deployment configuration
 ```
 
-## Project Structure
+## Styling
 
-```
-/
-├── public/                 # Static files (images, favicons, logo.svg)
-├── scripts/
-│   └── deploy.sh           # build + wrangler deploy (pipe for DNS-friendly CI)
-├── src/
-│   ├── components/         # Astro components (Navigation, Footer, cards, …)
-│   ├── content/
-│   │   └── blog/           # Blog MDX files (glob-loaded via content.config)
-│   ├── content.config.ts   # Astro 6 collections + Zod schema
-│   ├── data/               # siteConfig.ts, projectsData.ts
-│   ├── layouts/            # BaseLayout.astro
-│   ├── pages/              # Routes (blog/, projects/, tags/, …)
-│   ├── styles/
-│   │   └── global.css      # Tailwind 4 + @theme (Resend tokens)
-│   ├── types/              # Shared TypeScript types
-│   └── utils/              # helpers (dates, tags, …)
-├── astro.config.ts         # Astro + MDX + sitemap + Vite/Tailwind
-├── biome.jsonc             # Lint & format (Astro-aware)
-├── package.json
-├── tsconfig.json
-└── wrangler.jsonc          # Cloudflare Worker + static assets from dist/
-```
+StyleX is configured in `astro.config.ts` through `@stylexjs/unplugin`. Astro markup uses the `sx()` helper from `src/styles/utilities.stylex.ts`, while Markdown content maps headings, paragraphs, lists, and blockquotes to components using `typography.stylex.ts`.
 
-## Content Management
+When adding a reusable style:
 
-### Adding Blog Posts
+1. Add it to the appropriate StyleX module.
+2. Apply it with `sx(style)` and the generated `class` value.
+3. Keep responsive values inside StyleX condition objects.
+4. Keep global selectors in `global.css` only for document-wide behavior or component-specific interaction.
 
-Create MDX files in `src/content/blog/`. Frontmatter must match `src/content.config.ts` (required: `title`, `description`, `date`; optional: `tags`, `draft`, `image`).
+## Content
 
-````mdx
+### Blog posts
+
+Add an MDX file to `src/content/blog/` with frontmatter matching `src/content.config.ts`:
+
+```mdx
 ---
-title: 'Your Post Title'
-description: 'Post summary shown in listings and SEO.'
-date: '2025-04-04'
-tags: ['tag1', 'tag2']
+title: 'Your post title'
+description: 'A short summary for listings and SEO.'
+date: '2026-08-25'
+tags: ['tag']
 draft: false
-image: '/static/images/your-hero.jpg'
 ---
 
-Your content here…
-````
-
-Use `draft: true` to hide a post from the public blog index (it is still in the collection for local preview).
-
-### Adding Projects
-
-Edit `src/data/projectsData.ts` and append an object to the `projectsData` array (type `Project` from `src/types/index.ts`).
-
-```typescript
-{
-	title: 'Project Name',
-	description: 'Short summary for the card.',
-	imgSrc: 'https://example.com/preview.jpg',
-	href: '/projects/my-slug',
-	externalHref: 'https://live-site.com',
-	clientName: 'Client or Personal Project',
-	clientURL: 'https://client-site.com',
-	date: 'Month Year',
-	skills: ['Astro', 'TypeScript', 'Tailwind CSS'],
-},
+Your content here.
 ```
 
-- **`href`**: internal page under `src/pages/projects/my-slug.astro`, or an `https://…` URL (opens in a new tab), or `''` if the card should not link anywhere.
-- **`externalHref`**: optional; used where you want an explicit “live site” link separate from the card link.
-- **Detail pages**: for `/projects/slug`, add `src/pages/projects/slug.astro` (see existing project pages as templates).
+Use `draft: true` to keep a post out of public listings.
 
-## Customization
+### Projects
 
-### Site Configuration
-
-Edit `src/data/siteConfig.ts` to update:
-- Site metadata
-- Social links
-- Navigation links
-
-### Design Tokens
-
-The Resend Design System is implemented with Tailwind CSS 4:
-- `src/styles/global.css` - All theme configuration using `@theme` directive
-- No `tailwind.config.ts` needed (Tailwind 4 uses CSS-first configuration)
-- All colors, fonts, radii, shadows defined as CSS variables
-
-### Fonts
-
-Current setup uses Google Fonts (Inter, JetBrains Mono). To use actual Resend fonts:
-1. Obtain Domaine Display and ABC Favorit font files
-2. Place in `public/fonts/`
-3. Update `@font-face` declarations in `global.css`
+Add project metadata to `src/data/projectsData.ts` and create a matching route under `src/pages/projects/` when a case-study page is needed.
 
 ## Deployment
 
-### Cloudflare (this repo)
-
-The site is **static** (`output: "static"`). Build output is uploaded from `dist/` via Wrangler.
+The project uses `output: "static"`. Build output is written to `dist/` and deployed with Wrangler:
 
 ```bash
+bun run build
 bun run deploy
-# or: pnpm deploy / yarn deploy — runs scripts/deploy.sh (astro build + wrangler deploy)
 ```
 
-Configure routes, zones, and custom domains in `wrangler.jsonc` and the [Cloudflare dashboard](https://dash.cloudflare.com). Ensure DNS records exist (e.g. proxied `www` CNAME) before expecting `www` to resolve.
-
-### Cloudflare Pages (Git-based alternative)
-
-If you prefer CI from Git: connect the repo to **Cloudflare Pages**, build command `bun run build` (alternatives: `pnpm build`, `yarn build`), output directory `dist`.
-
-### Vercel / Netlify
-
-Switch to SSR or hybrid and add an adapter in `astro.config.ts`, for example:
-
-```typescript
-import vercel from '@astrojs/vercel'
-import { defineConfig } from 'astro/config'
-
-export default defineConfig({
-	output: 'server',
-	adapter: vercel(),
-	// …
-})
-```
-
-```typescript
-import netlify from '@astrojs/netlify'
-import { defineConfig } from 'astro/config'
-
-export default defineConfig({
-	output: 'server',
-	adapter: netlify(),
-	// …
-})
-```
-
-For a fully static export you can often deploy the `dist/` folder without an adapter; follow each host’s static-site docs.
-
-## Performance
-
-- Lighthouse Score: 100/100 (target)
-- First Contentful Paint: < 1s
-- Time to Interactive: < 2s
-- Bundle size: < 100KB (initial)
-
-## Browser Support
-
-- Chrome/Edge: Last 2 versions
-- Firefox: Last 2 versions + ESR
-- Safari: Last 2 versions
-- Mobile: iOS 14+, Android 10+
+Configure the Cloudflare account, routes, and custom domains in `wrangler.jsonc` and the Cloudflare dashboard.
 
 ## License
 
 MIT
-
-
