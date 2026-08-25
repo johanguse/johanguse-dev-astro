@@ -159,7 +159,7 @@ export function TiltCard({
               fontSize: '0.68rem',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: 'var(--text-3)',
+              color: 'var(--text-2)',
               marginBottom: '0.5rem',
             }}
           >
@@ -212,7 +212,7 @@ export function TiltCard({
                   padding: '0.18rem 0.6rem',
                   borderRadius: '9999px',
                   background: 'var(--bg-elevated)',
-                  color: 'var(--text-3)',
+                  color: 'var(--text-2)',
                   border: '1px solid var(--border)',
                 }}
               >

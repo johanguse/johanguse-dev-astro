@@ -50,11 +50,11 @@ export function TextReveal({
       {units.map((unit, i) => (
         <motion.span
           key={i}
-          initial={{ opacity: 0.08, filter: 'blur(10px)' }}
+          initial={{ opacity: 0.72, filter: 'blur(10px)' }}
           animate={
             isInView
               ? { opacity: 1, filter: 'blur(0px)' }
-              : { opacity: 0.08, filter: 'blur(10px)' }
+              : { opacity: 0.72, filter: 'blur(10px)' }
           }
           transition={{
             duration,

@@ -12,7 +12,7 @@ export default defineConfig({
 	output: "static",
 	compressHTML: false,
 	build: {
-		inlineStylesheets: "auto",
+		inlineStylesheets: "always",
 	},
 	experimental: {
 		clientPrerender: true,
