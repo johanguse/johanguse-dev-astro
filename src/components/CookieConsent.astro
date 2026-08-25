@@ -46,7 +46,7 @@
 		if (window.johanCookieConsentInitialized) return
 		window.johanCookieConsentInitialized = true
 
-		void run({
+		cookieConsentReady = run({
 		cookie: {
 			name: 'johanguse_cookie_consent',
 			path: '/',
@@ -199,6 +199,7 @@
 		})
 	}
 
+	let cookieConsentReady: Promise<unknown> | null = null
 	initialiseCookieConsent()
 
 	if (!window.johanCookiePreferenceListenerBound) {
@@ -208,7 +209,7 @@
 			if (!button) return
 
 			event.preventDefault()
-			showPreferences()
+			void (cookieConsentReady ?? Promise.resolve()).then(() => showPreferences())
 		})
 	}
 </script>

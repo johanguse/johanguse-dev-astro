@@ -1,4 +1,5 @@
 ---
+import { styles, sx } from "../../styles/utilities.stylex";
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
@@ -28,37 +29,37 @@ import ContactCta from '../../components/ContactCta.astro'
 				</div>
 			</header>
 
-			<div class="mb-12 rounded-lg overflow-hidden">
+			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden).class}>
 				<img
 					src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766067027/jrguse/port/llmgenerator-dashboard.jpg"
 					alt="LLM Generator Dashboard"
-					class="w-full"
+					class={sx(styles.wFull).class}
 					loading="lazy"
 				/>
 			</div>
 
-			<div class="space-y-12 text-gray-900 dark:text-gray-100">
+			<div class={sx(styles.spaceY12, styles.textGray900, styles.textGray900).class}>
 				<section>
-					<h2 class="text-2xl font-semibold mb-4">Project Overview</h2>
-					<p class="text-gray-500 dark:text-gray-400 leading-relaxed">
-						LLMGenerator is a service that generates <code class="text-primary-500 dark:text-primary-100 bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-sm">llms.txt</code> files for websites to improve their visibility to large language models. The service uses Firecrawl's map + scrape approach with OpenAI enhancement to create high-quality, LLM-optimized content.
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>Project Overview</h2>
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
+						LLMGenerator is a service that generates <code class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.bgGray100, styles.px1_5, styles.py05, styles.rounded, styles.textSm).class}>llms.txt</code> files for websites to improve their visibility to large language models. The service uses Firecrawl's map + scrape approach with OpenAI enhancement to create high-quality, LLM-optimized content.
 					</p>
 				</section>
 
 				<section>
-					<h2 class="text-2xl font-semibold mb-4">What is llms.txt?</h2>
-					<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6 text-gray-500 dark:text-gray-400 leading-relaxed">
-						<p class="mb-3">llms.txt is a standardized format for making website content more accessible to Large Language Models (LLMs):</p>
-						<ul class="space-y-2 text-sm">
-							<li><strong class="text-gray-900 dark:text-gray-100">llms.txt:</strong> A concise index of all pages with AI-enhanced titles and descriptions</li>
-							<li><strong class="text-gray-900 dark:text-gray-100">llms-full.txt:</strong> Complete content of all pages for comprehensive access</li>
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>What is llms.txt?</h2>
+					<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6, styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
+						<p class={sx(styles.mb3).class}>llms.txt is a standardized format for making website content more accessible to Large Language Models (LLMs):</p>
+						<ul class={sx(styles.spaceY2, styles.textSm).class}>
+							<li><strong class={sx(styles.textGray900, styles.textGray900).class}>llms.txt:</strong> A concise index of all pages with AI-enhanced titles and descriptions</li>
+							<li><strong class={sx(styles.textGray900, styles.textGray900).class}>llms-full.txt:</strong> Complete content of all pages for comprehensive access</li>
 						</ul>
 					</div>
 				</section>
 
 				<section>
-					<h2 class="text-2xl font-semibold mb-6">Key Features</h2>
-					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Key Features</h2>
+					<div class={sx(styles.grid, styles.gridCols1, styles.smGridCols2, styles.gap4).class}>
 						{[
 							{ icon: '🚀', title: 'Fast Generation', desc: 'Direct map + scrape with background processing' },
 							{ icon: '⚡', title: 'Reliable Jobs', desc: 'Trigger.dev integration with automatic retries' },
@@ -70,12 +71,12 @@ import ContactCta from '../../components/ContactCta.astro'
 							{ icon: '🔒', title: 'Flexible Pricing', desc: 'Credits (never expire) + subscriptions' },
 						].map((item) => (
 							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this feature list statically.
-							<div class="rounded-md border-2 border-gray-200 border-opacity-60 p-4 dark:border-gray-700">
-								<div class="flex items-start gap-3">
-									<span class="text-xl">{item.icon}</span>
+							<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.p4, styles.borderGray700).class}>
+								<div class={sx(styles.flex, styles.itemsStart, styles.gap3).class}>
+									<span class={sx(styles.textXl).class}>{item.icon}</span>
 									<div>
-										<h3 class="font-medium text-sm">{item.title}</h3>
-										<p class="text-gray-500 text-xs dark:text-gray-400">{item.desc}</p>
+										<h3 class={sx(styles.fontMedium, styles.textSm).class}>{item.title}</h3>
+										<p class={sx(styles.textGray500, styles.textXs, styles.textGray400).class}>{item.desc}</p>
 									</div>
 								</div>
 							</div>
@@ -84,20 +85,20 @@ import ContactCta from '../../components/ContactCta.astro'
 				</section>
 
 				<section>
-					<h2 class="text-2xl font-semibold mb-6">Generation Methods</h2>
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Simple Generation (1x Credits)</h3>
-							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Generation Methods</h2>
+					<div class={sx(styles.grid, styles.gridCols1, styles.mdGridCols2, styles.gap6).class}>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Simple Generation (1x Credits)</h3>
+							<ul class={sx(styles.spaceY2, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>Fast generation (15-30 seconds)</li>
 								<li>Uses Firecrawl's /llmstxt endpoint</li>
 								<li>Cost-effective for free tier users</li>
 								<li>Locked for free plans, optional for paid</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6 border-orange-500">
-							<h3 class="text-lg font-medium mb-3">Enhanced Generation (2x Credits)</h3>
-							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6, styles.borderOrange500).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Enhanced Generation (2x Credits)</h3>
+							<ul class={sx(styles.spaceY2, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>AI-enhanced titles and descriptions</li>
 								<li>Uses map + scrape + OpenAI integration</li>
 								<li>Premium quality for paid plans</li>
@@ -108,11 +109,11 @@ import ContactCta from '../../components/ContactCta.astro'
 				</section>
 
 				<section>
-					<h2 class="text-2xl font-semibold mb-6">Tech Stack</h2>
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Frontend</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Tech Stack</h2>
+					<div class={sx(styles.grid, styles.gridCols1, styles.mdGridCols2, styles.gap6).class}>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Frontend</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>React 19 with TypeScript</li>
 								<li>Vite for fast builds</li>
 								<li>Tanstack Router & Query</li>
@@ -120,9 +121,9 @@ import ContactCta from '../../components/ContactCta.astro'
 								<li>React Hook Form with Zod</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Backend</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Backend</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>Hono on Cloudflare Workers</li>
 								<li>Cloudflare D1 (SQLite) with Drizzle ORM</li>
 								<li>Better Auth for authentication</li>
@@ -130,9 +131,9 @@ import ContactCta from '../../components/ContactCta.astro'
 								<li>tRPC for type-safe APIs</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Integrations</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Integrations</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>Firecrawl API for web scraping</li>
 								<li>OpenAI API for content enhancement</li>
 								<li>Stripe for payments</li>
@@ -140,9 +141,9 @@ import ContactCta from '../../components/ContactCta.astro'
 								<li>Sentry for error tracking</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Development</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Development</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>Biome for linting/formatting</li>
 								<li>Bun for package management</li>
 								<li>Wrangler for deployments</li>
@@ -153,11 +154,11 @@ import ContactCta from '../../components/ContactCta.astro'
 					</div>
 				</section>
 
-				<section class="border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-wrap gap-4">
-					<a href="https://llmgenerator.com/?utm_source=johan-website-projects" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white inline-flex items-center font-medium">
+				<section class={sx(styles.borderT, styles.borderGray200, styles.borderGray700, styles.pt8, styles.flex, styles.flexWrap, styles.gap4).class}>
+					<a href="https://llmgenerator.com/?utm_source=johan-website-projects" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
 						Visit Website &rarr;
 					</a>
-					<a href="/projects/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center font-medium">
+					<a href="/projects/" class={sx(styles.textGray500, styles.hoverTextGray700, styles.textGray400, styles.hoverTextGray200, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
 						&larr; All Projects
 					</a>
 				</section>

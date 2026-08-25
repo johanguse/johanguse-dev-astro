@@ -1,4 +1,14 @@
 ---
+import { sx } from "../../styles/utilities.stylex";
+import { typography } from '../../styles/typography.stylex'
+import MarkdownBlockquote from '../../components/markdown/MarkdownBlockquote.astro'
+import MarkdownH1 from '../../components/markdown/MarkdownH1.astro'
+import MarkdownH2 from '../../components/markdown/MarkdownH2.astro'
+import MarkdownH3 from '../../components/markdown/MarkdownH3.astro'
+import MarkdownLi from '../../components/markdown/MarkdownLi.astro'
+import MarkdownOl from '../../components/markdown/MarkdownOl.astro'
+import MarkdownP from '../../components/markdown/MarkdownP.astro'
+import MarkdownUl from '../../components/markdown/MarkdownUl.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
@@ -133,8 +143,8 @@ const jsonLdRaw = JSON.stringify(jsonLd)
       )}
 
       <!-- Content -->
-      <div class="prose dark:prose-invert max-w-none">
-        <Content />
+      <div class={sx(typography.container).class}>
+        <Content components={{ blockquote: MarkdownBlockquote, h1: MarkdownH1, h2: MarkdownH2, h3: MarkdownH3, li: MarkdownLi, ol: MarkdownOl, p: MarkdownP, ul: MarkdownUl }} />
       </div>
 
       <!-- Footer nav -->

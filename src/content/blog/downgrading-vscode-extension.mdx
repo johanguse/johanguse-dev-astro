@@ -6,6 +6,8 @@ draft: false
 description: 'Learn how to downgrade a VSCode extension to an older version easily. This guide provides two methods to revert to a previous version.'
 tldr: 'To roll back a VS Code extension, open the Extensions view, right-click the extension, choose Install Another Version, and pick a release; alternatively download a `.vsix` from the Marketplace Version History and install it from disk. Both options are reliable when a new version breaks your workflow.'
 ---
+import { styles, sx } from "../../styles/utilities.stylex";
+
 
 Today, I encountered an issue with the popular AI extension, Codeium. Fortunately, the team quickly resolved the problem, but yesterday I had to rollback to an older version to fix the issue on my side. If you need to downgrade any extension to an older version, here are two ways to downgrade a VSCode extension:
 
@@ -21,7 +23,7 @@ Today, I encountered an issue with the popular AI extension, Codeium. Fortunatel
 	loading="eager"
 	fetchpriority="high"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />
 
 2. Type the extension name, right-click on the plugin name, and select `Install Another Version`.
@@ -33,7 +35,7 @@ Today, I encountered an issue with the popular AI extension, Codeium. Fortunatel
 	height="675"
 	loading="lazy"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />
 
 3. A list of versions will appear. Select the desired version and click on it to `Install`.
@@ -45,7 +47,7 @@ Today, I encountered an issue with the popular AI extension, Codeium. Fortunatel
 	height="675"
 	loading="lazy"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />
 
 ## Method 2: Using a .vsix file from the VSCode Marketplace
@@ -59,7 +61,7 @@ Today, I encountered an issue with the popular AI extension, Codeium. Fortunatel
 	height="675"
 	loading="lazy"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />
 
 2. After downloading the `.vsix` file, open VSCode and press `CTRL+SHIFT+P` (Windows) or `CMD+SHIFT+P` (Mac). In the command line, type `vsix` and select the option to install from the downloaded file.
@@ -71,7 +73,7 @@ Today, I encountered an issue with the popular AI extension, Codeium. Fortunatel
 	height="675"
 	loading="lazy"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />
 
 3. Install the `.vsix` file.
@@ -83,7 +85,7 @@ Today, I encountered an issue with the popular AI extension, Codeium. Fortunatel
 	height="675"
 	loading="lazy"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />
 
 4. Restart VSCode: Open the Command Palette with `CTRL+ALT+R` (Windows) or `CMD+ALT+R` (Mac), type `Reload Window`, and select `Developer: Reload Window`.

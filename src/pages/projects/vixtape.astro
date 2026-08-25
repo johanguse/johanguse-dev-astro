@@ -1,4 +1,5 @@
 ---
+import { styles, sx } from "../../styles/utilities.stylex";
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
@@ -29,8 +30,8 @@ import ContactCta from '../../components/ContactCta.astro'
 			</header>
 
 			<!-- Video -->
-			<div class="mb-12 rounded-lg overflow-hidden bg-gray-800">
-				<div class="relative aspect-video">
+			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden, styles.bgGray800).class}>
+				<div class={sx(styles.relative, styles.aspectVideo).class}>
 					<iframe
 						title="Vixtape Demo"
 						src="https://player.cloudinary.com/embed/?cloud_name=dvcywi3uf&public_id=jrguse%2Fport%2Fvixtape&profile=cld-default"
@@ -43,38 +44,38 @@ import ContactCta from '../../components/ContactCta.astro'
 				</div>
 			</div>
 
-			<div class="space-y-12 text-gray-900 dark:text-gray-100">
+			<div class={sx(styles.spaceY12, styles.textGray900, styles.textGray900).class}>
 				<section>
-					<h2 class="text-2xl font-semibold mb-4">Project Overview</h2>
-					<p class="text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>Project Overview</h2>
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed, styles.mb4).class}>
 						Vixtape is an interactive MVP demo created for SWARM NYC to showcase an innovative content streaming platform concept. Built entirely in Framer as a no-code prototype, this demo was designed for investor presentations to communicate the product vision and user experience.
 					</p>
-					<p class="text-gray-500 dark:text-gray-400 leading-relaxed">
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
 						The concept features an experience where viewers watch content on a TV display (16:9 ratio). Content attribution is maintained through QR codes that display metadata about audio and video creators. This demo focuses on visualizing the user flow and interaction patterns rather than implementing production-ready features.
 					</p>
 				</section>
 
-				<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6" style="border-color: rgb(234 179 8);">
-					<p class="text-sm text-gray-500 dark:text-gray-400">
-						<strong class="text-yellow-500">Note:</strong> This is a conceptual MVP demo built in Framer for presentation purposes. It demonstrates the UX/UI vision and interaction design but does not include backend functionality or production features.
+				<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class} style="border-color: rgb(234 179 8);">
+					<p class={sx(styles.textSm, styles.textGray500, styles.textGray400).class}>
+						<strong class={sx(styles.textYellow500).class}>Note:</strong> This is a conceptual MVP demo built in Framer for presentation purposes. It demonstrates the UX/UI vision and interaction design but does not include backend functionality or production features.
 					</p>
 				</div>
 
 				<section>
-					<h2 class="text-2xl font-semibold mb-6">Tech Stack</h2>
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Design & Prototyping</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Tech Stack</h2>
+					<div class={sx(styles.grid, styles.gridCols1, styles.mdGridCols2, styles.gap6).class}>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Design & Prototyping</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>Framer (No-code prototyping platform)</li>
 								<li>Interactive wireframes and mockups</li>
 								<li>Animations and micro-interactions</li>
 								<li>Click-through prototype flows</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Demo Capabilities</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Demo Capabilities</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>TV display optimization (16:9 aspect ratio)</li>
 								<li>Device concept visualization</li>
 								<li>Interactive navigation flows</li>
@@ -84,11 +85,11 @@ import ContactCta from '../../components/ContactCta.astro'
 					</div>
 				</section>
 
-				<section class="border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-wrap gap-4">
-					<a href="https://swarmnyc.com/" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white inline-flex items-center font-medium">
+				<section class={sx(styles.borderT, styles.borderGray200, styles.borderGray700, styles.pt8, styles.flex, styles.flexWrap, styles.gap4).class}>
+					<a href="https://swarmnyc.com/" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
 						SWARM NYC &rarr;
 					</a>
-					<a href="/projects/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center font-medium">
+					<a href="/projects/" class={sx(styles.textGray500, styles.hoverTextGray700, styles.textGray400, styles.hoverTextGray200, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
 						&larr; All Projects
 					</a>
 				</section>

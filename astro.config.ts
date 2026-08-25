@@ -1,7 +1,7 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import tailwindcss from "@tailwindcss/vite";
+import stylex from "@stylexjs/unplugin";
 import { defineConfig } from "astro/config";
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
@@ -45,6 +45,6 @@ export default defineConfig({
 			minify: false,
 			cssMinify: false,
 		},
-		plugins: [tailwindcss()],
+		plugins: [stylex.vite({ useCSSLayers: false })],
 	},
 });

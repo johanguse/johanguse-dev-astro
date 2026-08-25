@@ -1,0 +1,6 @@
+---
+import { typography } from '../../styles/typography.stylex'
+import { sx } from '../../styles/utilities.stylex'
+const { id } = Astro.props
+---
+<h3 id={id} class={sx(typography.h3).class}><slot /></h3>
