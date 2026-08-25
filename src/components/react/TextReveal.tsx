@@ -47,7 +47,7 @@ export function TextReveal({
   const AnyTag = Tag as any
 
   return (
-    <AnyTag ref={ref} className={className} aria-label={text}>
+    <AnyTag ref={ref} className={className}>
       {units.map((unit, i) => (
         <motion.span
           key={i}
@@ -63,7 +63,6 @@ export function TextReveal({
             ease: [0.22, 1, 0.36, 1],
           }}
           style={{ display: 'inline-block', willChange: 'opacity, filter' }}
-          aria-hidden="true"
         >
           {unit}
         </motion.span>
