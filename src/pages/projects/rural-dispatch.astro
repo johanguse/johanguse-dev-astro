@@ -1,4 +1,5 @@
 ---
+import { styles, sx } from "../../styles/utilities.stylex";
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
@@ -29,73 +30,73 @@ import ContactCta from '../../components/ContactCta.astro'
 			</header>
 
 			<!-- Hero Image -->
-			<div class="mb-12 rounded-lg overflow-hidden">
+			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden).class}>
 				<img
 					src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766063929/jrguse/port/rural-dispatch-dashboard.jpg"
 					alt="Rural Dispatch Dashboard"
-					class="w-full"
+					class={sx(styles.wFull).class}
 					loading="lazy"
 				/>
 			</div>
 
 			<!-- Content -->
-			<div class="space-y-12 text-gray-900 dark:text-gray-100">
+			<div class={sx(styles.spaceY12, styles.textGray900, styles.textGray900).class}>
 				<section>
-					<h2 class="text-2xl font-semibold mb-4">Project Overview</h2>
-					<p class="text-gray-500 dark:text-gray-400 leading-relaxed">
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>Project Overview</h2>
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
 						Rural Dispatch is a comprehensive ride-sharing management application built to serve rural communities where traditional ride-sharing services are unavailable. The platform enables dispatchers, case managers, and drivers to coordinate transportation for service users, featuring real-time SMS notifications and TCPA-compliant messaging.
 					</p>
 				</section>
 
 				<section>
-					<h2 class="text-2xl font-semibold mb-6">Key Features</h2>
-					<div class="space-y-6">
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Role-Based Access Control</h3>
-							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
-								<li><strong class="text-gray-900 dark:text-gray-100">Admin:</strong> Full system access including user management and system configuration</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">Dispatcher:</strong> Coordinate rides, assign drivers, manage daily operations</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">Case Manager:</strong> Request rides on behalf of clients and riders</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">Driver:</strong> View assigned rides, update ride status, receive notifications</li>
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Key Features</h2>
+					<div class={sx(styles.spaceY6).class}>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Role-Based Access Control</h3>
+							<ul class={sx(styles.spaceY2, styles.textGray500, styles.textGray400, styles.textSm).class}>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Admin:</strong> Full system access including user management and system configuration</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Dispatcher:</strong> Coordinate rides, assign drivers, manage daily operations</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Case Manager:</strong> Request rides on behalf of clients and riders</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Driver:</strong> View assigned rides, update ride status, receive notifications</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Two-Way SMS Notifications</h3>
-							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
-								<li><strong class="text-gray-900 dark:text-gray-100">Dual Provider Support:</strong> Twilio (primary) and Vonage (fallback) for reliability</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">Real-time Updates:</strong> Automated notifications for ride confirmations, driver assignments, and ETAs</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">TCPA Compliance:</strong> Built-in consent management and opt-out handling</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">Conversation Tracking:</strong> Full SMS history and conversation threading</li>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Two-Way SMS Notifications</h3>
+							<ul class={sx(styles.spaceY2, styles.textGray500, styles.textGray400, styles.textSm).class}>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Dual Provider Support:</strong> Twilio (primary) and Vonage (fallback) for reliability</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Real-time Updates:</strong> Automated notifications for ride confirmations, driver assignments, and ETAs</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>TCPA Compliance:</strong> Built-in consent management and opt-out handling</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Conversation Tracking:</strong> Full SMS history and conversation threading</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Ride Management System</h3>
-							<ul class="space-y-2 text-gray-500 dark:text-gray-400 text-sm">
-								<li><strong class="text-gray-900 dark:text-gray-100">Request Creation:</strong> Easy-to-use forms for scheduling rides with pickup/dropoff details</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">Driver Assignment:</strong> Match available drivers and vehicles to ride requests</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">Status Tracking:</strong> Real-time ride status updates from request to completion</li>
-								<li><strong class="text-gray-900 dark:text-gray-100">Fleet Management:</strong> Track vehicles, driver availability, and scheduling</li>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Ride Management System</h3>
+							<ul class={sx(styles.spaceY2, styles.textGray500, styles.textGray400, styles.textSm).class}>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Request Creation:</strong> Easy-to-use forms for scheduling rides with pickup/dropoff details</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Driver Assignment:</strong> Match available drivers and vehicles to ride requests</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Status Tracking:</strong> Real-time ride status updates from request to completion</li>
+								<li><strong class={sx(styles.textGray900, styles.textGray900).class}>Fleet Management:</strong> Track vehicles, driver availability, and scheduling</li>
 							</ul>
 						</div>
 					</div>
 				</section>
 
 				<!-- SMS Modal Image -->
-				<div class="rounded-lg overflow-hidden max-w-lg mx-auto">
+				<div class={sx(styles.roundedLg, styles.overflowHidden, styles.maxWLg, styles.mxAuto).class}>
 					<img
 						src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766064310/jrguse/port/rural-dispatch-sms-modal.jpg"
 						alt="Rural Dispatch SMS Modal"
-						class="w-full"
+						class={sx(styles.wFull).class}
 						loading="lazy"
 					/>
 				</div>
 
 				<section>
-					<h2 class="text-2xl font-semibold mb-6">Tech Stack</h2>
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Frontend</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Tech Stack</h2>
+					<div class={sx(styles.grid, styles.gridCols1, styles.mdGridCols2, styles.gap6).class}>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Frontend</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>React 18 with TypeScript (strict mode)</li>
 								<li>Vite for fast development and builds</li>
 								<li>Tailwind CSS + shadcn/ui components</li>
@@ -103,9 +104,9 @@ import ContactCta from '../../components/ContactCta.astro'
 								<li>React Router v6 for navigation</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Backend</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Backend</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>Node.js with Fastify framework</li>
 								<li>PostgreSQL database</li>
 								<li>Prisma ORM v7</li>
@@ -113,18 +114,18 @@ import ContactCta from '../../components/ContactCta.astro'
 								<li>bcryptjs for authentication</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">SMS & Notifications</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>SMS & Notifications</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>Twilio (primary SMS provider)</li>
 								<li>Vonage (fallback SMS provider)</li>
 								<li>Two-way SMS conversations</li>
 								<li>Webhook handlers for incoming messages</li>
 							</ul>
 						</div>
-						<div class="rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700 p-6">
-							<h3 class="text-lg font-medium mb-3">Development</h3>
-							<ul class="space-y-1.5 text-gray-500 dark:text-gray-400 text-sm">
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Development</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
 								<li>Bun for package management</li>
 								<li>Biome for linting and formatting</li>
 								<li>Vitest for testing</li>
@@ -135,32 +136,32 @@ import ContactCta from '../../components/ContactCta.astro'
 				</section>
 
 				<section>
-					<h2 class="text-2xl font-semibold mb-6">Technical Highlights</h2>
-					<div class="space-y-4 text-gray-500 dark:text-gray-400 leading-relaxed">
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Technical Highlights</h2>
+					<div class={sx(styles.spaceY4, styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
 						<div>
-							<h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Monorepo Architecture</h3>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.textGray900, styles.textGray900, styles.mb2).class}>Monorepo Architecture</h3>
 							<p>The project uses a monorepo structure with shared Zod validation schemas between the React frontend and Fastify backend. This ensures type safety and validation consistency across the entire application.</p>
 						</div>
 						<div>
-							<h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">SMS System Design</h3>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.textGray900, styles.textGray900, styles.mb2).class}>SMS System Design</h3>
 							<p>The SMS notification system implements a dual-provider approach with Twilio as the primary provider and Vonage as fallback. The system handles two-way conversations, tracks message history, and implements TCPA-compliant opt-out handling.</p>
 						</div>
 						<div>
-							<h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Role-Based Security</h3>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.textGray900, styles.textGray900, styles.mb2).class}>Role-Based Security</h3>
 							<p>Authentication uses bcryptjs for password hashing with role-based middleware that enforces access control at both the route and component level.</p>
 						</div>
 					</div>
 				</section>
 
 				<!-- Links -->
-				<section class="border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-wrap gap-4">
-					<a href="https://swarmnyc.com/" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white inline-flex items-center font-medium">
+				<section class={sx(styles.borderT, styles.borderGray200, styles.borderGray700, styles.pt8, styles.flex, styles.flexWrap, styles.gap4).class}>
+					<a href="https://swarmnyc.com/" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
 						SWARM NYC &rarr;
 					</a>
-					<a href="https://github.com/swarmnyc/ruraldispatch-ride-request" target="_blank" rel="noopener noreferrer" class="text-primary-500 dark:text-primary-100 hover:text-primary-600 dark:hover:text-white inline-flex items-center font-medium">
+					<a href="https://github.com/swarmnyc/ruraldispatch-ride-request" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
 						GitHub &rarr;
 					</a>
-					<a href="/projects/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 inline-flex items-center font-medium">
+					<a href="/projects/" class={sx(styles.textGray500, styles.hoverTextGray700, styles.textGray400, styles.hoverTextGray200, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
 						&larr; All Projects
 					</a>
 				</section>

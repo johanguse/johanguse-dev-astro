@@ -1,4 +1,6 @@
 ---
+import { sx } from "../styles/utilities.stylex";
+import { typography } from "../styles/typography.stylex";
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
@@ -16,52 +18,52 @@ import { siteConfig } from '../data/siteConfig'
 				<p class="page-subtitle">A clear account of the limited data this portfolio uses and the choices you have.</p>
 			</header>
 
-			<div class="prose legal-prose dark:prose-invert max-w-none">
-				<p><strong>Last updated:</strong> August 14, 2026</p>
+			<div class:list={["legal-prose", sx(typography.container).class]}>
+				<p class={sx(typography.p).class}><strong>Last updated:</strong> August 14, 2026</p>
 
-				<h2>Who is responsible for this site</h2>
-				<p>
+				<h2 class={sx(typography.h2).class}>Who is responsible for this site</h2>
+				<p class={sx(typography.p).class}>
 					{siteConfig.author} operates johanguse.dev (the “site”) and is responsible for the practices described here. This policy applies to the portfolio, blog, and contact form. For privacy questions or requests, email <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
 				</p>
 
-				<h2>Information we collect</h2>
-				<ul>
-					<li><strong>Cookie preferences:</strong> the consent choice you make, so the site can remember it on later visits.</li>
-					<li><strong>Contact submissions:</strong> your name, email address, company, project type, and message when you use the contact form. Cloudflare Turnstile also processes technical information needed to protect the form from abuse.</li>
-					<li><strong>Analytics data:</strong> if you allow analytics, Google Analytics 4 may collect pages viewed, approximate location, device or browser details, traffic source, and interactions. Request Metrics collects performance and usage information and stores a session timestamp in local storage.</li>
-					<li><strong>Marketing data:</strong> if you allow marketing, the X website tag may process advertising click identifiers and technical information to measure advertising effectiveness.</li>
+				<h2 class={sx(typography.h2).class}>Information we collect</h2>
+				<ul class={sx(typography.ul).class}>
+					<li class={sx(typography.li).class}><strong>Cookie preferences:</strong> the consent choice you make, so the site can remember it on later visits.</li>
+					<li class={sx(typography.li).class}><strong>Contact submissions:</strong> your name, email address, company, project type, and message when you use the contact form. Cloudflare Turnstile also processes technical information needed to protect the form from abuse.</li>
+					<li class={sx(typography.li).class}><strong>Analytics data:</strong> if you allow analytics, Google Analytics 4 may collect pages viewed, approximate location, device or browser details, traffic source, and interactions. Request Metrics collects performance and usage information and stores a session timestamp in local storage.</li>
+					<li class={sx(typography.li).class}><strong>Marketing data:</strong> if you allow marketing, the X website tag may process advertising click identifiers and technical information to measure advertising effectiveness.</li>
 				</ul>
 
-				<h2>Cookies and consent</h2>
-				<p>
+				<h2 class={sx(typography.h2).class}>Cookies and consent</h2>
+				<p class={sx(typography.p).class}>
 					The necessary <code>johanguse_cookie_consent</code> cookie stores your choices for up to one year. Analytics and marketing are optional and disabled by default. You can accept, reject, or change each choice at any time through <button class="legal-cookie-button js-manage-cookies" type="button">Cookie preferences</button>. Withdrawing consent prevents future optional-tag loading; first-party cookies managed by the consent tool are cleared where possible.
 				</p>
-				<p>
+				<p class={sx(typography.p).class}>
 					The current optional technologies are Google Analytics 4 (including <code>_ga</code> and <code>_gid</code> cookies), Request Metrics local storage, and the X website tag. The preference centre lists the first-party storage known to this site.
 				</p>
 
-				<h2>How we use information</h2>
-				<p>
+				<h2 class={sx(typography.h2).class}>How we use information</h2>
+				<p class={sx(typography.p).class}>
 					We use consent preferences to honour your choices, optional analytics and performance data to improve the site, marketing data to measure advertising effectiveness, and contact submissions to respond to your enquiry. We do not sell personal information.
 				</p>
 
-				<h2>Service providers</h2>
-				<p>
+				<h2 class={sx(typography.h2).class}>Service providers</h2>
+				<p class={sx(typography.p).class}>
 					Cloudflare provides hosting, Turnstile bot protection, and the contact-form email delivery. Google Tag Manager loads optional services only after you choose optional consent. Other current providers include Google for Analytics, Request Metrics for performance analytics, and X for marketing measurement. Their processing may occur outside your country. Review the <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare Privacy Policy</a>, <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>, <a href="https://requestmetrics.com/docs/security-privacy/end-user-data" target="_blank" rel="noopener noreferrer">Request Metrics end-user data documentation</a>, and <a href="https://x.com/en/privacy" target="_blank" rel="noopener noreferrer">X Privacy Policy</a> for their current practices.
 				</p>
 
-				<h2>Retention</h2>
-				<p>
+				<h2 class={sx(typography.h2).class}>Retention</h2>
+				<p class={sx(typography.p).class}>
 					The consent record is retained for up to one year unless you clear it earlier. Contact enquiries are retained only as long as reasonably needed to respond or maintain necessary records. Optional analytics and marketing data are retained according to the active provider settings.
 				</p>
 
-				<h2>Your choices and rights</h2>
-				<p>
+				<h2 class={sx(typography.h2).class}>Your choices and rights</h2>
+				<p class={sx(typography.p).class}>
 					Depending on where you live, including under Brazil’s LGPD, you may have rights to request confirmation of processing, access, correction, deletion or anonymisation in applicable circumstances, information about sharing, and withdrawal of consent. To make a request or ask a privacy question, email <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
 				</p>
 
-				<h2>Changes to this policy</h2>
-				<p>We may update this policy when the site or its practices change. The latest version will always be available on this page.</p>
+				<h2 class={sx(typography.h2).class}>Changes to this policy</h2>
+				<p class={sx(typography.p).class}>We may update this policy when the site or its practices change. The latest version will always be available on this page.</p>
 			</div>
 		</div>
 	</article>

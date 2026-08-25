@@ -6,6 +6,8 @@ draft: false
 description: 'Working with external images on Cloudflare Workers & Pages using a custo loader from NextJS'
 tldr: 'Static-exported Next.js on Cloudflare Pages/Workers needs remote images allowlisted in `next.config` (for example `remotePatterns`) and a loader approach that matches how assets are served on the edge. This post covers the config checklist, a small custom loader idea, and redeploy steps so third-party image URLs render instead of failing silently.'
 ---
+import { styles, sx } from "../../styles/utilities.stylex";
+
 
 <img
 	src="/static/images/cloudflare-workers-pages.jpg"
@@ -15,7 +17,7 @@ tldr: 'Static-exported Next.js on Cloudflare Pages/Workers needs remote images a
 	loading="eager"
 	fetchpriority="high"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />
 
 ---
@@ -99,7 +101,7 @@ Before: https://a18b9eba.shadcn-carousel-testimonials.pages.dev/
 	height="675"
 	loading="lazy"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />
 
 After: https://shadcn-carousel-testimonials.pages.dev/
@@ -111,5 +113,5 @@ After: https://shadcn-carousel-testimonials.pages.dev/
 	height="675"
 	loading="lazy"
 	decoding="async"
-	class="max-w-full h-auto rounded-md"
+	class={sx(styles.maxWFull, styles.hAuto, styles.roundedMd).class}
 />

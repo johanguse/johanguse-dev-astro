@@ -2,11 +2,6 @@
 @import "@fontsource/barlow/400.css";
 @import "@fontsource/barlow/500.css";
 @import "@fontsource/barlow/600.css";
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-
-@custom-variant dark (&:is(.dark, .dark *));
-
 /* ─── Design tokens ──────────────────────────────────────────── */
 :root {
   /* Light mode — neutral grays, white cards, dark charcoal button */
@@ -64,7 +59,8 @@
 }
 
 /* ─── Fonts ──────────────────────────────────────────────────── */
-@theme {
+/* Shared font tokens formerly provided by Tailwind's theme layer. */
+:root {
   --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', system-ui, sans-serif;
   --font-sans:    'Barlow', ui-sans-serif, system-ui, sans-serif;
   --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -82,6 +78,20 @@ html {
   scroll-behavior: smooth;
   background-color: var(--bg);
   color: var(--text-1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.hidden {
+  display: none !important;
 }
 
 body {
@@ -228,11 +238,20 @@ body {
 }
 
 /* ─── Blog / prose pages (unchanged) ────────────────────────── */
-.task-list-item:before { @apply hidden; }
+.task-list-item:before { display: none; }
 
 .remark-code-title {
-  @apply rounded-t bg-gray-700 px-5 py-3 font-mono text-sm font-bold text-gray-200;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  background: #374151;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #e5e7eb;
 }
 .remark-code-title + div > pre {
-  @apply mt-0 rounded-t-none;
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

@@ -1,4 +1,6 @@
 ---
+import { sx } from "../styles/utilities.stylex";
+import { typography } from "../styles/typography.stylex";
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
@@ -16,38 +18,38 @@ import { siteConfig } from '../data/siteConfig'
 				<p class="page-subtitle">The straightforward terms for using this portfolio, blog, and contact form.</p>
 			</header>
 
-			<div class="prose legal-prose dark:prose-invert max-w-none">
-				<p><strong>Last updated:</strong> August 14, 2026</p>
+			<div class:list={["legal-prose", sx(typography.container).class]}>
+				<p class={sx(typography.p).class}><strong>Last updated:</strong> August 14, 2026</p>
 
-				<h2>Acceptance of these terms</h2>
-				<p>By accessing johanguse.dev, you agree to these Terms of Use. If you do not agree, please do not use the site.</p>
+				<h2 class={sx(typography.h2).class}>Acceptance of these terms</h2>
+				<p class={sx(typography.p).class}>By accessing johanguse.dev, you agree to these Terms of Use. If you do not agree, please do not use the site.</p>
 
-				<h2>What this site provides</h2>
-				<p>This site shares {siteConfig.author}’s portfolio, writing, and ways to get in touch about potential work. It is provided for general information and does not create a client, employment, advisory, or other professional relationship.</p>
+				<h2 class={sx(typography.h2).class}>What this site provides</h2>
+				<p class={sx(typography.p).class}>This site shares {siteConfig.author}’s portfolio, writing, and ways to get in touch about potential work. It is provided for general information and does not create a client, employment, advisory, or other professional relationship.</p>
 
-				<h2>Using the site responsibly</h2>
-				<p>You may browse and share links to this site for lawful, personal, or internal business purposes. You must not interfere with the site, attempt to gain unauthorised access, probe for vulnerabilities, introduce malicious code, scrape it in a way that harms its operation, or use the contact form for spam or unlawful content.</p>
+				<h2 class={sx(typography.h2).class}>Using the site responsibly</h2>
+				<p class={sx(typography.p).class}>You may browse and share links to this site for lawful, personal, or internal business purposes. You must not interfere with the site, attempt to gain unauthorised access, probe for vulnerabilities, introduce malicious code, scrape it in a way that harms its operation, or use the contact form for spam or unlawful content.</p>
 
-				<h2>Contact submissions</h2>
-				<p>When you submit a message, you confirm that the information is accurate to the best of your knowledge and that you have the right to share it. Please do not send passwords, payment details, health information, or other sensitive information through the contact form. Sending a message does not guarantee a response or an engagement.</p>
+				<h2 class={sx(typography.h2).class}>Contact submissions</h2>
+				<p class={sx(typography.p).class}>When you submit a message, you confirm that the information is accurate to the best of your knowledge and that you have the right to share it. Please do not send passwords, payment details, health information, or other sensitive information through the contact form. Sending a message does not guarantee a response or an engagement.</p>
 
-				<h2>Intellectual property</h2>
-				<p>Unless otherwise noted, the site’s original content, design, and code are owned by {siteConfig.author} or used with permission. You may not reproduce, republish, or commercially exploit substantial portions without prior written permission. Project names, logos, and other third-party marks remain the property of their respective owners.</p>
+				<h2 class={sx(typography.h2).class}>Intellectual property</h2>
+				<p class={sx(typography.p).class}>Unless otherwise noted, the site’s original content, design, and code are owned by {siteConfig.author} or used with permission. You may not reproduce, republish, or commercially exploit substantial portions without prior written permission. Project names, logos, and other third-party marks remain the property of their respective owners.</p>
 
-				<h2>Third-party links and services</h2>
-				<p>The site may link to third-party websites and services. Those links are provided for convenience; {siteConfig.author} does not control or endorse their content, availability, or practices. Your use of them is governed by their own terms and policies.</p>
+				<h2 class={sx(typography.h2).class}>Third-party links and services</h2>
+				<p class={sx(typography.p).class}>The site may link to third-party websites and services. Those links are provided for convenience; {siteConfig.author} does not control or endorse their content, availability, or practices. Your use of them is governed by their own terms and policies.</p>
 
-				<h2>Availability and disclaimers</h2>
-				<p>The site is provided on an “as is” and “as available” basis. While reasonable care is taken to keep it accurate and secure, uninterrupted operation, complete accuracy, and freedom from errors cannot be guaranteed. Nothing in these terms limits rights that cannot be excluded under applicable law.</p>
+				<h2 class={sx(typography.h2).class}>Availability and disclaimers</h2>
+				<p class={sx(typography.p).class}>The site is provided on an “as is” and “as available” basis. While reasonable care is taken to keep it accurate and secure, uninterrupted operation, complete accuracy, and freedom from errors cannot be guaranteed. Nothing in these terms limits rights that cannot be excluded under applicable law.</p>
 
-				<h2>Limitation of liability</h2>
-				<p>To the extent permitted by applicable law, {siteConfig.author} is not liable for indirect, incidental, consequential, or special losses arising from your use of, or inability to use, this site or a linked service.</p>
+				<h2 class={sx(typography.h2).class}>Limitation of liability</h2>
+				<p class={sx(typography.p).class}>To the extent permitted by applicable law, {siteConfig.author} is not liable for indirect, incidental, consequential, or special losses arising from your use of, or inability to use, this site or a linked service.</p>
 
-				<h2>Changes to these terms</h2>
-				<p>These terms may change as the site evolves. Continued use after an update means you accept the updated terms. The current version will always be available on this page.</p>
+				<h2 class={sx(typography.h2).class}>Changes to these terms</h2>
+				<p class={sx(typography.p).class}>These terms may change as the site evolves. Continued use after an update means you accept the updated terms. The current version will always be available on this page.</p>
 
-				<h2>Contact</h2>
-				<p>Questions about these terms can be sent to <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.</p>
+				<h2 class={sx(typography.h2).class}>Contact</h2>
+				<p class={sx(typography.p).class}>Questions about these terms can be sent to <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.</p>
 			</div>
 		</div>
 	</article>
