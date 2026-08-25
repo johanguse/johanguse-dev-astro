@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView } from 'motion/react'
+import { motion, useInView, useReducedMotion } from 'motion/react'
 
 export interface TextRevealProps {
   text: string
@@ -30,6 +30,7 @@ export function TextReveal({
   className,
 }: TextRevealProps) {
   const ref = useRef<HTMLElement>(null)
+  const reduceMotion = useReducedMotion()
   const isInView = useInView(ref as React.RefObject<Element>, {
     once,
     margin: '0px 0px -8% 0px',
@@ -50,18 +51,19 @@ export function TextReveal({
       {units.map((unit, i) => (
         <motion.span
           key={i}
-          initial={{ opacity: 0.72, filter: 'blur(10px)' }}
+          initial={reduceMotion ? { opacity: 1, filter: 'blur(0px)' } : { opacity: 1, filter: 'blur(10px)' }}
           animate={
-            isInView
+            reduceMotion || isInView
               ? { opacity: 1, filter: 'blur(0px)' }
-              : { opacity: 0.72, filter: 'blur(10px)' }
+              : { opacity: 1, filter: 'blur(10px)' }
           }
           transition={{
-            duration,
-            delay: i * staggerDelay,
+            duration: reduceMotion ? 0 : duration,
+            delay: reduceMotion ? 0 : i * staggerDelay,
             ease: [0.22, 1, 0.36, 1],
           }}
           style={{ display: 'inline-block', willChange: 'opacity, filter' }}
+          aria-hidden="true"
         >
           {unit}
         </motion.span>

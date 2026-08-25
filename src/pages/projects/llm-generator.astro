@@ -71,12 +71,12 @@ import ContactCta from '../../components/ContactCta.astro'
 							{ icon: '🔒', title: 'Flexible Pricing', desc: 'Credits (never expire) + subscriptions' },
 						].map((item) => (
 							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this feature list statically.
-							<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.p4, styles.borderGray700).class}>
+							<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.p3, styles.borderGray700).class}>
 								<div class={sx(styles.flex, styles.itemsStart, styles.gap3).class}>
 									<span class={sx(styles.textXl).class}>{item.icon}</span>
-									<div>
-										<h3 class={sx(styles.fontMedium, styles.textSm).class}>{item.title}</h3>
-										<p class={sx(styles.textGray500, styles.textXs, styles.textGray400).class}>{item.desc}</p>
+									<div class={sx(styles.featureText).class}>
+										<h3 class={sx(styles.fontMedium, styles.textSm, styles.featureTitle).class}>{item.title}</h3>
+										<p class={sx(styles.textGray500, styles.textXs, styles.textGray400, styles.featureDescription).class}>{item.desc}</p>
 									</div>
 								</div>
 							</div>

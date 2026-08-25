@@ -51,6 +51,7 @@ export function TiltCard({
 
   const onMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const card = cardRef.current
       if (!card) return
 
@@ -78,6 +79,7 @@ export function TiltCard({
   )
 
   const onMouseLeave = useCallback(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const card = cardRef.current
     if (!card) return
     card.style.transform =

@@ -157,6 +157,17 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5f'
     if (contactFormAbortController) contactFormAbortController.abort()
     contactFormAbortController = new AbortController()
 
+    form.querySelectorAll('input, select, textarea').forEach((field) => {
+      field.addEventListener('invalid', () => field.setAttribute('aria-invalid', 'true'), {
+        signal: contactFormAbortController.signal,
+      })
+      field.addEventListener('input', () => {
+        if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) {
+          if (field.validity.valid) field.removeAttribute('aria-invalid')
+        }
+      }, { signal: contactFormAbortController.signal })
+    })
+
     if (turnstileContainer && !window.turnstile) {
       if (contactTurnstileLoadAttempts < 20) {
         contactTurnstileLoadAttempts += 1
@@ -202,6 +213,7 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5f'
       }
 
       submitButton.disabled = true
+      form.setAttribute('aria-busy', 'true')
       submitButton.textContent = 'Sending…'
       status.textContent = 'Sending your message…'
       status.dataset.state = 'pending'
@@ -226,6 +238,7 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5f'
         resetContactTurnstile()
       } finally {
         submitButton.disabled = false
+        form.removeAttribute('aria-busy')
         submitButton.innerHTML = 'Send message <span aria-hidden="true">→</span>'
       }
     }, { signal: contactFormAbortController.signal })
@@ -541,6 +554,13 @@ const turnstileSiteKey = '0x4AAAAAAEQOYbYqAOdD5R5f'
     border-color: var(--accent);
     box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 24%, transparent);
     outline: none;
+  }
+
+  .contact-field input:focus-visible,
+  .contact-field select:focus-visible,
+  .contact-field textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   .contact-form-footer {

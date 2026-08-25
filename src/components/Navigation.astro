@@ -32,6 +32,7 @@ const currentPath = Astro.url.pathname
       <button
         id="theme-toggle"
         aria-label="Toggle dark mode"
+        aria-pressed="false"
         type="button"
         class="nav-toggle-btn"
       >
@@ -275,6 +276,8 @@ const currentPath = Astro.url.pathname
       const dark = document.documentElement.classList.contains('dark')
       sunIcon?.classList.toggle('hidden', !dark)
       moonIcon?.classList.toggle('hidden', dark)
+      themeBtn?.setAttribute('aria-pressed', String(dark))
+      themeBtn?.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode')
     }
     syncIcons()
 

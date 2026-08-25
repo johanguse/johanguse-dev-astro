@@ -62,7 +62,7 @@ export const typography = stylex.create({
 		lineHeight: 1.6,
 		marginBlock: "1.5rem",
 		overflowX: "auto",
-		padding: "1.25rem",
+		padding: 8,
 	},
 	strong: { fontWeight: 700 },
 	ul: { listStyleType: "disc", marginBlock: "1rem", paddingInlineStart: "1.5rem" },
