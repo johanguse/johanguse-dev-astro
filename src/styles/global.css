@@ -126,17 +126,19 @@ body {
 
 .skip-link:focus {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0.75rem;
+  left: 0.75rem;
   width: auto;
   height: auto;
-  padding: 0.75rem 1.5rem;
-  background: var(--accent);
-  color: oklch(0.08 0.01 275);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  text-decoration: none;
   font-size: 0.875rem;
   font-weight: 600;
   z-index: 100;
-  outline: 2px solid var(--text-1);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 

@@ -34,7 +34,7 @@ const currentPath = Astro.url.pathname
         aria-label="Toggle dark mode"
         aria-pressed="false"
         type="button"
-        class="nav-toggle-btn"
+        class="nav-toggle-btn theme-toggle-btn"
       >
         <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="nav-icon hidden">
           <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
@@ -42,6 +42,7 @@ const currentPath = Astro.url.pathname
         <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="nav-icon">
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
         </svg>
+        <span class="theme-toggle-phase" aria-hidden="true"></span>
       </button>
 
       <!-- Mobile hamburger -->
@@ -120,7 +121,7 @@ const currentPath = Astro.url.pathname
 
   .nav-logo-mark {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.75rem;
     font-weight: 800;
     letter-spacing: -0.04em;
     color: var(--text-1);
@@ -171,8 +172,8 @@ const currentPath = Astro.url.pathname
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.55rem;
+    height: 2.55rem;
     border-radius: 0.5rem;
     background: transparent;
     border: none;
@@ -191,9 +192,35 @@ const currentPath = Astro.url.pathname
     background: var(--bg-elevated);
   }
 
+  .theme-toggle-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .theme-toggle-btn > svg {
+    display: none;
+  }
+
+  .theme-toggle-phase {
+    width: 1.25rem;
+    height: 1.25rem;
+    background: url('/theme.png') left center / auto 1.25rem no-repeat;
+    transition: background-position 0.4s steps(5);
+  }
+
+  :global(.dark) .theme-toggle-phase {
+    background-position: right center;
+  }
+
   .nav-icon {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1.55rem;
+    height: 1.55rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle-phase {
+      transition: none;
+    }
   }
 
   /* Mobile menu */
@@ -241,8 +268,6 @@ const currentPath = Astro.url.pathname
 
 <script is:inline>
   function setupNav() {
-    const sunIcon = document.getElementById('icon-sun')
-    const moonIcon = document.getElementById('icon-moon')
     const themeBtn = document.getElementById('theme-toggle')
     const mobileBtn = document.getElementById('mobile-menu-btn')
     const mobileMenu = document.getElementById('mobile-menu')
@@ -274,12 +299,11 @@ const currentPath = Astro.url.pathname
 
     function syncIcons() {
       const dark = document.documentElement.classList.contains('dark')
-      sunIcon?.classList.toggle('hidden', !dark)
-      moonIcon?.classList.toggle('hidden', dark)
       themeBtn?.setAttribute('aria-pressed', String(dark))
       themeBtn?.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode')
     }
     syncIcons()
+    requestAnimationFrame(syncIcons)
 
     if (themeBtn && !themeBtn.dataset.bound) {
       themeBtn.dataset.bound = 'true'

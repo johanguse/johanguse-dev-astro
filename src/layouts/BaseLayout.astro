@@ -97,7 +97,7 @@ const ogImageAbsolute = ogImage?.startsWith('http')
 		{fullBleed ? (
 			<>
 				<slot name="header" />
-				<main id="main-content">
+				<main id="main-content" tabindex="-1">
 					<slot />
 				</main>
 				<slot name="footer" />
@@ -106,7 +106,7 @@ const ogImageAbsolute = ogImage?.startsWith('http')
 			<div class={sx(styles.mxAuto, styles.maxW3xl, styles.px4, styles.px6Sm, styles.maxWXl, styles.xlPx0).class}>
 				<div class={sx(styles.flex, styles.minHScreen, styles.flexCol, styles.fontSans).class}>
 					<slot name="header" />
-					<main id="main-content" class={sx(styles.mbAuto, styles.grow).class}>
+					<main id="main-content" tabindex="-1" class={sx(styles.mbAuto, styles.grow).class}>
 						<slot />
 					</main>
 					<slot name="footer" />
