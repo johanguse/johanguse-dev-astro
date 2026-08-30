@@ -1,9 +1,9 @@
 ---
 title: 'How to Send Transactional Emails with Cloudflare Email Service'
 description: 'Learn how to send transactional emails natively from Cloudflare Workers without API keys, compare it against Resend, Postmark, SendGrid, and Amazon SES, and build a clean production email architecture.'
-date: '2026-08-30'
+date: '2026-08-29'
 tags: ['Cloudflare', 'Serverless', 'TypeScript', 'Backend']
-draft: true
+draft: false
 tldr: 'Cloudflare Email Service provides native outbound transactional email via the `env.EMAIL` Workers binding—no third-party API keys, extra HTTP hops, or separate mail vendors required. This guide explains how it compares to Resend, Postmark, SendGrid, and AWS SES, how to onboard your domain, and how to build a robust production email service.'
 ---
 
@@ -11,7 +11,7 @@ Sending transactional emails—welcome messages, verification links, password re
 
 For years, the standard approach on serverless and edge platforms was reaching for external email SaaS providers. You would create an account on Resend, Postmark, or SendGrid, create an API token, paste it into your environment variables, and invoke an external HTTP endpoint on every send.
 
-With **Cloudflare Email Service** (specifically *Email Sending*), the game changes. You can send transactional emails natively right inside your Cloudflare Workers using a direct binding:
+With **Cloudflare Email Service** (specifically *Email Sending*), you can send transactional emails natively right inside your Cloudflare Workers using a direct binding:
 
 ```typescript
 await env.EMAIL.send({
@@ -23,11 +23,9 @@ await env.EMAIL.send({
 });
 ```
 
-No third-party SDK dependencies, no external API secrets to leak or rotate, and no extra network latency calling out to a third-party cloud.
+No third-party SDK dependencies, no API secrets to leak or rotate, and no extra network hop to a third-party cloud.
 
-Let's dive into how Cloudflare Email Service compares to alternatives, how domain onboarding works, and how to structure a clean, production-ready email architecture based on real-world implementations.
-
----
+Here's how it compares to the alternatives, how domain onboarding works, and how to structure a clean, production-ready email architecture based on real-world implementations.
 
 ## Cloudflare Email Service vs. Alternatives
 
@@ -43,13 +41,13 @@ Before writing code, let's look at where Cloudflare Email Service fits in agains
 | **Primary Use Case** | Outbound transactional & edge alerts | Transactional & marketing broadcast | Premium transactional delivery | High-volume marketing/transactional | Low-cost enterprise volume |
 
 ### 1. Resend
-[Resend](https://resend.com) brought modern developer experience and React Email templates to the forefront. It is slick and intuitive. However, on Cloudflare Workers, using Resend means managing another external account, paying separate tier bills, storing `RESEND_API_KEY` in your worker secrets, and initiating an outbound HTTPS request from the edge to Resend's servers on every single email dispatch.
+[Resend](https://resend.com) brought a modern developer experience and React Email templates to the space. It's slick and intuitive. But on Cloudflare Workers, using Resend means managing another external account, paying a separate subscription, storing `RESEND_API_KEY` in your worker secrets, and making an outbound HTTPS request to Resend's servers on every email.
 
 ### 2. Postmark
 [Postmark](https://postmarkapp.com) remains the gold standard for transactional deliverability and in-depth delivery analytics. But it comes with premium pricing that ramps up quickly, plus the operational overhead of third-party token management and vendor lock-in.
 
 ### 3. SendGrid
-[Twilio SendGrid](https://sendgrid.com) is the veteran titan of the email world. While dependable for huge legacy volumes, its dashboard and configuration can feel complex and clunky. Developers often struggle with shared IP reputation issues and verbose API client libraries.
+[Twilio SendGrid](https://sendgrid.com) is the industry veteran. It's dependable at huge legacy volumes, but its dashboard and configuration feel clunky, and shared IP reputation issues are a recurring headache.
 
 ### 4. Amazon SES
 [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/) is unmatched in raw price-per-email ($0.10 per 1,000 emails). But it comes with AWS IAM permissions complexity, initial sandbox restriction friction, manual DKIM/SPF verification loops across separate dashboards, and heavyweight SDK dependencies.
@@ -60,8 +58,6 @@ If your application or backend is already deployed on Cloudflare Workers or Page
 - **Zero External Network Latency**: Cloudflare routes the email dispatch through its internal backbone without performing an external HTTPS handshake to a third-party vendor.
 - **Instant DNS Configuration**: Since your domain is already on Cloudflare DNS, Cloudflare automatically provisions and validates the SPF, DKIM, DMARC, and bounce records for you.
 
----
-
 ## Email Sending vs. Email Routing
 
 Cloudflare bundles two distinct capabilities under the **Email Service** umbrella:
@@ -70,8 +66,6 @@ Cloudflare bundles two distinct capabilities under the **Email Service** umbrell
 2. **Email Routing (Inbound)**: Intercepts inbound emails sent to your custom domain, forwarding them to verified email addresses or triggering an `email(message, env, ctx)` handler in a Worker to process incoming messages programmatically.
 
 In this guide, we focus on **Email Sending**.
-
----
 
 ## Step 1: Onboard Your Sending Domain
 
@@ -95,7 +89,7 @@ Cloudflare automatically generates and applies the necessary DNS records:
 
 Verification is usually instant or takes just a few minutes.
 
----
+> **Tip**: Send from a subdomain like `mail.yourdomain.com` or `corp.yourdomain.com` rather than your apex domain. If it ever picks up bounces or spam complaints, your root domain's reputation — and its regular website and email traffic — stays untouched. Onboarding differs by capability, though: Email Routing treats a subdomain as part of the zone (add it inline under Routing settings), while Email Sending treats a subdomain as a fully separate sending domain — it goes through the same onboarding flow above, with its own SPF, DKIM, DMARC, and bounce records.
 
 ## Step 2: Configure `wrangler.jsonc`
 
@@ -134,8 +128,6 @@ To grant your Worker access to the email capability, add the `send_email` bindin
 > }
 > ```
 
----
-
 ## Step 3: Production Code Architecture
 
 Let's build a modular and maintainable email system in TypeScript, similar to real-world production setups.
@@ -163,6 +155,8 @@ export function htmlToPlainText(html: string): string {
     .trim();
 }
 ```
+
+This `{ email, name }` shape is what Cloudflare calls a **named recipient** — a display name alongside the address. It works identically for `to`, `from`, `cc`, and `bcc`, and the same pattern holds if you're calling the REST API (`{ address, name }`) or sending over SMTP (`Display Name <address>` in the message headers).
 
 Now, the core sender function:
 
@@ -276,8 +270,6 @@ export class EmailService {
 }
 ```
 
----
-
 ## Step 4: Local Testing and Development
 
 When running `npx wrangler dev`:
@@ -297,11 +289,9 @@ When running `npx wrangler dev`:
 
 *(Remember to keep `remote: true` for testing only to prevent test runs or unit tests from consuming your sending quotas).*
 
----
-
 ## Error Handling & Important Limits
 
-Always wrap your email calls in robust error handling. Cloudflare returns specific error codes:
+Wrap your email calls in error handling. Cloudflare returns specific error codes:
 
 ```typescript
 try {
@@ -321,12 +311,18 @@ try {
 - **Recipients**: Up to 50 recipients per message across `to`, `cc`, and `bcc`.
 - **Message Size**: Max 5 MiB per email (including HTML, text, and attachments).
 - **Quotas**: New accounts start with a conservative daily limit that automatically ramps up based on healthy delivery metrics and bounce rates. Sends to verified destination addresses in Email Routing do not consume the quota.
+- **Domains per Zone**: Up to 30 domains combined for Email Sending and Email Routing per zone, including the apex domain.
 - **Transactional Only**: Cloudflare Email Service is designed strictly for transactional emails (alerts, authentication, receipts). For bulk marketing broadcasts and newsletters, continue using specialized tools.
 
----
+## Observability
+
+Every domain onboarded to Email Sending gets delivery analytics with no extra setup:
+
+- **Dashboard**: **Compute & AI** > **Email Service** > select a domain > **Analytics** tab, for delivery status, bounce reasons, and DKIM/DMARC/SPF results over time.
+- **GraphQL Analytics API**: query `emailSendingAdaptiveGroups` (aggregated counts) or `emailSendingAdaptive` (per-message events, including `messageId` and `errorCause`) under `viewer > zones`. Metrics are retained for 31 days.
+
+See the [metrics and analytics docs](https://developers.cloudflare.com/email-service/observability/metrics-analytics/) for the full GraphQL schema.
 
 ## Conclusion
 
-Cloudflare Email Service is a breath of fresh air for developers building on Workers and Pages. By removing the need for third-party SaaS accounts, API secret configuration, and extra external HTTP roundtrips, it lets you send transactional emails effortlessly right at the edge.
-
-If you are already hosting DNS and running edge workloads on Cloudflare, onboarding your domain and adding the `send_email` binding is by far the fastest and cleanest way to get transactional emails up and running.
+If you're already running Workers or Pages with your domain on Cloudflare DNS, adding the `send_email` binding takes a few minutes and removes an entire third-party account—and its API keys—from your stack.
