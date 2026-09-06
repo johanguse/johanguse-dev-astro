@@ -2,6 +2,17 @@ import type { Project } from '../types'
 
 export const projectsData: Project[] = [
 	{
+		title: 'WakeProof',
+		description: 'iOS alarm app that makes it impossible to sleep through. Wake-up challenges (Math, Shake, Memory, Steps, Sound, Photo Scan), AlarmKit system-level alarms, StoreKit 2 paywall, and a Cloudflare Workers backend for cloud sync.',
+		imgSrc: '',
+		href: '/projects/wakeproof/',
+		externalHref: 'https://wakeproof.guseapp.com/',
+		clientName: 'Personal Project',
+		clientURL: 'https://wakeproof.guseapp.com/',
+		date: 'August 2026',
+		skills: ['SwiftUI', 'Swift 6', 'AlarmKit', 'SwiftData', 'StoreKit 2', 'Hono', 'Cloudflare Workers', 'D1', 'Drizzle ORM', 'Better Auth'],
+	},
+	{
 		title: 'Rural Dispatch',
 		description: 'Full-stack ride-sharing management application for rural communities. Features role-based access control, SMS notifications with Twilio/Vonage, real-time ride tracking, and TCPA-compliant messaging.',
 		imgSrc: 'https://res.cloudinary.com/dvcywi3uf/image/upload/v1766063705/jrguse/port/rural-dispatch.jpg',
