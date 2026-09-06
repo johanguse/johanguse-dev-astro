@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import ContactCta from '../../components/ContactCta.astro'
+import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 ---
 
 	<BaseLayout
@@ -153,18 +154,10 @@ import ContactCta from '../../components/ContactCta.astro'
 					</div>
 				</section>
 
-				<!-- Links -->
-				<section class={sx(styles.borderT, styles.borderGray200, styles.borderGray700, styles.pt8, styles.flex, styles.flexWrap, styles.gap4).class}>
-					<a href="https://swarmnyc.com/" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						SWARM NYC &rarr;
-					</a>
-					<a href="https://github.com/swarmnyc/ruraldispatch-ride-request" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						GitHub &rarr;
-					</a>
-					<a href="/projects/" class={sx(styles.textGray500, styles.hoverTextGray700, styles.textGray400, styles.hoverTextGray200, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						&larr; All Projects
-					</a>
-				</section>
+				<ProjectFooterNav links={[
+					{ label: 'SWARM NYC', href: 'https://swarmnyc.com/', external: true },
+					{ label: 'GitHub', href: 'https://github.com/swarmnyc/ruraldispatch-ride-request', external: true },
+				]} />
 			</div>
 			<ContactCta />
 		</div>

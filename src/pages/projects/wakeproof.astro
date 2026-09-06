@@ -1,0 +1,287 @@
+---
+import { styles, sx } from "../../styles/utilities.stylex";
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Navigation from '../../components/Navigation.astro'
+import Footer from '../../components/Footer.astro'
+import ContactCta from '../../components/ContactCta.astro'
+import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
+---
+
+	<BaseLayout
+		title="WakeProof"
+		description="An alarm app that makes it impossible to sleep through, built with SwiftUI, Swift 6, AlarmKit, SwiftData, and native StoreKit 2."
+		fullBleed
+	>
+	<Navigation slot="header" />
+
+	<article class="inner-page project-page">
+		<div class="container--narrow">
+			<header class="project-header">
+				<span class="section-label">Case study</span>
+				<h1 class="page-title">
+					WakeProof
+				</h1>
+				<p class="page-subtitle">
+					An alarm app that makes it impossible to sleep through
+				</p>
+				<div class="project-meta">
+					<span class="project-meta-item">Personal Project</span>
+					<span class="project-meta-item">August 2026</span>
+				</div>
+			</header>
+
+			<!-- Hero -->
+			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden).class}>
+				<img
+					src="/static/images/screenshots/wakeproof/alarms.webp"
+					alt="WakeProof alarm list showing upcoming alarms with challenge and sound tags"
+					class={sx(styles.wFull).class}
+					loading="lazy"
+				/>
+			</div>
+
+			<div class={sx(styles.spaceY12, styles.textGray900, styles.textGray900).class}>
+				<section>
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>Project Overview</h2>
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed, styles.mb4).class}>
+						WakeProof is an iOS alarm app built on one idea: a normal "tap to dismiss" alarm is too easy to sleep through. So waking up means clearing a challenge first, a math problem, a shake gesture, a memory puzzle, a step count, a sound to match, or a photo/object scan, before the alarm stops.
+					</p>
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
+						The app uses Apple's AlarmKit (new in iOS 26) for a system-level alarm experience identical to the built-in Clock app, full lock-screen takeover, a loud alarm sound, with a UNNotification fallback for devices or situations where AlarmKit isn't available. Alarms, completion history, and statistics sync to a Cloudflare Workers backend, so a user's setup carries across devices.
+					</p>
+				</section>
+
+				<section>
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Screenshots</h2>
+					<div class="screenshot-grid">
+						{[
+							{ name: 'alarms', alt: 'Alarm list showing upcoming alarms with challenge and sound tags' },
+							{ name: 'mission-challenges', alt: 'Missions library listing Classic, Math, Shake, Photo/Object Scan, Steps, and Memory challenges' },
+							{ name: 'library', alt: 'Sound library with a searchable list of alarm ringtones' },
+							{ name: 'stack', alt: 'Statistics screen showing a 45-day streak and 107 total wins' },
+							{ name: 'widget-large', alt: 'Large home screen widget showing the next alarm and its challenge' },
+							{ name: 'widget-small', alt: 'Small home screen widget showing the next alarm time' },
+						].map((shot) => (
+							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this list statically.
+							<div class="screenshot-tile">
+								<img
+									src={`/static/images/screenshots/wakeproof/${shot.name}.webp`}
+									alt={shot.alt}
+									loading="lazy"
+								/>
+							</div>
+						))}
+					</div>
+				</section>
+
+				<section>
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Key Features</h2>
+					<div class="feature-grid">
+						{[
+							{ icon: '⏰', title: 'System-level alarms', desc: 'AlarmKit (iOS 26) with UNNotification fallback' },
+							{ icon: '🧩', title: '6 wake-up challenges', desc: 'Math, Shake, Memory, Steps, Sound, Photo/Object Scan' },
+							{ icon: '🔗', title: 'Multi-mission alarms', desc: 'Chain up to 5 challenges on a single alarm (Pro)' },
+							{ icon: '📊', title: 'Statistics & streaks', desc: 'Track wake-up consistency over time (Pro)' },
+							{ icon: '☁️', title: 'Cloud sync', desc: 'Alarms, completions, and preferences sync across devices' },
+							{ icon: '💳', title: 'Freemium via StoreKit 2', desc: 'Weekly/monthly/yearly Pro plans with free trial' },
+							{ icon: '🌐', title: 'Localized', desc: 'Multi-language support, preferred locale synced to backend' },
+							{ icon: '🔔', title: 'Smart reminders', desc: 'Close-reminder notification to reinforce the habit loop' },
+						].map((item) => (
+							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this feature list statically.
+							<div class="feature-card">
+								<span class="feature-icon">{item.icon}</span>
+								<h3 class="feature-title">{item.title}</h3>
+								<p class="feature-desc">{item.desc}</p>
+							</div>
+						))}
+					</div>
+				</section>
+
+				<section>
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>Meet the Mascot</h2>
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed, styles.mb6).class}>
+						A sleepy panda mascot shows up for every wake-up challenge, just as sleepy as you are.
+					</p>
+					<div class="mascot-grid">
+						{[
+							{ name: 'ready', label: 'Wakeproof mascot, a sleepy panda wrapped in a blanket' },
+							{ name: 'excited', label: 'Wakeproof mascot, an excited panda covering its cheeks' },
+							{ name: 'confetti', label: 'Wakeproof mascot celebrating with confetti' },
+							{ name: 'lovely', label: 'Wakeproof mascot with heart eyes' },
+						].map((mascot) => (
+							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this list statically.
+							<div class="mascot-tile">
+								<video
+									class="mascot-media"
+									autoplay
+									muted
+									loop
+									playsinline
+									poster={`https://res.cloudinary.com/dvcywi3uf/image/upload/jrguse/port/wakeproof/mascot/wakeproof-mascot-${mascot.name}-poster.png`}
+									aria-label={mascot.label}
+								>
+									<source src={`https://res.cloudinary.com/dvcywi3uf/video/upload/jrguse/port/wakeproof/mascot/wakeproof-mascot-${mascot.name}.mov`} type="video/quicktime" />
+									<source src={`/static/videos/mascot/wakeproof-mascot-${mascot.name}.webm`} type="video/webm" />
+								</video>
+							</div>
+						))}
+					</div>
+				</section>
+
+				<section>
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Tech Stack</h2>
+					<div class={sx(styles.grid, styles.gridCols1, styles.mdGridCols2, styles.gap6).class}>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>iOS App</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
+								<li>SwiftUI & Swift 6 (strict concurrency)</li>
+								<li>AlarmKit (iOS 26) with UNNotification fallback</li>
+								<li>SwiftData for local persistence</li>
+								<li>StoreKit 2 for subscriptions</li>
+								<li>WidgetKit home screen widget</li>
+							</ul>
+						</div>
+						<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class}>
+							<h3 class={sx(styles.textLg, styles.fontMedium, styles.mb3).class}>Backend</h3>
+							<ul class={sx(styles.spaceY15, styles.textGray500, styles.textGray400, styles.textSm).class}>
+								<li>Hono on Cloudflare Workers</li>
+								<li>Cloudflare D1 (SQLite) with Drizzle ORM</li>
+								<li>Better Auth for authentication</li>
+								<li>App Store Server Notification (JWS) verification</li>
+								<li>Push token registration & cloud sync</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class} style="border-color: rgb(234 179 8);">
+					<p class={sx(styles.textSm, styles.textGray500, styles.textGray400).class}>
+						<strong class={sx(styles.textYellow500).class}>Status:</strong> Core alarm loop, paywall, onboarding, and backend sync are complete. Widget/Watch support and App Store submission are in progress. Screenshots and a store link will follow once it ships.
+					</p>
+				</div>
+
+				<ProjectFooterNav links={[{ label: 'Visit Website', href: 'https://wakeproof.guseapp.com/', external: true }]} />
+			</div>
+			<ContactCta />
+		</div>
+	</article>
+
+	<Footer slot="footer" />
+</BaseLayout>
+
+<style>
+	.screenshot-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.25rem;
+		justify-items: center;
+	}
+
+	@media (min-width: 640px) {
+		.screenshot-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.screenshot-tile {
+		width: 100%;
+		max-width: 200px;
+		aspect-ratio: 9 / 16;
+		border: 1px solid var(--border);
+		border-radius: 1rem;
+		overflow: hidden;
+	}
+
+	.screenshot-tile img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.feature-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	@media (min-width: 640px) {
+		.feature-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.feature-grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+
+	.feature-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		padding: 1.25rem;
+		border: 1px solid var(--border);
+		border-radius: 0.75rem;
+		background: var(--bg-card);
+		transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+	}
+
+	.feature-card:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-card);
+		border-color: var(--accent);
+	}
+
+	.feature-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 0.6rem;
+		background: var(--bg-elevated);
+		font-size: 1.25rem;
+	}
+
+	.feature-title {
+		margin: 0;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--text-1);
+	}
+
+	.feature-desc {
+		margin: 0;
+		font-size: 0.8rem;
+		line-height: 1.5;
+		color: var(--text-2);
+	}
+
+	.mascot-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	@media (min-width: 640px) {
+		.mascot-grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+
+	.mascot-tile {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0.75rem;
+		background: var(--bg-elevated);
+		overflow: hidden;
+	}
+
+	.mascot-media {
+		width: 100%;
+		height: 190px;
+		object-fit: contain;
+	}
+</style>
