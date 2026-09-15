@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
+import ArrowFillButton from '../components/ArrowFillButton.astro'
+import { RectangularTextReveal } from '../components/react/RectangularTextReveal'
 import { siteConfig } from '../data/siteConfig'
 
 const techStackHighlights = [
@@ -83,7 +85,7 @@ const techStackHighlights = [
     <div class="container">
       <header class="page-header">
         <span class="section-label">Human</span>
-        <h1 class="page-title">About</h1>
+        <RectangularTextReveal client:load as="h1" className="page-title" text="About" />
       </header>
 
       <div class="about-layout">
@@ -173,9 +175,9 @@ const techStackHighlights = [
           </section>
 
           <div class="about-cta">
-            <a href="/contact/" class="btn-primary">
+            <ArrowFillButton href="/contact/">
               Start a conversation
-            </a>
+            </ArrowFillButton>
           </div>
         </div>
       </div>
@@ -424,21 +426,4 @@ const techStackHighlights = [
     gap: 1rem;
   }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 1.75rem;
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    font-weight: 600;
-    font-size: 0.9rem;
-    border-radius: 0.6rem;
-    text-decoration: none;
-    transition: opacity 0.15s ease, transform 0.15s ease;
-  }
-
-  .btn-primary:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
-  }
 </style>

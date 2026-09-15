@@ -1,17 +1,32 @@
 ---
 import { siteConfig } from '../data/siteConfig'
+import ArrowFillButton from './ArrowFillButton.astro'
+import { RectangularTextReveal } from './react/RectangularTextReveal'
+
+interface Props {
+  showCta?: boolean
+}
+
+const { showCta = true } = Astro.props
 ---
 
 <footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <p class="footer-cta">Let's build something together.</p>
-      <a href="/contact/" class="footer-contact-link">
-        Start a conversation <span aria-hidden="true">→</span>
-      </a>
-    </div>
+  <div class:list={['footer-inner', { 'footer-inner--compact': !showCta }]}>
+    {showCta && (
+      <>
+        <div class="footer-top">
+          <RectangularTextReveal
+            client:visible
+            as="p"
+            className="footer-cta"
+            text="Let's build something together."
+          />
+          <ArrowFillButton href="/contact/" className="footer-contact-link">Start a conversation</ArrowFillButton>
+        </div>
 
-    <div class="footer-divider" />
+        <div class="footer-divider" />
+      </>
+    )}
 
     <div class="footer-bottom">
       <div class="footer-copy">
@@ -80,7 +95,7 @@ import { siteConfig } from '../data/siteConfig'
     margin-bottom: 3rem;
   }
 
-  .footer-cta {
+  :global(.footer-cta) {
     font-family: var(--font-display);
     font-size: clamp(1.75rem, 4vw, 3rem);
     font-weight: 700;
@@ -90,25 +105,9 @@ import { siteConfig } from '../data/siteConfig'
     margin: 0;
   }
 
-  .footer-contact-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
+  :global(.footer-contact-link) {
     align-self: flex-start;
-    min-height: 3rem;
-    padding: 0.75rem 1rem;
-    border: 1px solid color-mix(in oklch, var(--accent) 80%, var(--border));
-    background: var(--accent);
-    color: var(--btn-text);
     font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: background 0.18s ease, transform 0.18s ease;
-  }
-
-  .footer-contact-link:hover {
-    background: var(--accent-text);
-    transform: translateY(-2px);
   }
 
   .footer-divider {
@@ -123,6 +122,10 @@ import { siteConfig } from '../data/siteConfig'
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1.5rem;
+  }
+
+  .footer-inner--compact {
+    padding-top: 2rem;
   }
 
   .footer-copy {

@@ -18,7 +18,6 @@ type ContactPayload = {
 	name: string;
 	email: string;
 	company: string;
-	projectType: string;
 	message: string;
 	token: string;
 };
@@ -67,7 +66,6 @@ async function parseContactPayload(
 		name: field(formData, "name", 120),
 		email: field(formData, "email", 254),
 		company: field(formData, "company", 160),
-		projectType: field(formData, "projectType", 80),
 		message: field(formData, "message", 5_000),
 		token: field(formData, "cf-turnstile-response", 2_048),
 	};
@@ -156,7 +154,6 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 		`Name: ${payload.name}`,
 		`Email: ${payload.email}`,
 		`Company: ${payload.company || "Not provided"}`,
-		`Project type: ${payload.projectType || "Not provided"}`,
 		"",
 		"Message:",
 		payload.message,
@@ -166,7 +163,6 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 		<p><strong>Name:</strong> ${escapeHtml(payload.name)}</p>
 		<p><strong>Email:</strong> ${escapeHtml(payload.email)}</p>
 		<p><strong>Company:</strong> ${escapeHtml(payload.company || "Not provided")}</p>
-		<p><strong>Project type:</strong> ${escapeHtml(payload.projectType || "Not provided")}</p>
 		<p><strong>Message:</strong></p>
 		<p>${escapeHtml(payload.message).replace(/\n/g, "<br>")}</p>
 	`;

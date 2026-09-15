@@ -1,4 +1,7 @@
 ---
+import ArrowFillButton from './ArrowFillButton.astro'
+import { RectangularTextReveal } from './react/RectangularTextReveal'
+
 interface Props {
   eyebrow?: string
   title?: string
@@ -16,12 +19,16 @@ const {
   <div class="contact-cta-mark" aria-hidden="true">↗</div>
   <div class="contact-cta-copy">
     <span class="section-label">{eyebrow}</span>
-    <h2 id="contact-cta-heading">{title}</h2>
+    <RectangularTextReveal
+      client:visible
+      as="h2"
+      id="contact-cta-heading"
+      className="contact-cta-title"
+      text={title}
+    />
     <p>{description}</p>
   </div>
-  <a href="/contact/" class="contact-cta-link">
-    Contact Johan <span aria-hidden="true">→</span>
-  </a>
+  <ArrowFillButton href="/contact/" className="contact-cta-link">Contact Johan</ArrowFillButton>
 </section>
 
 <style>
@@ -65,7 +72,7 @@ const {
     max-width: 40rem;
   }
 
-  .contact-cta h2 {
+  :global(.contact-cta-title) {
     max-width: 17ch;
     margin: 0.55rem 0 0;
     color: var(--text-1);
@@ -87,23 +94,6 @@ const {
     position: relative;
     z-index: 1;
     justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    min-height: 3rem;
-    padding: 0.75rem 1rem;
-    border: 1px solid color-mix(in oklch, var(--accent) 80%, var(--border));
-    background: var(--accent);
-    color: var(--btn-text);
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: background 0.18s ease, transform 0.18s ease;
-  }
-
-  .contact-cta-link:hover {
-    background: var(--accent-text);
-    transform: translateY(-2px);
   }
 
   @media (min-width: 760px) {

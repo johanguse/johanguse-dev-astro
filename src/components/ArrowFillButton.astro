@@ -1,0 +1,35 @@
+---
+interface Props {
+  href?: string
+  type?: 'button' | 'submit' | 'reset'
+  className?: string
+  disabled?: boolean
+}
+
+const {
+  href,
+  type = 'button',
+  className = '',
+  disabled = false,
+} = Astro.props
+---
+
+{href ? (
+  <a href={href} class:list={['arrow-fill-button', className]}>
+    <span class="arrow-fill-button__text"><slot /></span>
+    <span class="arrow-fill-button__circle" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" role="presentation">
+        <path d="M2 8h10M8.5 3.5 13 8l-4.5 4.5" />
+      </svg>
+    </span>
+  </a>
+) : (
+  <button type={type} class:list={['arrow-fill-button', className]} disabled={disabled}>
+    <span class="arrow-fill-button__text"><slot /></span>
+    <span class="arrow-fill-button__circle" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" role="presentation">
+        <path d="M2 8h10M8.5 3.5 13 8l-4.5 4.5" />
+      </svg>
+    </span>
+  </button>
+)}

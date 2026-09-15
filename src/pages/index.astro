@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro'
 import { TiltCard } from '../components/react/TiltCard'
 import { TextReveal } from '../components/react/TextReveal'
 import { PixelBackground } from '../components/react/PixelBackground'
+import ArrowFillButton from '../components/ArrowFillButton.astro'
+import { RectangularTextReveal } from '../components/react/RectangularTextReveal'
 import { projectsData } from '../data/projectsData'
 import { getCollection } from 'astro:content'
 import { formatDate } from '../utils/helpers'
@@ -44,11 +46,14 @@ const blogPosts = allPosts
             Available for work &mdash; based in Brazil
           </p>
 
-          <h1 class="hero-heading">
-            Hi, I'm Johan.<br />
-            I build <em class="hero-accent">full-stack</em><br />
-            products.
-          </h1>
+          <RectangularTextReveal
+            client:load
+            as="h1"
+            className="hero-heading"
+            text={"Hi, I'm Johan.\nI build full-stack\nproducts."}
+            accent="full-stack"
+            staggerDelay={0.14}
+          />
 
           <p class="hero-tagline">
             Full-stack developer building AI-powered, accessible
@@ -56,7 +61,7 @@ const blogPosts = allPosts
           </p>
 
           <div class="hero-actions">
-            <a href="#work" class="btn-primary">View work &rarr;</a>
+            <ArrowFillButton href="#work">View work</ArrowFillButton>
             <a href="/contact/" class="btn-ghost">Start a project</a>
           </div>
         </div>
@@ -141,10 +146,13 @@ const blogPosts = allPosts
       <div class="about-grid">
         <div class="about-left">
           <span class="section-label">About</span>
-          <div class="about-role">
-            <span class="about-role-line">Full-Stack</span>
-            <span class="about-role-line about-role-line--muted">Developer</span>
-          </div>
+          <RectangularTextReveal
+            client:visible
+            as="h2"
+            className="about-role"
+            text={'Full-Stack\nDeveloper'}
+            staggerDelay={0.16}
+          />
         </div>
         <div class="about-right">
           <TextReveal
@@ -173,7 +181,12 @@ const blogPosts = allPosts
     <div class="container">
       <div class="section-header">
         <span class="section-label">Writing</span>
-        <h2 class="section-heading">Thoughts &amp; notes</h2>
+        <RectangularTextReveal
+          client:visible
+          as="h2"
+          className="section-heading"
+          text="Thoughts & notes"
+        />
       </div>
 
       <ul class="posts-list">
@@ -263,7 +276,7 @@ const blogPosts = allPosts
     50%       { opacity: 0.4; transform: scale(0.8); }
   }
 
-  .hero-heading {
+  :global(.hero-heading) {
     font-family: var(--font-display);
     font-size: clamp(2.4rem, 5.5vw, 4.25rem);
     font-weight: 700;
@@ -271,12 +284,6 @@ const blogPosts = allPosts
     letter-spacing: -0.035em;
     color: var(--text-1);
     margin: 0 0 1.75rem;
-  }
-
-  .hero-accent {
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 700;
   }
 
   .hero-tagline {
@@ -373,27 +380,6 @@ const blogPosts = allPosts
     50%       { opacity: 0; }
   }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.75rem;
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.02em;
-    border-radius: 0.6rem;
-    text-decoration: none;
-    transition: opacity 0.15s ease, transform 0.15s ease;
-  }
-
-  .btn-primary:hover {
-    opacity: 0.85;
-    transform: translateY(-1px);
-  }
-
   .btn-ghost {
     display: inline-flex;
     align-items: center;
@@ -467,7 +453,7 @@ const blogPosts = allPosts
     margin-bottom: 1rem;
   }
 
-  .section-heading {
+  :global(.section-heading) {
     font-family: var(--font-display);
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
@@ -515,18 +501,15 @@ const blogPosts = allPosts
     gap: 1.5rem;
   }
 
-  .about-role {
+  :global(.about-role) {
     display: flex;
     flex-direction: column;
+    margin: 0;
     font-family: var(--font-display);
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 0.95;
     font-size: clamp(2.5rem, 6vw, 4.5rem);
-  }
-
-  .about-role-line--muted {
-    color: var(--text-3);
   }
 
   .about-statement {

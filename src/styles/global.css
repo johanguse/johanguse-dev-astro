@@ -150,6 +150,129 @@ body {
   outline-offset: 2px;
 }
 
+/* Arrow-fill call to action, adapted from the interaction pattern in ObsidianUI. */
+.arrow-fill-button {
+  --arrow-fill-background: var(--accent);
+  --arrow-fill-foreground: var(--btn-text);
+  --arrow-fill-hover-background: var(--bg-card);
+  --arrow-fill-hover-foreground: var(--text-1);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--accent) 80%, var(--border));
+  border-radius: 999px;
+  padding: 0.3rem 0.35rem 0.3rem 1.1rem;
+  background: var(--arrow-fill-background);
+  color: var(--arrow-fill-foreground);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.arrow-fill-button__text {
+  position: relative;
+  z-index: 1;
+}
+
+.arrow-fill-button::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--arrow-fill-hover-background);
+  content: '';
+  clip-path: circle(1.125rem at calc(100% - 1.475rem) 50%);
+  transition: clip-path 0.48s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arrow-fill-button__circle {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--arrow-fill-hover-background);
+  color: var(--arrow-fill-hover-foreground);
+}
+
+.arrow-fill-button__circle svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  transition: transform 0.22s ease;
+}
+
+.arrow-fill-button:is(:hover, :focus-visible):not(:disabled) {
+  color: var(--arrow-fill-hover-foreground);
+}
+
+.arrow-fill-button:is(:hover, :focus-visible):not(:disabled)::before {
+  clip-path: circle(150% at calc(100% - 1.475rem) 50%);
+}
+
+.arrow-fill-button:is(:hover, :focus-visible):not(:disabled) .arrow-fill-button__circle svg {
+  transform: translateX(0.12rem);
+}
+
+.arrow-fill-button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.project-card-button {
+  min-height: 2.75rem;
+  margin-top: 1.25rem;
+  padding-left: 0.85rem;
+  font-size: 0.8rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow-fill-button::before,
+  .arrow-fill-button__circle svg {
+    transition: none;
+  }
+}
+
+.rectangular-text-reveal__line {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.rectangular-text-reveal__content {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.rectangular-text-reveal__wipe {
+  position: absolute;
+  inset: -0.06em -0.08em;
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.rectangular-text-reveal__accent {
+  color: var(--accent);
+  font-style: italic;
+}
+
 button,
 [role='button'] {
   min-width: 24px;
