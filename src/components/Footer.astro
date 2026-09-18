@@ -1,32 +1,9 @@
 ---
 import { siteConfig } from '../data/siteConfig'
-import ArrowFillButton from './ArrowFillButton.astro'
-import { RectangularTextReveal } from './react/RectangularTextReveal'
-
-interface Props {
-  showCta?: boolean
-}
-
-const { showCta = true } = Astro.props
 ---
 
 <footer class="site-footer">
-  <div class:list={['footer-inner', { 'footer-inner--compact': !showCta }]}>
-    {showCta && (
-      <>
-        <div class="footer-top">
-          <RectangularTextReveal
-            client:visible
-            as="p"
-            className="footer-cta"
-            text="Let's build something together."
-          />
-          <ArrowFillButton href="/contact/" className="footer-contact-link">Start a conversation</ArrowFillButton>
-        </div>
-
-        <div class="footer-divider" />
-      </>
-    )}
+  <div class="footer-inner">
 
     <div class="footer-bottom">
       <div class="footer-copy">
@@ -78,7 +55,6 @@ const { showCta = true } = Astro.props
 
 <style>
   .site-footer {
-    margin-top: 8rem;
     border-top: 1px solid var(--border);
   }
 
@@ -86,34 +62,6 @@ const { showCta = true } = Astro.props
     max-width: 1200px;
     margin-inline: auto;
     padding: 4rem clamp(1.25rem, 5vw, 4rem) 3rem;
-  }
-
-  .footer-top {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 3rem;
-  }
-
-  :global(.footer-cta) {
-    font-family: var(--font-display);
-    font-size: clamp(1.75rem, 4vw, 3rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--text-1);
-    line-height: 1.1;
-    margin: 0;
-  }
-
-  :global(.footer-contact-link) {
-    align-self: flex-start;
-    font-size: 1rem;
-  }
-
-  .footer-divider {
-    height: 1px;
-    background: var(--border);
-    margin-bottom: 2rem;
   }
 
   .footer-bottom {
@@ -124,13 +72,10 @@ const { showCta = true } = Astro.props
     gap: 1.5rem;
   }
 
-  .footer-inner--compact {
-    padding-top: 2rem;
-  }
-
   .footer-copy {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 0.5rem;
     font-size: 0.8rem;
     color: var(--text-3);

@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import ContactCta from '../../components/ContactCta.astro'
+import ArrowFillButton from '../../components/ArrowFillButton.astro'
 ---
 
 	<BaseLayout
@@ -30,18 +31,16 @@ import ContactCta from '../../components/ContactCta.astro'
 			</header>
 
 			<!-- Video -->
-			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden, styles.bgGray800).class}>
-				<div class={sx(styles.relative, styles.aspectVideo).class}>
-					<iframe
-						title="Vixtape Demo"
-						src="https://player.cloudinary.com/embed/?cloud_name=dvcywi3uf&public_id=jrguse%2Fport%2Fvixtape&profile=cld-default"
-						width="640"
-						height="360"
-						style="height: auto; width: 100%; aspect-ratio: 640 / 360; border: 0;"
-						allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-						allowfullscreen
-					></iframe>
-				</div>
+			<div class="project-media project-media--wide">
+				<iframe
+					title="Vixtape Demo"
+					src="https://player.cloudinary.com/embed/?cloud_name=dvcywi3uf&public_id=jrguse%2Fport%2Fvixtape&profile=cld-default"
+					width="640"
+					height="360"
+					style="aspect-ratio: 16 / 9; border: 0;"
+					allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+					allowfullscreen
+				></iframe>
 			</div>
 
 			<div class={sx(styles.spaceY12, styles.textGray900, styles.textGray900).class}>
@@ -85,13 +84,13 @@ import ContactCta from '../../components/ContactCta.astro'
 					</div>
 				</section>
 
-				<section class={sx(styles.borderT, styles.borderGray200, styles.borderGray700, styles.pt8, styles.flex, styles.flexWrap, styles.gap4).class}>
-					<a href="https://swarmnyc.com/" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						SWARM NYC &rarr;
-					</a>
-					<a href="/projects/" class={sx(styles.textGray500, styles.hoverTextGray700, styles.textGray400, styles.hoverTextGray200, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						&larr; All Projects
-					</a>
+				<section class="project-links">
+					<ArrowFillButton href="https://swarmnyc.com/" target="_blank">
+						SWARM NYC
+					</ArrowFillButton>
+					<ArrowFillButton href="/projects/" variant="dark" arrow="left">
+						All Projects
+					</ArrowFillButton>
 				</section>
 			</div>
 			<ContactCta />

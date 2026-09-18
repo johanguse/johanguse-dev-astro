@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import ContactCta from '../../components/ContactCta.astro'
+import ArrowFillButton from '../../components/ArrowFillButton.astro'
 ---
 
 	<BaseLayout
@@ -29,11 +30,12 @@ import ContactCta from '../../components/ContactCta.astro'
 				</div>
 			</header>
 
-			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden).class}>
+			<div class="project-media project-media--wide">
 				<img
 					src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766067235/jrguse/port/datatalked-dashboard.jpg"
 					alt="DataTalked Dashboard"
-					class={sx(styles.wFull).class}
+					width="860"
+					height="430"
 					loading="lazy"
 				/>
 			</div>
@@ -152,13 +154,13 @@ import ContactCta from '../../components/ContactCta.astro'
 					</div>
 				</section>
 
-				<section class={sx(styles.borderT, styles.borderGray200, styles.borderGray700, styles.pt8, styles.flex, styles.flexWrap, styles.gap4).class}>
-					<a href="https://datatalked.com/?utm_source=johan-website-projects" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						Visit Website &rarr;
-					</a>
-					<a href="/projects/" class={sx(styles.textGray500, styles.hoverTextGray700, styles.textGray400, styles.hoverTextGray200, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						&larr; All Projects
-					</a>
+				<section class="project-links">
+					<ArrowFillButton href="https://datatalked.com/?utm_source=johan-website-projects" target="_blank">
+						Visit Website
+					</ArrowFillButton>
+					<ArrowFillButton href="/projects/" variant="dark" arrow="left">
+						All Projects
+					</ArrowFillButton>
 				</section>
 			</div>
 			<ContactCta />

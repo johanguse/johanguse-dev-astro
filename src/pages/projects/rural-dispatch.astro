@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import ContactCta from '../../components/ContactCta.astro'
+import ArrowFillButton from '../../components/ArrowFillButton.astro'
 ---
 
 	<BaseLayout
@@ -30,11 +31,12 @@ import ContactCta from '../../components/ContactCta.astro'
 			</header>
 
 			<!-- Hero Image -->
-			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden).class}>
+			<div class="project-media project-media--wide">
 				<img
 					src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766063929/jrguse/port/rural-dispatch-dashboard.jpg"
 					alt="Rural Dispatch Dashboard"
-					class={sx(styles.wFull).class}
+					width="860"
+					height="430"
 					loading="lazy"
 				/>
 			</div>
@@ -82,11 +84,12 @@ import ContactCta from '../../components/ContactCta.astro'
 				</section>
 
 				<!-- SMS Modal Image -->
-				<div class={sx(styles.roundedLg, styles.overflowHidden, styles.maxWLg, styles.mxAuto).class}>
+				<div class="project-media project-media--inline">
 					<img
 						src="https://res.cloudinary.com/dvcywi3uf/image/upload/v1766064310/jrguse/port/rural-dispatch-sms-modal.jpg"
 						alt="Rural Dispatch SMS Modal"
-						class={sx(styles.wFull).class}
+						width="600"
+						height="650"
 						loading="lazy"
 					/>
 				</div>
@@ -154,16 +157,17 @@ import ContactCta from '../../components/ContactCta.astro'
 				</section>
 
 				<!-- Links -->
-				<section class={sx(styles.borderT, styles.borderGray200, styles.borderGray700, styles.pt8, styles.flex, styles.flexWrap, styles.gap4).class}>
-					<a href="https://swarmnyc.com/" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						SWARM NYC &rarr;
+				<section class="project-links">
+					<ArrowFillButton href="https://swarmnyc.com/" target="_blank">
+						SWARM NYC
+					</ArrowFillButton>
+					<a href="https://github.com/swarmnyc/ruraldispatch-ride-request" target="_blank" rel="noopener noreferrer" class="project-link">
+						GitHub
+						<span class="project-link__arrow" aria-hidden="true">&rarr;</span>
 					</a>
-					<a href="https://github.com/swarmnyc/ruraldispatch-ride-request" target="_blank" rel="noopener noreferrer" class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.hoverTextPrimary600, styles.darkTextWhite, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						GitHub &rarr;
-					</a>
-					<a href="/projects/" class={sx(styles.textGray500, styles.hoverTextGray700, styles.textGray400, styles.hoverTextGray200, styles.inlineFlex, styles.itemsCenter, styles.fontMedium).class}>
-						&larr; All Projects
-					</a>
+					<ArrowFillButton href="/projects/" variant="dark" arrow="left">
+						All Projects
+					</ArrowFillButton>
 				</section>
 			</div>
 			<ContactCta />

@@ -102,6 +102,18 @@ body {
   color: var(--text-1);
 }
 
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -156,6 +168,9 @@ body {
   --arrow-fill-foreground: var(--btn-text);
   --arrow-fill-hover-background: var(--bg-card);
   --arrow-fill-hover-foreground: var(--text-1);
+  /* Where the hover fill expands from — tracks the circle, flipped by --back. */
+  --arrow-fill-origin: calc(100% - 1.475rem);
+  --arrow-fill-nudge: 0.12rem;
   position: relative;
   isolation: isolate;
   display: inline-flex;
@@ -188,7 +203,7 @@ body {
   z-index: 0;
   background: var(--arrow-fill-hover-background);
   content: '';
-  clip-path: circle(1.125rem at calc(100% - 1.475rem) 50%);
+  clip-path: circle(1.125rem at var(--arrow-fill-origin) 50%);
   transition: clip-path 0.48s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -220,16 +235,36 @@ body {
 }
 
 .arrow-fill-button:is(:hover, :focus-visible):not(:disabled)::before {
-  clip-path: circle(150% at calc(100% - 1.475rem) 50%);
+  clip-path: circle(150% at var(--arrow-fill-origin) 50%);
 }
 
 .arrow-fill-button:is(:hover, :focus-visible):not(:disabled) .arrow-fill-button__circle svg {
-  transform: translateX(0.12rem);
+  transform: translateX(var(--arrow-fill-nudge));
 }
 
 .arrow-fill-button:disabled {
   cursor: wait;
   opacity: 0.68;
+}
+
+/* Neutral inverse variant — reads as a dark button in light mode and a light one
+   in dark mode, so secondary CTAs don't compete with the accent button. */
+.arrow-fill-button--dark {
+  --arrow-fill-background: var(--text-1);
+  --arrow-fill-foreground: var(--bg);
+  border-color: color-mix(in oklch, var(--text-1) 80%, var(--border));
+}
+
+/* Back/previous variant — circle leads, arrow and fill both point left. */
+.arrow-fill-button--back {
+  --arrow-fill-origin: 1.475rem;
+  flex-direction: row-reverse;
+  padding: 0.3rem 1.1rem 0.3rem 0.35rem;
+}
+
+/* The mirror also flips the hover nudge, so it travels left without a second override. */
+.arrow-fill-button--back .arrow-fill-button__circle svg {
+  scale: -1 1;
 }
 
 .project-card-button {
@@ -305,11 +340,9 @@ button,
   padding-inline: clamp(1.25rem, 5vw, 4rem);
 }
 
-/* ─── Inner page layout (fullBleed pages below the fixed nav) ── */
 .inner-page {
   padding-top: calc(64px + clamp(2.5rem, 6vw, 5rem));
   padding-bottom: clamp(4rem, 8vw, 8rem);
-  min-height: 100svh;
 }
 
 .page-header {
@@ -368,8 +401,110 @@ button,
   text-transform: uppercase;
 }
 
+/* Case-study hero media. Breaks out of .container--narrow on wide viewports so
+   dashboard screenshots are legible, without upscaling past the asset's native
+   width — bump --project-media-max per page if you re-export a larger source. */
+.project-media {
+  --project-media-max: 880px;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.project-media img,
+.project-media iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 900px) {
+  .project-media--wide {
+    position: relative;
+    left: 50%;
+    width: min(var(--project-media-max), calc(100vw - 6rem));
+    translate: -50% 0;
+  }
+}
+
+/* Supporting shots that stay inside the text column. */
+.project-media--inline {
+  max-width: 32rem;
+  margin-inline: auto;
+}
+
+.project-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+/* The back button always trails the outbound links. */
+.project-links .arrow-fill-button--back {
+  margin-inline-start: auto;
+}
+
+/* Tertiary link for extra destinations (repo, docs) — a quieter pill that sits
+   alongside the ArrowFillButton CTAs without competing with them. */
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--text-2);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.project-link__arrow {
+  font-size: 1em;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.project-link:hover {
+  color: var(--text-1);
+  border-color: color-mix(in oklch, var(--accent) 45%, var(--border));
+  background: color-mix(in oklch, var(--accent) 6%, var(--bg-elevated));
+}
+
+.project-link:hover .project-link__arrow {
+  transform: translateX(3px);
+}
+
+/* Stack at narrow widths, but keep the pills at their natural width — stretching
+   them fights the button's space-between layout and strands the label. */
+@media (max-width: 480px) {
+  .project-links {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .project-links .arrow-fill-button--back {
+    margin-inline-start: 0;
+  }
+}
+
 /* ─── Blog / prose pages (unchanged) ────────────────────────── */
 .task-list-item:before { display: none; }
+
+pre {
+  padding: 8px 10px;
+  line-height: 1.75;
+  border-radius: 0.25rem;
+}
 
 .remark-code-title {
   border-top-left-radius: 0.25rem;

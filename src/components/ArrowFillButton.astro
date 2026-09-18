@@ -4,6 +4,12 @@ interface Props {
   type?: 'button' | 'submit' | 'reset'
   className?: string
   disabled?: boolean
+  target?: string
+  rel?: string
+  /** `accent` is the orange primary CTA, `dark` the neutral inverse for secondary actions. */
+  variant?: 'accent' | 'dark'
+  /** `left` mirrors the button so the circle leads — for back/previous links. */
+  arrow?: 'right' | 'left'
 }
 
 const {
@@ -11,11 +17,25 @@ const {
   type = 'button',
   className = '',
   disabled = false,
+  target,
+  rel,
+  variant = 'accent',
+  arrow = 'right',
 } = Astro.props
+
+/* Default rel for new-tab links so callers can't forget the noopener hardening. */
+const linkRel = rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined)
+
+const classes = [
+  'arrow-fill-button',
+  variant === 'dark' && 'arrow-fill-button--dark',
+  arrow === 'left' && 'arrow-fill-button--back',
+  className,
+]
 ---
 
 {href ? (
-  <a href={href} class:list={['arrow-fill-button', className]}>
+  <a href={href} target={target} rel={linkRel} class:list={classes}>
     <span class="arrow-fill-button__text"><slot /></span>
     <span class="arrow-fill-button__circle" aria-hidden="true">
       <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" role="presentation">
@@ -24,7 +44,7 @@ const {
     </span>
   </a>
 ) : (
-  <button type={type} class:list={['arrow-fill-button', className]} disabled={disabled}>
+  <button type={type} class:list={classes} disabled={disabled}>
     <span class="arrow-fill-button__text"><slot /></span>
     <span class="arrow-fill-button__circle" aria-hidden="true">
       <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" role="presentation">
