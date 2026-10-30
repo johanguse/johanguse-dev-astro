@@ -1,0 +1,55 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro'
+import { projectsData } from '../../data/projectsData'
+
+const project = projectsData.find((item) => item.href === '/projects/stack-cards-sort/')
+if (!project) throw new Error('Missing project: stack-cards-sort')
+---
+
+<ProjectLayout
+	project={project}
+	subtitle="A one-tap color-sorting puzzle with a deterministic Swift game engine."
+	imageAlt="Stack Cards Sort logo and colorful stacked tiles on a blue background"
+	screenshots={[
+		{ src: '/static/images/projects/stack-cards-sort/gameplay.webp', alt: 'Stack Cards Sort puzzle board with colorful tile columns' },
+		{ src: '/static/images/projects/stack-cards-sort/levels.webp', alt: 'Level selection and progression in Stack Cards Sort' },
+		{ src: '/static/images/projects/stack-cards-sort/win.webp', alt: 'Completed color-sorting puzzle and level results' },
+		{ src: '/static/images/projects/stack-cards-sort/home.webp', alt: 'Stack Cards Sort home screen with game modes and practice entry points' },
+		{ src: '/static/images/projects/stack-cards-sort/daily.webp', alt: 'Daily puzzle board with its move budget' },
+		{ src: '/static/images/projects/stack-cards-sort/progress.webp', alt: 'Player progress, stars, and puzzle achievements' },
+	]}
+>
+	<section>
+		<h2>Project Overview</h2>
+		<p>
+			Stack Cards Sort is a native iOS puzzle with one simple move: tap a column
+			to insert the tile in your hand at the top and collect the tile ejected
+			from the bottom. Complete a column in one color to lock it, then lock
+			every column to finish the level.
+		</p>
+	</section>
+	<section>
+		<h2>Solvable by Construction</h2>
+		<p>
+			Levels start from a solved board and are scrambled with reversible moves.
+			Each generated puzzle retains a known solution, and its level seed produces
+			the same board on every device. A separate search-based solver powers hints.
+		</p>
+		<p>
+			The rules, generator, and session state live in a pure-Swift package.
+			SwiftUI handles navigation and controls, while SpriteKit draws and
+			animates the board from that state. This keeps game rules independent
+			of rendering and makes the domain logic testable.
+		</p>
+	</section>
+	<section>
+		<h2>Key Features</h2>
+		<ul>
+			<li><strong>Progressive puzzles:</strong> seeded levels, move budgets, stars, and unlockable power-ups.</li>
+			<li><strong>Daily challenges:</strong> daily puzzles with Game Center leaderboard integration.</li>
+			<li><strong>Play at your pace:</strong> Relax Mode removes the move limit; undo, hints, and swaps support harder boards.</li>
+			<li><strong>Native purchases:</strong> StoreKit 2 powers the Pro unlock and consumable hint packs.</li>
+			<li><strong>Companion website:</strong> introduces the game, screenshots, and support information.</li>
+		</ul>
+	</section>
+</ProjectLayout>

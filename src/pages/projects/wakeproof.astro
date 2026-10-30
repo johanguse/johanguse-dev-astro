@@ -10,6 +10,7 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 	<BaseLayout
 		title="WakeProof"
 		description="An alarm app that makes it impossible to sleep through, built with SwiftUI, Swift 6, AlarmKit, SwiftData, and native StoreKit 2."
+		ogImage="/static/images/projects/wakeproof-cover.webp"
 		fullBleed
 	>
 	<Navigation slot="header" />
@@ -33,10 +34,10 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 			<!-- Hero -->
 			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden).class}>
 				<img
-					src="/static/images/screenshots/wakeproof/alarms.webp"
-					alt="WakeProof alarm list showing upcoming alarms with challenge and sound tags"
-					class={sx(styles.wFull).class}
-					loading="lazy"
+					src="/static/images/projects/wakeproof-cover.webp"
+					alt="WakeProof app screen and panda mascot holding an orange alarm clock"
+					class="wakeproof-cover"
+					fetchpriority="high"
 				/>
 			</div>
 
@@ -55,6 +56,11 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Screenshots</h2>
 					<div class="screenshot-grid">
 						{[
+							{ name: 'alarm-v3', alt: 'WakeProof alarm overview with scheduled alarms, challenges, and sound labels' },
+							{ name: 'challenges-v3', alt: 'WakeProof wake-up challenge collection' },
+							{ name: 'sounds-v3', alt: 'WakeProof alarm sound library' },
+							{ name: 'statistics-v3', alt: 'WakeProof wake-up activity and statistics' },
+							{ name: 'widget-v3', alt: 'WakeProof home screen widget showing the next alarm and challenge' },
 							{ name: 'alarms', alt: 'Alarm list showing upcoming alarms with challenge and sound tags' },
 							{ name: 'mission-challenges', alt: 'Missions library listing Classic, Math, Shake, Photo/Object Scan, Steps, and Memory challenges' },
 							{ name: 'library', alt: 'Sound library with a searchable list of alarm ringtones' },
@@ -62,7 +68,6 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 							{ name: 'widget-large', alt: 'Large home screen widget showing the next alarm and its challenge' },
 							{ name: 'widget-small', alt: 'Small home screen widget showing the next alarm time' },
 						].map((shot) => (
-							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this list statically.
 							<div class="screenshot-tile">
 								<img
 									src={`/static/images/screenshots/wakeproof/${shot.name}.webp`}
@@ -87,7 +92,6 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 							{ icon: '🌐', title: 'Localized', desc: 'Multi-language support, preferred locale synced to backend' },
 							{ icon: '🔔', title: 'Smart reminders', desc: 'Close-reminder notification to reinforce the habit loop' },
 						].map((item) => (
-							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this feature list statically.
 							<div class="feature-card">
 								<span class="feature-icon">{item.icon}</span>
 								<h3 class="feature-title">{item.title}</h3>
@@ -109,7 +113,6 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 							{ name: 'confetti', label: 'Wakeproof mascot celebrating with confetti' },
 							{ name: 'lovely', label: 'Wakeproof mascot with heart eyes' },
 						].map((mascot) => (
-							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this list statically.
 							<div class="mascot-tile">
 								<video
 									class="mascot-media"
@@ -156,7 +159,7 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 
 				<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6).class} style="border-color: rgb(234 179 8);">
 					<p class={sx(styles.textSm, styles.textGray500, styles.textGray400).class}>
-						<strong class={sx(styles.textYellow500).class}>Status:</strong> Core alarm loop, paywall, onboarding, and backend sync are complete. Widget/Watch support and App Store submission are in progress. Screenshots and a store link will follow once it ships.
+						<strong class={sx(styles.textYellow500).class}>Status:</strong> Core alarm loop, paywall, onboarding, and backend sync are complete. Widget/Watch support and App Store submission are in progress. The gallery above includes the app and widget interfaces.
 					</p>
 				</div>
 
@@ -170,6 +173,13 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 </BaseLayout>
 
 <style>
+	.wakeproof-cover {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 0.75rem;
+	}
+
 	.screenshot-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);

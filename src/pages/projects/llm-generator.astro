@@ -5,11 +5,12 @@ import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import ContactCta from '../../components/ContactCta.astro'
 import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
+import ProjectFeatures from '../../components/ProjectFeatures.astro'
 ---
 
 	<BaseLayout
 		title="LLM Generator"
-		description="Generate llms.txt files for websites to improve their visibility to large language models. Firecrawl integration with OpenAI enhancement."
+		description="A website-to-llms.txt platform with Firecrawl, OpenAI, a Cloudflare backend, an Astro marketing site, and companion Chrome and Firefox extensions."
 		fullBleed
 	>
 	<Navigation slot="header" />
@@ -22,7 +23,7 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 					LLM Generator
 				</h1>
 				<p class="page-subtitle">
-					Generate llms.txt files for websites to improve their visibility to large language models
+					Turn website content into llms.txt files, with companion tools for the browser
 				</p>
 				<div class="project-meta">
 					<span class="project-meta-item">Personal Project</span>
@@ -43,14 +44,14 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 				<section>
 					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>Project Overview</h2>
 					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
-						LLMGenerator is a service that generates <code class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.bgGray100, styles.px1_5, styles.py05, styles.rounded, styles.textSm).class}>llms.txt</code> files for websites to improve their visibility to large language models. The service uses Firecrawl's map + scrape approach with OpenAI enhancement to create high-quality, LLM-optimized content.
+						LLMGenerator generates <code class={sx(styles.textPrimary500, styles.darkTextPrimary100, styles.bgGray100, styles.px1_5, styles.py05, styles.rounded, styles.textSm).class}>llms.txt</code>, llms-full.txt, and Markdown files from website content. Firecrawl maps and scrapes the pages, OpenAI enhances titles and descriptions, and Trigger.dev handles background processing. The project spans the React application, an Astro marketing website, and companion browser extensions.
 					</p>
 				</section>
 
 				<section>
 					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>What is llms.txt?</h2>
 					<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.borderGray700, styles.p6, styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
-						<p class={sx(styles.mb3).class}>llms.txt is a standardized format for making website content more accessible to Large Language Models (LLMs):</p>
+						<p class={sx(styles.mb3).class}>llms.txt is a proposed format for providing website content in a form that large language models can read:</p>
 						<ul class={sx(styles.spaceY2, styles.textSm).class}>
 							<li><strong class={sx(styles.textGray900, styles.textGray900).class}>llms.txt:</strong> A concise index of all pages with AI-enhanced titles and descriptions</li>
 							<li><strong class={sx(styles.textGray900, styles.textGray900).class}>llms-full.txt:</strong> Complete content of all pages for comprehensive access</li>
@@ -58,32 +59,16 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 					</div>
 				</section>
 
-				<section>
-					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Key Features</h2>
-					<div class={sx(styles.grid, styles.gridCols1, styles.smGridCols2, styles.gap4).class}>
-						{[
+				<ProjectFeatures features={[
 							{ icon: '🚀', title: 'Fast Generation', desc: 'Direct map + scrape with background processing' },
 							{ icon: '⚡', title: 'Reliable Jobs', desc: 'Trigger.dev integration with automatic retries' },
 							{ icon: '🤖', title: 'AI-Enhanced', desc: 'OpenAI-powered titles and descriptions' },
-							{ icon: '💰', title: 'Cost-Optimized', desc: '95% cheaper than competitors' },
+							{ icon: '💰', title: 'Usage Credits', desc: 'Credit-based generation and subscription plans' },
 							{ icon: '📊', title: 'Analytics', desc: 'Track generation stats and usage' },
 							{ icon: '🔄', title: 'Real-time Updates', desc: 'Live progress tracking' },
 							{ icon: '📖', title: 'API Docs', desc: 'OpenAPI/Swagger 3.0 interactive docs' },
 							{ icon: '🔒', title: 'Flexible Pricing', desc: 'Credits (never expire) + subscriptions' },
-						].map((item) => (
-							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this feature list statically.
-							<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.p3, styles.borderGray700).class}>
-								<div class={sx(styles.flex, styles.itemsStart, styles.gap3).class}>
-									<span class={sx(styles.textXl).class}>{item.icon}</span>
-									<div class={sx(styles.featureText).class}>
-										<h3 class={sx(styles.fontMedium, styles.textSm, styles.featureTitle).class}>{item.title}</h3>
-										<p class={sx(styles.textGray500, styles.textXs, styles.textGray400, styles.featureDescription).class}>{item.desc}</p>
-									</div>
-								</div>
-							</div>
-						))}
-					</div>
-				</section>
+						]} />
 
 				<section>
 					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Generation Methods</h2>
@@ -148,14 +133,31 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 								<li>Biome for linting/formatting</li>
 								<li>Bun for package management</li>
 								<li>Wrangler for deployments</li>
-								<li>Vitest with 135 tests</li>
+								<li>Vitest for automated testing</li>
 								<li>OpenAPI/Swagger documentation</li>
 							</ul>
 						</div>
 					</div>
 				</section>
 
-				<ProjectFooterNav links={[{ label: 'Visit Website', href: 'https://llmgenerator.com/?utm_source=johan-website-projects', external: true }]} />
+				<section>
+					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb4).class}>Website & Browser Extensions</h2>
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed, styles.mb4).class}>
+						An Astro marketing site introduces the product alongside its documentation.
+						Companion Chrome and Firefox extensions check for llms.txt and llms-full.txt
+						at both the site root and the docs directory. A badge shows which files
+						were found, and the popup lets users open them directly.
+					</p>
+					<p class={sx(styles.textGray500, styles.textGray400, styles.leadingRelaxed).class}>
+						The extensions cache detection results and follow the system color theme,
+						bringing the file-checking workflow into the browser.
+					</p>
+				</section>
+
+				<ProjectFooterNav links={[
+					{ label: 'Visit Website', href: 'https://llmgenerator.com/?utm_source=johan-website-projects', external: true },
+					{ label: 'Firefox Extension', href: 'https://addons.mozilla.org/en-US/firefox/addon/llmgenerator-llm-txt-checker/', external: true },
+				]} />
 			</div>
 			<ContactCta />
 		</div>

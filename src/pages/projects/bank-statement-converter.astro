@@ -5,6 +5,7 @@ import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import ContactCta from '../../components/ContactCta.astro'
 import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
+import ProjectFeatures from '../../components/ProjectFeatures.astro'
 ---
 
 	<BaseLayout
@@ -50,10 +51,7 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 					</p>
 				</section>
 
-				<section>
-					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Key Features</h2>
-					<div class={sx(styles.grid, styles.gridCols1, styles.smGridCols2, styles.gap4).class}>
-						{[
+				<ProjectFeatures features={[
 							{ icon: '🤖', title: 'AI-Powered OCR', desc: 'OCR accuracy on financial documents' },
 							{ icon: '⚡', title: 'Instant Conversion', desc: 'PDF to Excel/CSV/JSON/QBO in under 30s' },
 							{ icon: '🌍', title: 'Bank-Agnostic', desc: 'Works with 1000+ banks worldwide' },
@@ -64,20 +62,7 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 							{ icon: '💳', title: 'Flexible Pricing', desc: 'Subscriptions + pay-as-you-go credits' },
 							{ icon: '🔌', title: 'API Integration', desc: 'Developer-friendly endpoints' },
 							{ icon: '🏷️', title: 'Auto Categorization', desc: 'AI-powered spending analysis' },
-						].map((item) => (
-							// biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this feature list statically.
-							<div class={sx(styles.roundedMd, styles.border2, styles.borderGray200, styles.borderOpacity60, styles.p3, styles.borderGray700).class}>
-								<div class={sx(styles.flex, styles.itemsStart, styles.gap3).class}>
-									<span class={sx(styles.textXl).class}>{item.icon}</span>
-									<div class={sx(styles.featureText).class}>
-										<h3 class={sx(styles.fontMedium, styles.textSm, styles.featureTitle).class}>{item.title}</h3>
-										<p class={sx(styles.textGray500, styles.textXs, styles.textGray400, styles.featureDescription).class}>{item.desc}</p>
-									</div>
-								</div>
-							</div>
-						))}
-					</div>
-				</section>
+						]} />
 
 				<section>
 					<h2 class={sx(styles.text2xl, styles.fontSemibold, styles.mb6).class}>Tech Stack</h2>
