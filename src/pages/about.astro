@@ -9,15 +9,15 @@ import { siteConfig } from '../data/siteConfig'
 const techStackHighlights = [
   {
     category: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'TanStack Router', 'TanStack Query', 'TanStack Table', 'Tailwind CSS', 'Radix UI', 'Shadcn/ui', 'Material UI', 'Styled Components', 'Sass', 'Storybook'],
+    items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Vue', 'Nuxt', 'Astro', 'SvelteKit', 'Svelte', 'TanStack Router', 'TanStack Query', 'TanStack Table', 'Tailwind CSS', 'Radix UI', 'Base UI', 'Shadcn/ui', 'StyleX', 'Material UI', 'Styled Components', 'Sass', 'Storybook'],
   },
   {
     category: 'Backend',
-    items: ['Node.js', 'Python', 'FastAPI', 'Hono', 'C#/.NET', 'PHP', 'Laravel', 'Cloudflare Workers', 'Convex'],
+    items: ['Node.js', 'Python', 'FastAPI', 'Hono', 'C#/.NET', 'PHP', 'Laravel', 'Go', 'Convex'],
   },
   {
-    category: 'APIs & Integration',
-    items: ['REST APIs', 'GraphQL', 'Webhooks', 'OAuth', 'Third-party API integrations'],
+    category: 'APIs & Integrations',
+    items: ['REST APIs', 'GraphQL', 'tRPC', 'Webhooks', 'OAuth', 'third-party API integrations'],
   },
   {
     category: 'Databases & ORMs',
@@ -25,58 +25,66 @@ const techStackHighlights = [
   },
   {
     category: 'AI & LLMs',
-    items: ['OpenAI API', 'Anthropic', 'AI SDK', 'RAG', 'LLM workflows', 'Embeddings', 'Prompt engineering', 'Mistral OCR', 'Replicate'],
+    items: ['Vercel AI SDK', 'RAG', 'LLM workflows', 'embeddings', 'AI agents', 'prompt engineering', 'OCR pipelines', 'AI-powered data processing', 'OpenAI API', 'Anthropic', 'Mistral OCR', 'Replicate'],
   },
   {
     category: 'Real-time & Async',
-    items: ['WebSockets', 'Real-time data pipelines', 'Convex Real-time DB', 'Trigger.dev', 'Cloudflare Queues'],
+    items: ['WebSockets', 'real-time data pipelines', 'Convex Real-time DB', 'Trigger.dev', 'Cloudflare Queues', 'background jobs', 'queue management'],
   },
   {
-    category: 'Authentication',
-    items: ['Better Auth', 'NextAuth/Auth.js', 'Clerk', 'Hanko', 'OAuth', 'Passwordless authentication'],
+    category: 'Authentication & Security',
+    items: ['Better Auth', 'Auth.js', 'Clerk', 'Hanko', 'OAuth', 'JWT', 'RBAC', 'API security', 'OWASP', 'Passwordless authentication'],
   },
   {
     category: 'Cloud & Serverless',
-    items: ['Cloudflare Workers', 'R2', 'D1', 'Queues', 'Vercel', 'DigitalOcean', 'Edge computing', 'Serverless architectures'],
+    items: ['Cloudflare Workers', 'R2', 'D1', 'KV', 'Queues', 'Docker', 'edge computing', 'serverless architectures'],
   },
   {
     category: 'Testing & Quality',
-    items: ['Vitest', 'Jest', 'React Testing Library', 'Playwright', 'Cypress', 'ESLint', 'Biome'],
+    items: ['Vitest', 'Jest', 'React Testing Library', 'Playwright', 'Cypress', 'ESLint', 'Biome', 'Core Web Vitals', 'performance optimization'],
   },
   {
     category: 'DevOps & CI/CD',
-    items: ['Git', 'GitHub Actions', 'Jenkins', 'Cloudflare', 'WP Engine', 'Automated deployments'],
+    items: ['Git', 'GitHub Actions', 'Jenkins', 'automated deployments', 'multi-environment deployments', 'Cloudflare', 'WP Engine'],
   },
   {
     category: 'Payments',
-    items: ['Stripe Subscriptions', 'Checkout', 'Billing Portal', 'Webhooks', 'Recurring billing'],
+    items: ['Stripe Subscriptions', 'Checkout', 'Billing Portal', 'Stripe Webhooks', 'recurring billing', 'credit-based pricing', 'StoreKit 2', 'RevenueCat'],
   },
   {
     category: 'Data Visualization & 3D',
-    items: ['Recharts', 'D3.js', 'Three.js', 'Interactive dashboards', 'Real-time visualization'],
+    items: ['Recharts', 'D3.js', 'Three.js', 'interactive dashboards', 'real-time visualization'],
   },
   {
     category: 'CMS & Content Platforms',
-    items: ['WordPress', 'Custom themes/plugins', 'ACF', 'WP REST API', 'HubSpot CMS', 'Astro'],
+    items: ['WordPress', 'custom themes/plugins', 'ACF', 'WP REST API', 'HubSpot CMS'],
   },
   {
     category: 'Accessibility',
-    items: ['WCAG 2.1/2.2', 'Semantic HTML', 'Keyboard accessibility', 'Screen-reader support', 'Accessibility testing'],
+    items: ['WCAG 2.1/2.2', 'semantic HTML', 'keyboard accessibility', 'screen-reader support', 'accessibility testing'],
   },
   {
-    category: 'Mobile',
-    items: ['React Native', 'Flutter', 'SwiftUI', 'Kotlin', 'Jetpack Compose'],
+    category: 'Mobile & Apple Platforms',
+    items: ['React Native', 'Expo', 'Swift', 'SwiftUI', 'SwiftData', 'AVFoundation', 'AlarmKit', 'WidgetKit', 'Flutter', 'Kotlin', 'Jetpack Compose'],
   },
   {
-    category: 'Analytics & Tracking',
-    items: ['GA4', 'Google Tag Manager', 'Segment', 'PostHog', 'Amplitude', 'Hotjar', 'Microsoft Clarity', 'Meta Pixel'],
+    category: 'Machine Learning & Computer Vision',
+    items: ['Core ML', 'Vision', 'on-device inference', 'object detection', 'body-pose tracking', 'video analysis'],
+  },
+  {
+    category: 'Games',
+    items: ['SpriteKit', 'GameKit', 'deterministic level generation', 'puzzle solvers', 'game state management'],
+  },
+  {
+    category: 'Analytics, Experimentation & Observability',
+    items: ['GA4', 'Google Tag Manager', 'Segment', 'PostHog', 'Amplitude', 'Hotjar', 'Microsoft Clarity', 'Meta Pixel', 'A/B testing', 'conversion tracking', 'Sentry', 'New Relic'],
   },
 ]
 ---
 
 <BaseLayout
   title="About"
-  description="About Johan Guse — full-stack developer from Brazil specializing in AI-powered applications, real-time systems, and accessible web experiences."
+  description="About Johan Guse — full-stack engineer based in Brazil building AI-powered products, real-time systems, native iOS apps, games, and accessible experiences."
   fullBleed
 >
   <Navigation slot="header" />
@@ -105,7 +113,7 @@ const techStackHighlights = [
 
           <div class="about-identity">
             <p class="about-name">{siteConfig.author}</p>
-            <p class="about-role-tag">Full-Stack Developer &amp; Accessibility Enthusiast</p>
+            <p class="about-role-tag">Full-Stack Engineer &amp; Accessibility Enthusiast</p>
             <p class="about-location">Brazil</p>
           </div>
 
@@ -128,26 +136,29 @@ const techStackHighlights = [
         <!-- Right: bio content -->
         <div class="about-content">
           <p class="about-lead">
-            I’m a full-stack engineer with over ten years of experience building digital
-            products, scalable platforms, and user-focused applications.
+            I'm a full-stack engineer based in Brazil with over ten years of experience
+            building digital products, scalable platforms, and user-focused applications.
           </p>
 
           <div class="about-prose">
             <p>
-              More recently, my work has focused on artificial intelligence, real-time systems,
-              and building products that turn emerging technologies into practical solutions.
-              I’m also pursuing studies in Applied Artificial Intelligence, expanding how I
-              approach automation, intelligent experiences, and complex product challenges.
+              My work spans artificial intelligence, real-time systems, native iOS apps, and
+              games. I focus on turning emerging technologies into practical solutions, taking
+              complex ideas from an early concept to a working product and connecting
+              engineering decisions with the experience people actually use.
+            </p>
+            <p>
+              I'm also studying Applied Artificial Intelligence, expanding how I approach
+              automation, intelligent applications, and complex product challenges.
             </p>
             <p>
               Accessibility remains an important part of how I build software. I believe the web
-              should be usable by everyone, and I aim to create products that are not only
-              intelligent and capable, but also inclusive, intuitive, and genuinely useful.
+              should be usable by everyone, and I bring that same care to mobile apps and
+              games, aiming to create experiences that are inclusive, intuitive, and useful.
             </p>
             <p>
               I enjoy working at the intersection of engineering, product, and emerging
-              technology—taking complex ideas and turning them into thoughtful experiences that
-              solve real problems.
+              technology, building thoughtful experiences that solve real problems.
             </p>
           </div>
 
@@ -160,12 +171,10 @@ const techStackHighlights = [
 
             <div class="tech-stack-grid">
               {techStackHighlights.map(({ category, items }) => (
-                // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this technology list statically.
                 <article class="tech-stack-card">
                   <h3>{category}</h3>
                   <ul class="tech-stack-list">
                     {items.map((item) => (
-                      // biome-ignore lint/correctness/useJsxKeyInIterable: Astro renders this technology list statically.
                       <li>{item}</li>
                     ))}
                   </ul>
