@@ -89,7 +89,11 @@ export function TiltCard({
   }, [])
 
   const linkHref = href || externalHref
-  const isExternal = !href && !!externalHref
+  const isExternal = linkHref?.startsWith('http') ?? false
+  const actionLabel = isExternal ? 'Visit project' : 'View case study'
+  const accessibleActionLabel = isExternal
+    ? `Visit ${title} (opens in a new tab)`
+    : `View case study: ${title}`
 
   const inner = (
     <div
@@ -108,7 +112,7 @@ export function TiltCard({
           'transform 0.14s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.14s ease',
         transformStyle: 'preserve-3d',
         willChange: 'transform',
-        cursor: linkHref ? 'pointer' : 'default',
+        cursor: 'default',
       }}
     >
       {/* Radial shine overlay */}
@@ -244,24 +248,25 @@ export function TiltCard({
         )}
 
         {children}
+
+        {linkHref && (
+          <a
+            href={linkHref}
+            {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            aria-label={accessibleActionLabel}
+            className="arrow-fill-button project-card-button"
+          >
+            <span className="arrow-fill-button__text">{actionLabel}</span>
+            <span className="arrow-fill-button__circle" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h10M8.5 3.5 13 8l-4.5 4.5" />
+              </svg>
+            </span>
+          </a>
+        )}
       </div>
     </div>
   )
-
-  if (linkHref) {
-    return (
-      <a
-        href={linkHref}
-        {...(isExternal
-          ? { target: '_blank', rel: 'noopener noreferrer' }
-          : {})}
-        style={{ display: 'block', textDecoration: 'none' }}
-        aria-label={`View project: ${title}`}
-      >
-        {inner}
-      </a>
-    )
-  }
 
   return inner
 }

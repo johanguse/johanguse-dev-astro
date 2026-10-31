@@ -31,18 +31,16 @@ import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 			</header>
 
 			<!-- Video -->
-			<div class={sx(styles.mb12, styles.roundedLg, styles.overflowHidden, styles.bgGray800).class}>
-				<div class={sx(styles.relative, styles.aspectVideo).class}>
-					<iframe
-						title="Vixtape Demo"
-						src="https://player.cloudinary.com/embed/?cloud_name=dvcywi3uf&public_id=jrguse%2Fport%2Fvixtape&profile=cld-default"
-						width="640"
-						height="360"
-						style="height: auto; width: 100%; aspect-ratio: 640 / 360; border: 0;"
-						allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-						allowfullscreen
-					></iframe>
-				</div>
+			<div class="project-media project-media--wide">
+				<iframe
+					title="Vixtape Demo"
+					src="https://player.cloudinary.com/embed/?cloud_name=dvcywi3uf&public_id=jrguse%2Fport%2Fvixtape&profile=cld-default"
+					width="640"
+					height="360"
+					style="aspect-ratio: 16 / 9; border: 0;"
+					allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+					allowfullscreen
+				></iframe>
 			</div>
 
 			<div class={sx(styles.spaceY12, styles.textGray900, styles.textGray900).class}>

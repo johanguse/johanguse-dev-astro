@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro'
 import ContactCta from '../components/ContactCta.astro'
+import { RectangularTextReveal } from '../components/react/RectangularTextReveal'
+import { TextReveal } from '../components/react/TextReveal'
 import { getCollection } from 'astro:content'
 import { formatDate } from '../utils/helpers'
 
@@ -23,10 +25,15 @@ const sortedPosts = allPosts
     <div class="container">
       <header class="page-header">
         <span class="section-label">Writing</span>
-        <h1 class="page-title">All Posts</h1>
-        <p class="page-subtitle">
-          {sortedPosts.length} posts on development, design, and building for the web.
-        </p>
+        <RectangularTextReveal client:load as="h1" className="page-title" text="All Posts" />
+        <TextReveal
+          client:load
+          as="p"
+          className="page-subtitle"
+          text={`${sortedPosts.length} posts on development, design, and building for the web.`}
+          staggerDelay={0.02}
+          duration={0.42}
+        />
       </header>
 
       {sortedPosts.length === 0 ? (
