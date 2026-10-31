@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import ContactCta from '../../components/ContactCta.astro'
-import ArrowFillButton from '../../components/ArrowFillButton.astro'
+import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 ---
 
 	<BaseLayout
@@ -26,7 +26,7 @@ import ArrowFillButton from '../../components/ArrowFillButton.astro'
 				</p>
 				<div class="project-meta">
 					<span class="project-meta-item">SWARM NYC</span>
-					<span class="project-meta-item">December 2025 - Present</span>
+					<span class="project-meta-item">December 2025 - January 2026</span>
 				</div>
 			</header>
 
@@ -156,19 +156,10 @@ import ArrowFillButton from '../../components/ArrowFillButton.astro'
 					</div>
 				</section>
 
-				<!-- Links -->
-				<section class="project-links">
-					<ArrowFillButton href="https://swarmnyc.com/" target="_blank">
-						SWARM NYC
-					</ArrowFillButton>
-					<a href="https://github.com/swarmnyc/ruraldispatch-ride-request" target="_blank" rel="noopener noreferrer" class="project-link">
-						GitHub
-						<span class="project-link__arrow" aria-hidden="true">&rarr;</span>
-					</a>
-					<ArrowFillButton href="/projects/" variant="dark" arrow="left">
-						All Projects
-					</ArrowFillButton>
-				</section>
+				<ProjectFooterNav links={[
+					{ label: 'SWARM NYC', href: 'https://swarmnyc.com/', external: true },
+					{ label: 'GitHub', href: 'https://github.com/swarmnyc/ruraldispatch-ride-request', external: true },
+				]} />
 			</div>
 			<ContactCta />
 		</div>

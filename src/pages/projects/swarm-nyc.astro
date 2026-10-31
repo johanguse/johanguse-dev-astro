@@ -1,0 +1,47 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro'
+import { projectsData } from '../../data/projectsData'
+
+const project = projectsData.find((item) => item.href === '/projects/swarm-nyc/')
+if (!project) throw new Error('Missing project: swarm-nyc')
+---
+
+<ProjectLayout
+	project={project}
+	subtitle="A custom WordPress theme for a digital product consultancy."
+	imageAlt="SWARM website homepage with its orange background, agency navigation, and Design builds value headline"
+	screenshotLayout="website"
+	screenshots={[
+		{ src: '/static/images/projects/swarm-nyc/services.webp', alt: 'SWARM services page with its orange header and custom typography' },
+		{ src: '/static/images/projects/swarm-nyc/work.webp', alt: 'SWARM client work portfolio with case studies and project imagery' },
+		{ src: '/static/images/projects/swarm-nyc/editorial.webp', alt: 'SWARM Thoughts editorial page with articles, search, and category navigation' },
+	]}
+>
+	<section>
+		<h2>Project Overview</h2>
+		<p>
+			A custom WordPress theme for <a href="https://www.swarmnyc.com/" target="_blank" rel="noopener noreferrer">SWARM NYC</a>,
+			a consultancy working across digital product strategy, research, design,
+			and development. The website brings the agency's services, client work,
+			and editorial content together in one branded experience.
+		</p>
+	</section>
+	<section>
+		<h2>Custom Theme Development</h2>
+		<p>
+			The project combines WordPress content management with custom PHP templates,
+			HTML, CSS, and JavaScript. Responsive layouts carry the visual identity
+			across screen sizes while supporting the agency's service pages,
+			project portfolio, and articles.
+		</p>
+	</section>
+	<section>
+		<h2>Website Scope</h2>
+		<ul>
+			<li><strong>Agency presence:</strong> a branded homepage and navigation connecting services, work, and contact information.</li>
+			<li><strong>Service content:</strong> pages presenting the consultancy's areas of expertise.</li>
+			<li><strong>Client work:</strong> a portfolio showcasing the agency's projects.</li>
+			<li><strong>Editorial publishing:</strong> WordPress-managed articles in the Whiteboard section.</li>
+		</ul>
+	</section>
+</ProjectLayout>

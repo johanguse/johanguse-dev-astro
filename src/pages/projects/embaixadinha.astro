@@ -1,0 +1,53 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro'
+import { projectsData } from '../../data/projectsData'
+
+const project = projectsData.find((item) => item.href === '/projects/embaixadinha/')
+if (!project) throw new Error('Missing project: embaixadinha')
+---
+
+<ProjectLayout
+	project={project}
+	subtitle="Football juggling practice, measured with on-device computer vision."
+	imageAlt="Embaixadinha app cover with replay and video editor screens on a dark green and lime background"
+	screenshots={[
+		{ src: '/static/images/projects/embaixadinha/replay.webp', alt: 'Embaixadinha session replay with touch-counting overlays' },
+		{ src: '/static/images/projects/embaixadinha/editor.webp', alt: 'Video share editor with framing and export controls' },
+		{ src: '/static/images/projects/embaixadinha/stats.webp', alt: 'Practice statistics and personal records' },
+		{ src: '/static/images/projects/embaixadinha/home.webp', alt: 'Embaixadinha home screen with practice and recording controls' },
+		{ src: '/static/images/projects/embaixadinha/progress.webp', alt: 'Practice progress over time with daily activity' },
+		{ src: '/static/images/projects/embaixadinha/history.webp', alt: 'Saved juggling sessions in practice history' },
+	]}
+>
+	<section>
+		<h2>Project Overview</h2>
+		<p>
+			Embaixadinha is a native iOS app for tracking football juggling practice.
+			Players record a session or import a video, then review their touches,
+			streaks, and personal records. Video analysis runs on the device, and
+			practice history is stored locally without requiring an account.
+		</p>
+	</section>
+	<section>
+		<h2>From Video to Practice Feedback</h2>
+		<p>
+			Core ML ball detection and Apple's Vision framework for body-pose tracking
+			feed a pure-Swift analysis pipeline that identifies juggling touches.
+			The app draws the results over the replay so players can inspect their session.
+		</p>
+		<p>
+			The same overlay renderer is shared by replay and export. An AVFoundation
+			share editor supports trimming, pinch-and-pan framing, and exports in
+			9:16, 4:5, and 16:9 formats.
+		</p>
+	</section>
+	<section>
+		<h2>Key Features</h2>
+		<ul>
+			<li><strong>On-device analysis:</strong> ball detection, pose tracking, and touch counting without uploading practice videos.</li>
+			<li><strong>Replay and sharing:</strong> inspect touch overlays and export a framed, trimmed MP4.</li>
+			<li><strong>Practice history:</strong> sessions, streaks, and personal records persisted with SwiftData.</li>
+			<li><strong>Native product experience:</strong> SwiftUI screens, localized content, and RevenueCat subscriptions for Pro tools.</li>
+		</ul>
+	</section>
+</ProjectLayout>

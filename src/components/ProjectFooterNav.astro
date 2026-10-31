@@ -1,0 +1,43 @@
+---
+import ArrowFillButton from './ArrowFillButton.astro'
+
+interface FooterAction {
+	label: string
+	href: string
+	external?: boolean
+}
+
+interface Props {
+	links: FooterAction[]
+	backHref?: string
+	backLabel?: string
+}
+
+const { links, backHref = '/projects/', backLabel = 'All Projects' } = Astro.props
+---
+
+<section class="project-links">
+	{links.map((link, index) => (
+		index === 0 ? (
+			<ArrowFillButton
+				href={link.href}
+				{...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+			>
+				{link.label}
+			</ArrowFillButton>
+		) : (
+			<a
+				href={link.href}
+				target={link.external ? '_blank' : undefined}
+				rel={link.external ? 'noopener noreferrer' : undefined}
+				class="project-link"
+			>
+				{link.label}
+				<span class="project-link__arrow" aria-hidden="true">&rarr;</span>
+			</a>
+		)
+	))}
+	<ArrowFillButton href={backHref} variant="dark" arrow="left">
+		{backLabel}
+	</ArrowFillButton>
+</section>

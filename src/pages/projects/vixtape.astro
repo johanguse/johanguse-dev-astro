@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import Navigation from '../../components/Navigation.astro'
 import Footer from '../../components/Footer.astro'
 import ContactCta from '../../components/ContactCta.astro'
-import ArrowFillButton from '../../components/ArrowFillButton.astro'
+import ProjectFooterNav from '../../components/ProjectFooterNav.astro'
 ---
 
 	<BaseLayout
@@ -84,14 +84,7 @@ import ArrowFillButton from '../../components/ArrowFillButton.astro'
 					</div>
 				</section>
 
-				<section class="project-links">
-					<ArrowFillButton href="https://swarmnyc.com/" target="_blank">
-						SWARM NYC
-					</ArrowFillButton>
-					<ArrowFillButton href="/projects/" variant="dark" arrow="left">
-						All Projects
-					</ArrowFillButton>
-				</section>
+				<ProjectFooterNav links={[{ label: 'SWARM NYC', href: 'https://swarmnyc.com/', external: true }]} />
 			</div>
 			<ContactCta />
 		</div>
